@@ -1,0 +1,14 @@
+1 lá bài gồm 7 dòng trong đó dòng thứ
+- 1: Loại nguyên liệu sản xuất
+- 2: Điểm
+- 3: Đen
+- 4: Trắng
+- 5: Đỏ
+- 6: Xanh biển
+- 7: Xanh lá
+Từ 3 -> 7 là giá để mua
+
+Có 3 deck là 3 bộ bài
+
+Noble là khi có đủ các lá sản xuất các loại màu thì sẽ được 3 điểm
+Mỗi noble cách nhau 1 dòng, số bài cần có để lấy từ trên xuống là đen, trắng, đỏ, xanh biển, xanh lá
