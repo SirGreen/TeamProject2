@@ -16,7 +16,7 @@ namespace TeamProject2
         static int Players;
         struct PlayerInfo
         {
-            public int id = 0;
+            public int id = 0, point = 0;
 
             public int blackToken = 0, whiteToken = 0, redToken = 0, blueToken = 0, greenToken = 0, wildToken = 0;
             public int blackCard = 0, whiteCard = 0, redCard = 0, blueCard = 0, greenCard = 0, wildCard = 0;
@@ -45,6 +45,7 @@ namespace TeamProject2
         FlowLayoutPanel[] fpOfToken = new FlowLayoutPanel[4];
         FlowLayoutPanel[] fpOfCard = new FlowLayoutPanel[4];
 
+        Label[] PointOfPlayer = new Label[4];
         public int NumOfPlayers
             {
                 get { return Players; }
@@ -118,7 +119,7 @@ namespace TeamProject2
 
                 fpOfPlayer[i] = new FlowLayoutPanel()
                 {
-                    Location = new Point(gbOfPlayer[i].Location.X+10, gbOfPlayer[i].Location.Y + 25),
+                    Location = new Point(gbOfPlayer[i].Location.X+10, gbOfPlayer[i].Location.Y + 50),
                     AutoSize = true
                 };
                 gbOfPlayer[i].Controls.Add(fpOfPlayer[i]);
@@ -162,6 +163,13 @@ namespace TeamProject2
                 AddCard(fpOfCard[i], i);
                 gbOfCard[i].Controls.Add(fpOfCard[i]);
 
+                /////////Point/////////////
+                PointOfPlayer[i] = new Label
+                {
+                    Text = "Point: " + info[i].point,
+                    Location = new Point(gbOfPlayer[i].Location.X + 10, gbOfPlayer[i].Location.Y + 25)
+                };
+                gbOfPlayer[i].Controls.Add(PointOfPlayer[i]);
 
                 //////////////Add to Player///////////////
                 fpOfPlayer[i].Controls.Add(gbOfCard[i]);
