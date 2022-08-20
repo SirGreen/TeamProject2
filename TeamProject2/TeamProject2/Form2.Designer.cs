@@ -53,6 +53,8 @@
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.lbTurn = new System.Windows.Forms.Label();
+            this.EndTurn = new System.Windows.Forms.Button();
             this.GBOPlayers.SuspendLayout();
             this.CardGame.SuspendLayout();
             this.TokenGame.SuspendLayout();
@@ -333,12 +335,34 @@
             this.checkBox1.Text = "checkBox1";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
+            // lbTurn
+            // 
+            this.lbTurn.AutoSize = true;
+            this.lbTurn.Location = new System.Drawing.Point(432, 55);
+            this.lbTurn.Name = "lbTurn";
+            this.lbTurn.Size = new System.Drawing.Size(59, 25);
+            this.lbTurn.TabIndex = 3;
+            this.lbTurn.Text = "label1";
+            // 
+            // EndTurn
+            // 
+            this.EndTurn.Location = new System.Drawing.Point(320, 224);
+            this.EndTurn.Name = "EndTurn";
+            this.EndTurn.Size = new System.Drawing.Size(112, 34);
+            this.EndTurn.TabIndex = 4;
+            this.EndTurn.Text = "End Turn";
+            this.EndTurn.UseVisualStyleBackColor = true;
+            this.EndTurn.Click += new System.EventHandler(this.EndTurn_Click);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
+
             this.ClientSize = new System.Drawing.Size(1088, 656);
+            this.Controls.Add(this.EndTurn);
+            this.Controls.Add(this.lbTurn);
             this.Controls.Add(this.TokenGame);
             this.Controls.Add(this.CardGame);
             this.Controls.Add(this.GBOPlayers);
@@ -382,5 +406,8 @@
         private CheckBox checkBox3;
         private CheckBox checkBox2;
         private CheckBox checkBox1;
+        private Label lbTurn;
+        private Button EndTurn;
+
     }
 }
