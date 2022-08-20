@@ -7,12 +7,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace TeamProject2
 {
     public partial class Form2 : Form
     {
         // Variable Declaration
+        #region var
+        private struct Card
+        {
+            public string gen;
+            public int point, den, w, r, g, b;
+            public bool picked;
+        }
+        Card[] D1 = new Card[40];
+        Card[] D2 = new Card[30];
+        Card[] D3 = new Card[20];
+        struct Nobel
+        {
+            public int den, w, r, g, b;
+        }
+        Nobel[] nobels = new Nobel[10];
         static int Players;
         struct PlayerInfo
         {
@@ -52,11 +68,23 @@ namespace TeamProject2
                 set { Players = value; }
             }
 
+        Card[] ShowingCards = new Card[12];
+        Random rand = new();
+        //Cards left in deck
+        int[] DL = { 40, 30, 20 };
+        //biến tạm
+        bool muadc;
+        Card GodCard;//ko mua đc :>
+        #endregion
+
+        //private
+
+        #region Player's Board
         private string ShowCard(int x, int y)
         {
             switch (x)
             {
-                case 0: return "Black: " + info[y].blackCard.ToString();
+                case 0: return "Black: " + info[y].blackCard; // để v cũng đc nè :v
                 case 1: return "White: " + info[y].whiteCard.ToString();
                 case 2: return "Red: " + info[y].redCard.ToString();
                 case 3: return "Blue: " + info[y].blueCard.ToString();
@@ -179,23 +207,384 @@ namespace TeamProject2
                 FPOP.Controls.Add(gbOfPlayer[i]);   
             }
 
-            GBOPlayers.Location = new Point(0, 0);
+            GBOPlayers.Location = new Point(10, 0);
 
             //////////Card Game////////////
-            CardGame.Location = new Point(0, GBOPlayers.Height + 25);
+            CardGame.Location = new Point(10, GBOPlayers.Height + 25);
 
             //////////TokenGame///////////////
             TokenGame.Location = new Point(CardGame.Width+25,GBOPlayers.Height + 25);
         }
+        #endregion
 
         public Form2()
         {
             InitializeComponent();
+            InitShowCards();
         }
+
+        #region Showing Card on Button
+        //Use decknumber -1 for DeckNum
+        private Card TakeCardFromDeck(Card[] Deck, int DeckNum)
+        {          
+            DL[DeckNum]--; 
+            int i = rand.Next(Deck.Length);
+            while (i < Deck.Length && Deck[i].picked) i++;
+            if (i == Deck.Length) i = 0;
+            while(Deck[i].picked) i++;
+            Deck[i].picked = true;
+            return Deck[i];
+        }
+
+        private string ButtonShowString(Card c)
+        {
+            return "Generate: " + c.gen + "\n Point: " + c.point + "\n Black: " + c.den + "\n White: " + c.w + "\n Red: "
+                + c.r + "\n Blue: " + c.b + "\n Green: " + c.g;
+        }
+        #endregion
+
+        private void InitShowCards()
+        {
+            GodCard.g = 1000;
+            ReadNoblesFile();
+            ReadDeck(D1, "Tier1Deck.txt");
+            ReadDeck(D2, "Tier2Deck.txt");
+            ReadDeck(D3, "Tier3Deck.txt");
+            Card card = TakeCardFromDeck(D1, 0); //input number of deck -1
+            T1C1.Text = ButtonShowString(card);
+            ShowingCards[0]=card;
+            card = TakeCardFromDeck(D1, 0);
+            T1C2.Text = ButtonShowString(card);
+            ShowingCards[0] = card;
+            card = TakeCardFromDeck(D1, 0);
+            T1C3.Text = ButtonShowString(card);
+            ShowingCards[0] = card;
+            card = TakeCardFromDeck(D1, 0);
+            T1C4.Text = ButtonShowString(card);
+            ShowingCards[0] = card;
+            card = TakeCardFromDeck(D2, 0);
+            T2C1.Text = ButtonShowString(card);
+            ShowingCards[0] = card;
+            card = TakeCardFromDeck(D2, 0);
+            T2C2.Text = ButtonShowString(card);
+            ShowingCards[0] = card;
+            card = TakeCardFromDeck(D2, 0);
+            T2C3.Text = ButtonShowString(card);
+            ShowingCards[0] = card;
+            card = TakeCardFromDeck(D2, 0);
+            T2C4.Text = ButtonShowString(card);
+            ShowingCards[0] = card;
+            card = TakeCardFromDeck(D3, 0);
+            T3C1.Text = ButtonShowString(card);
+            ShowingCards[0] = card;
+            card = TakeCardFromDeck(D3, 0);
+            T3C2.Text = ButtonShowString(card);
+            ShowingCards[0] = card;
+            card = TakeCardFromDeck(D3, 0);
+            T3C3.Text = ButtonShowString(card);
+            ShowingCards[0] = card;
+            card = TakeCardFromDeck(D3, 0);
+            T3C4.Text = ButtonShowString(card);
+            ShowingCards[0] = card;
+        }
+
+        #region ReadFiles
+        private void ReadDeck(Card[] Deck, string fName)
+        {
+
+            string[] s2 = File.ReadAllLines(fName);
+            int i = 0, l = 0;
+            foreach (string s in s2)
+                if (s != "")
+                {
+                    switch (l)
+                    {
+                        case 0:
+                            Deck[i].gen = s;
+                            l++;
+                            break;
+                        case 1:
+                            Deck[i].point = int.Parse(s);
+                            l++;
+                            break;
+                        case 2:
+                            Deck[i].den = int.Parse(s);
+                            l++;
+                            break;
+                        case 3:
+                            Deck[i].w = int.Parse(s);
+                            l++;
+                            break;
+                        case 4:
+                            Deck[i].r = int.Parse(s);
+                            l++;
+                            break;
+                        case 5:
+                            Deck[i].b = int.Parse(s);
+                            l++;
+                            break;
+                        case 6:
+                            Deck[i].g = int.Parse(s);
+                            l++;
+                            break;
+                    }
+                    if (l == 7) { Deck[i].picked = false; i++; l = 0; };
+                }
+        }
+
+        private void ReadNoblesFile()
+        {
+            string[] s2 = File.ReadAllLines("Nobles.txt");
+            int i = 0,l=0;
+            foreach (string s in s2)
+                if (s != "")
+            {
+                    switch (l)
+                    {
+                        case 0:
+                            nobels[i].den = int.Parse(s);
+                            l++;
+                            break;
+                        case 1:
+                            nobels[i].w = int.Parse(s);
+                            l++;
+                            break;
+                        case 2:
+                            nobels[i].r = int.Parse(s);
+                            l++;
+                            break;
+                        case 3:
+                            nobels[i].b = int.Parse(s);
+                            l++;
+                            break;
+                        case 4:
+                            nobels[i].g = int.Parse(s);
+                            l++;
+                            break;
+                    }
+                    if (l == 5) { i++; l = 0; };
+            }
+        }
+        #endregion
 
         private void Form2_Load(object sender, EventArgs e)
         {
             PlayersSetting();
         }
+
+        private void CardGame_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TokenGame_Enter(object sender, EventArgs e)
+        {
+
+        }
+        #region Board's Button
+        //giá trị card của mấy cái này nằm trong mảng ShowingCards
+        private void T1C1_Click(object sender, EventArgs e)
+        {
+            muadc = true;
+            if (muadc && DL[0] > 0) 
+            {
+                Card card = TakeCardFromDeck(D1, 0);
+                T1C1.Text = ButtonShowString(card);
+                ShowingCards[0] = card;
+            } else
+                if (muadc)
+            {
+                T1C1.Text = "Deck out of cards :<";
+                ShowingCards[0] = GodCard;
+            }
+        }
+
+        private void T1C2_Click(object sender, EventArgs e)
+        {
+            Button b = sender as Button;
+            if (muadc && DL[0] > 0)
+            {
+                Card card = TakeCardFromDeck(D1, 0);
+                b.Text = ButtonShowString(card);
+                ShowingCards[1] = card;
+            }
+            else
+                if (muadc)
+            {
+                b.Text = "Deck out of cards :<";
+                ShowingCards[1] = GodCard;
+            }
+        }
+
+        private void T1C3_Click(object sender, EventArgs e)
+        {
+            Button b = sender as Button;
+            if (muadc && DL[0] > 0)
+            {
+                Card card = TakeCardFromDeck(D1, 0);
+                b.Text = ButtonShowString(card);
+                ShowingCards[2] = card;
+            }
+            else
+                if (muadc)
+            {
+                b.Text = "Deck out of cards :<";
+                ShowingCards[2] = GodCard;
+            }
+        }
+
+        private void T1C4_Click(object sender, EventArgs e)
+        {
+            Button b = sender as Button;
+            if (muadc && DL[0] > 0)
+            {
+                Card card = TakeCardFromDeck(D1, 0);
+                b.Text = ButtonShowString(card);
+                ShowingCards[3] = card;
+            }
+            else
+                if (muadc)
+            {
+                b.Text = "Deck out of cards :<";
+                ShowingCards[3] = GodCard;
+            }
+        }
+
+        private void T2C1_Click(object sender, EventArgs e)
+        {
+            Button b = sender as Button;
+            if (muadc && DL[1] > 0)
+            {
+                Card card = TakeCardFromDeck(D2, 1);
+                b.Text = ButtonShowString(card);
+                ShowingCards[4] = card;
+            }
+            else
+                if (muadc)
+            {
+                b.Text = "Deck out of cards :<";
+                ShowingCards[4] = GodCard;
+            }
+        }
+
+        private void T2C2_Click(object sender, EventArgs e)
+        {
+            Button b = sender as Button;
+            if (muadc && DL[1] > 0)
+            {
+                Card card = TakeCardFromDeck(D2, 1);
+                b.Text = ButtonShowString(card);
+                ShowingCards[5] = card;
+            }
+            else
+                if (muadc)
+            {
+                b.Text = "Deck out of cards :<";
+                ShowingCards[5] = GodCard;
+            }
+        }
+
+        private void T2C3_Click(object sender, EventArgs e)
+        {
+            Button b = sender as Button;
+            if (muadc && DL[1] > 0)
+            {
+                Card card = TakeCardFromDeck(D2, 1);
+                b.Text = ButtonShowString(card);
+                ShowingCards[6] = card;
+            }
+            else
+                if (muadc)
+            {
+                b.Text = "Deck out of cards :<";
+                ShowingCards[6] = GodCard;
+            }
+        }
+
+        private void T2C4_Click(object sender, EventArgs e)
+        {
+            Button b = sender as Button;
+            if (muadc && DL[1] > 0)
+            {
+                Card card = TakeCardFromDeck(D2, 1);
+                b.Text = ButtonShowString(card);
+                ShowingCards[7] = card;
+            }
+            else
+                if (muadc)
+            {
+                b.Text = "Deck out of cards :<";
+                ShowingCards[7] = GodCard;
+            }
+        }
+
+        private void T3C1_Click(object sender, EventArgs e)
+        {
+            Button b = sender as Button;
+            if (muadc && DL[2] > 0)
+            {
+                Card card = TakeCardFromDeck(D3, 2);
+                b.Text = ButtonShowString(card);
+                ShowingCards[8] = card;
+            }
+            else
+                if (muadc)
+            {
+                b.Text = "Deck out of cards :<";
+                ShowingCards[8] = GodCard;
+            }
+        }
+
+        private void T3C2_Click(object sender, EventArgs e)
+        {
+            Button b = sender as Button;
+            if (muadc && DL[2] > 0)
+            {
+                Card card = TakeCardFromDeck(D3, 2);
+                b.Text = ButtonShowString(card);
+                ShowingCards[9] = card;
+            }
+            else
+                if (muadc)
+            {
+                b.Text = "Deck out of cards :<";
+                ShowingCards[9] = GodCard;
+            }
+        }
+
+        private void T3C3_Click(object sender, EventArgs e)
+        {
+            Button b = sender as Button;
+            if (muadc && DL[2] > 0)
+            {
+                Card card = TakeCardFromDeck(D3, 2);
+                b.Text = ButtonShowString(card);
+                ShowingCards[10] = card;
+            }
+            else
+                if (muadc)
+            {
+                b.Text = "Deck out of cards :<";
+                ShowingCards[10] = GodCard;
+            }
+        }
+
+        private void T3C4_Click(object sender, EventArgs e)
+        {
+            Button b = sender as Button;
+            if (muadc && DL[2] > 0)
+            {
+                Card card = TakeCardFromDeck(D3, 2);
+                b.Text = ButtonShowString(card);
+                ShowingCards[11] = card;
+            }
+            else
+                if (muadc)
+            {
+                b.Text = "Deck out of cards :<";
+                ShowingCards[11] = GodCard;
+            }
+        }
+    #endregion
     }
 }
