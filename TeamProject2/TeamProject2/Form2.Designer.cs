@@ -32,6 +32,8 @@
             this.FPOP = new System.Windows.Forms.FlowLayoutPanel();
             this.CardGame = new System.Windows.Forms.GroupBox();
             this.TokenGame = new System.Windows.Forms.GroupBox();
+            this.lbTurn = new System.Windows.Forms.Label();
+            this.EndTurn = new System.Windows.Forms.Button();
             this.GBOPlayers.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -73,12 +75,33 @@
             this.TokenGame.TabStop = false;
             this.TokenGame.Text = "Token";
             // 
+            // lbTurn
+            // 
+            this.lbTurn.AutoSize = true;
+            this.lbTurn.Location = new System.Drawing.Point(432, 55);
+            this.lbTurn.Name = "lbTurn";
+            this.lbTurn.Size = new System.Drawing.Size(59, 25);
+            this.lbTurn.TabIndex = 3;
+            this.lbTurn.Text = "label1";
+            // 
+            // EndTurn
+            // 
+            this.EndTurn.Location = new System.Drawing.Point(320, 224);
+            this.EndTurn.Name = "EndTurn";
+            this.EndTurn.Size = new System.Drawing.Size(112, 34);
+            this.EndTurn.TabIndex = 4;
+            this.EndTurn.Text = "End Turn";
+            this.EndTurn.UseVisualStyleBackColor = true;
+            this.EndTurn.Click += new System.EventHandler(this.EndTurn_Click);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.EndTurn);
+            this.Controls.Add(this.lbTurn);
             this.Controls.Add(this.TokenGame);
             this.Controls.Add(this.CardGame);
             this.Controls.Add(this.GBOPlayers);
@@ -97,5 +120,7 @@
         private FlowLayoutPanel FPOP;
         private GroupBox CardGame;
         private GroupBox TokenGame;
+        private Label lbTurn;
+        private Button EndTurn;
     }
 }

@@ -13,7 +13,8 @@ namespace TeamProject2
     public partial class Form2 : Form
     {
         // Variable Declaration
-        static int Players;
+        static int Players, currentturn;
+        static bool firstturn;
         struct PlayerInfo
         {
             public int id = 0, point = 0;
@@ -104,6 +105,7 @@ namespace TeamProject2
 
         private void PlayersSetting()
         {
+            firstturn = true;
 
             for (int i = 0; i < Players; i++) 
             {
@@ -186,6 +188,34 @@ namespace TeamProject2
 
             //////////TokenGame///////////////
             TokenGame.Location = new Point(CardGame.Width+25,GBOPlayers.Height + 25);
+
+            //////////////Turn Status/////////////
+            lbTurn.Location = new Point(0, CardGame.Location.Y + CardGame.Height + 25);
+            EndTurn.Location = new Point(0, lbTurn.Location.Y + lbTurn.Height + 25);
+        }
+
+        private void ShowTurnStatus(int k)
+        {
+            lbTurn.Text = "Player " + info[k].id.ToString() + "'s Turn";
+        }
+
+        private void NextTurn()
+        {
+            if(firstturn)
+            {
+                Random rand = new Random();
+                currentturn = rand.Next(0, Players);
+                ShowTurnStatus(currentturn);
+
+                firstturn = false;
+            }
+            else
+            {
+                if (currentturn < Players - 1) currentturn++;
+                else currentturn = 0;
+
+                ShowTurnStatus(currentturn);
+            }
         }
 
         public Form2()
@@ -193,9 +223,15 @@ namespace TeamProject2
             InitializeComponent();
         }
 
+        private void EndTurn_Click(object sender, EventArgs e)
+        {
+            NextTurn();
+        }
+
         private void Form2_Load(object sender, EventArgs e)
         {
             PlayersSetting();
+            NextTurn();
         }
     }
 }
