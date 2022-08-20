@@ -220,7 +220,7 @@ namespace TeamProject2
             TokenGame.Location = new Point(CardGame.Width+25,GBOPlayers.Height + 25);
 
             //////////////Turn Status/////////////
-            lbTurn.Location = new Point(TokenGame.Location.X+TokenGame.Width+25, CardGame.Location.Y + CardGame.Height + 25);
+            lbTurn.Location = new Point(TokenGame.Location.X+TokenGame.Width+25, GBOPlayers.Height + 25);
             EndTurn.Location = new Point(TokenGame.Location.X+TokenGame.Width+25, lbTurn.Location.Y + lbTurn.Height + 25);
         }
 
