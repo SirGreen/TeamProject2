@@ -25,11 +25,12 @@ namespace TeamProject2
         Card[] D1 = new Card[40];
         Card[] D2 = new Card[30];
         Card[] D3 = new Card[20];
-        struct Nobel
+        public struct Nobel
         {
             public int den, w, r, g, b;
+            public bool picked;
         }
-        Nobel[] nobels = new Nobel[10];
+        Nobel[] nobles = new Nobel[10];
         static int Players, currentturn;
         static bool firstturn;
         static int[] TokenG = new int[6];
@@ -79,6 +80,9 @@ namespace TeamProject2
         //biến tạm
         bool muadc;
         Card GodCard;//ko mua đc :>
+
+        //chỗ chứa nobles
+        Label[] NoblesShowing = new Label[4];
         #endregion
 
         //private
@@ -140,6 +144,13 @@ namespace TeamProject2
 
             for (int i = 0; i < Players; i++) 
             {
+                int x = rand.Next(10);
+                NoblesShowing[i] = new();
+                NoblesShowing[i].AutoSize = true;
+                while (nobles[x].picked) x = rand.Next(10);
+                NoblesShowing[i].Text = NoblesToText(nobles[x]);
+                NoblesfP.Controls.Add(NoblesShowing[i]);
+
                 ////Players////////////////////////////////////////
                 
                 info[i].id = i + 1;
@@ -220,6 +231,9 @@ namespace TeamProject2
             //////////TokenGame///////////////
             TokenGame.Location = new Point(CardGame.Width+25,GBOPlayers.Height + 25);
 
+            //Nobles' panel
+            NoblesBox.Location = new Point(CardGame.Width + 25, GBOPlayers.Height + TokenGame.Height + 30);
+
             //////////////Turn Status/////////////
             lbTurn.Location = new Point(TokenGame.Location.X+TokenGame.Width+25, GBOPlayers.Height + 25);
             EndTurn.Location = new Point(TokenGame.Location.X+TokenGame.Width+25, lbTurn.Location.Y + lbTurn.Height + 25);
@@ -255,6 +269,20 @@ namespace TeamProject2
             InitializeComponent();
             InitShowCards();
         }
+
+        #region NoblesInit
+        //Translate nobles to text
+        private string NoblesToText(Nobel n)
+        {
+            return $"3 points \r\n Black: {n.den}\r\n White: {n.w}\r\n Red: {n.r}\r\n Blue: {n.b}\r\n Green: {n.g}";
+        }
+
+        //Choose init Nobles
+        private void ChooseNobles()
+        {
+            //for (int i=0; i<Players)
+        }
+        #endregion
 
         #region Showing Card on Button
         //Use decknumber -1 for DeckNum
@@ -295,28 +323,28 @@ namespace TeamProject2
             card = TakeCardFromDeck(D1, 0);
             T1C4.Text = ButtonShowString(card);
             ShowingCards[0] = card;
-            card = TakeCardFromDeck(D2, 0);
+            card = TakeCardFromDeck(D2, 1);
             T2C1.Text = ButtonShowString(card);
             ShowingCards[0] = card;
-            card = TakeCardFromDeck(D2, 0);
+            card = TakeCardFromDeck(D2, 1);
             T2C2.Text = ButtonShowString(card);
             ShowingCards[0] = card;
-            card = TakeCardFromDeck(D2, 0);
+            card = TakeCardFromDeck(D2, 1);
             T2C3.Text = ButtonShowString(card);
             ShowingCards[0] = card;
-            card = TakeCardFromDeck(D2, 0);
+            card = TakeCardFromDeck(D2, 1);
             T2C4.Text = ButtonShowString(card);
             ShowingCards[0] = card;
-            card = TakeCardFromDeck(D3, 0);
+            card = TakeCardFromDeck(D3, 2);
             T3C1.Text = ButtonShowString(card);
             ShowingCards[0] = card;
-            card = TakeCardFromDeck(D3, 0);
+            card = TakeCardFromDeck(D3, 2);
             T3C2.Text = ButtonShowString(card);
             ShowingCards[0] = card;
-            card = TakeCardFromDeck(D3, 0);
+            card = TakeCardFromDeck(D3, 2);
             T3C3.Text = ButtonShowString(card);
             ShowingCards[0] = card;
-            card = TakeCardFromDeck(D3, 0);
+            card = TakeCardFromDeck(D3, 2);
             T3C4.Text = ButtonShowString(card);
             ShowingCards[0] = card;
         }
@@ -375,27 +403,27 @@ namespace TeamProject2
                     switch (l)
                     {
                         case 0:
-                            nobels[i].den = int.Parse(s);
+                            nobles[i].den = int.Parse(s);
                             l++;
                             break;
                         case 1:
-                            nobels[i].w = int.Parse(s);
+                            nobles[i].w = int.Parse(s);
                             l++;
                             break;
                         case 2:
-                            nobels[i].r = int.Parse(s);
+                            nobles[i].r = int.Parse(s);
                             l++;
                             break;
                         case 3:
-                            nobels[i].b = int.Parse(s);
+                            nobles[i].b = int.Parse(s);
                             l++;
                             break;
                         case 4:
-                            nobels[i].g = int.Parse(s);
+                            nobles[i].g = int.Parse(s);
                             l++;
                             break;
                     }
-                    if (l == 5) { i++; l = 0; };
+                    if (l == 5) { nobles[i].picked = false; i++; l = 0; };
             }
         }
         #endregion
@@ -446,15 +474,6 @@ namespace TeamProject2
             NextTurn();
         }
 
-        private void CardGame_Enter(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void TokenGame_Enter(object sender, EventArgs e)
-        {
-
-        }
         #region Board's Button
         //giá trị card của mấy cái này nằm trong mảng ShowingCards
         private void T1C1_Click(object sender, EventArgs e)
