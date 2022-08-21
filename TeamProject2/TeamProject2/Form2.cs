@@ -32,20 +32,21 @@ namespace TeamProject2
         Nobel[] nobels = new Nobel[10];
         static int Players, currentturn;
         static bool firstturn;
+        static int[] TokenG = new int[6];
 
         struct PlayerInfo
         {
             public int id = 0, point = 0;
 
-            public int blackToken = 0, whiteToken = 0, redToken = 0, blueToken = 0, greenToken = 0, wildToken = 0;
-            public int blackCard = 0, whiteCard = 0, redCard = 0, blueCard = 0, greenCard = 0, wildCard = 0;
+            public int blackToken = 0, whiteToken = 0, redToken = 0, blueToken = 0, greenToken = 0, GoldToken = 0;
+            public int blackCard = 0, whiteCard = 0, redCard = 0, blueCard = 0, greenCard = 0, GoldCard = 0;
             /* 
              * 0: black
              * 1: white
              * 2: red
              * 3: blue
              * 4: green
-             * 5: wild
+             * 5: Gold
              */
 
             public PlayerInfo(int id)
@@ -92,7 +93,7 @@ namespace TeamProject2
                 case 2: return "Red: " + info[y].redCard.ToString();
                 case 3: return "Blue: " + info[y].blueCard.ToString();
                 case 4: return "Green: " + info[y].greenCard.ToString();
-                default: return "Wild: " + info[y].wildCard.ToString();
+                default: return "Gold: " + info[y].GoldCard.ToString();
             }
         }
 
@@ -117,7 +118,7 @@ namespace TeamProject2
                 case 2: return "Red: " + info[y].redToken.ToString();
                 case 3: return "Blue: " + info[y].blueToken.ToString();
                 case 4: return "Green: " + info[y].greenToken.ToString();
-                default: return "Wild: " + info[y].wildToken.ToString();
+                default: return "Gold: " + info[y].GoldToken.ToString();
             }
         }
 
@@ -404,15 +405,50 @@ namespace TeamProject2
             NextTurn();
         }
 
+        void InitTokenStatus()
+        {
+            int k = 0;
+            switch(Players)
+            {
+                case 2: k = 4; break;
+                case 3: k = 5; break;
+                case 4: k = 7; break;
+            }
+
+            checkBox1.Text = "Black: " + k.ToString();
+            checkBox7.Text = checkBox1.Text;
+            TokenG[0] = k;
+
+            checkBox2.Text = "White: " + k.ToString();
+            checkBox8.Text = checkBox2.Text;
+            TokenG[1] = k;
+
+            checkBox3.Text = "Red: " + k.ToString();
+            checkBox9.Text = checkBox3.Text;
+            TokenG[2] = k;
+
+            checkBox4.Text = "Blue: " + k.ToString();
+            checkBox10.Text = checkBox4.Text;
+            TokenG[3] = k;
+
+            checkBox5.Text = "Green: " + k.ToString();
+            checkBox11.Text = checkBox5.Text;
+            TokenG[4] = k;
+
+            checkBox6.Text = "Gold: " + 5.ToString();
+            TokenG[5] = 5;
+        }
+
         private void Form2_Load(object sender, EventArgs e)
         {
             PlayersSetting();
+            InitTokenStatus();
             NextTurn();
         }
 
         private void CardGame_Enter(object sender, EventArgs e)
         {
-
+            
         }
 
         private void TokenGame_Enter(object sender, EventArgs e)
@@ -605,6 +641,16 @@ namespace TeamProject2
                 b.Text = "Deck out of cards :<";
                 ShowingCards[10] = GodCard;
             }
+        }
+
+        private void checkBox5_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void T3C4_Click(object sender, EventArgs e)
