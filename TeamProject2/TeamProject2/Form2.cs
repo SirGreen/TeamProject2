@@ -82,7 +82,7 @@ namespace TeamProject2
         Card GodCard;//ko mua đc :>
 
         //chỗ chứa nobles
-        Label[] NoblesShowing = new Label[4];
+        Label[] NoblesShowing = new Label[5];
         #endregion
 
         //private
@@ -141,13 +141,14 @@ namespace TeamProject2
         private void PlayersSetting()
         {
             firstturn = true;
+            int x = rand.Next(10);
 
             for (int i = 0; i < Players; i++) 
             {
-                int x = rand.Next(10);
                 NoblesShowing[i] = new();
                 NoblesShowing[i].AutoSize = true;
                 while (nobles[x].picked) x = rand.Next(10);
+                nobles[x].picked = true;
                 NoblesShowing[i].Text = NoblesToText(nobles[x]);
                 NoblesfP.Controls.Add(NoblesShowing[i]);
 
@@ -237,6 +238,14 @@ namespace TeamProject2
             //////////////Turn Status/////////////
             lbTurn.Location = new Point(TokenGame.Location.X+TokenGame.Width+25, GBOPlayers.Height + 25);
             EndTurn.Location = new Point(TokenGame.Location.X+TokenGame.Width+25, lbTurn.Location.Y + lbTurn.Height + 25);
+
+            //last noble
+            x = rand.Next(10);
+            NoblesShowing[Players] = new();
+            NoblesShowing[Players].AutoSize = true;
+            while (nobles[x].picked) x = rand.Next(10);
+            NoblesShowing[Players].Text = NoblesToText(nobles[x]);
+            NoblesfP.Controls.Add(NoblesShowing[Players]);
         }
 
         private void ShowTurnStatus(int k)
