@@ -705,6 +705,7 @@ namespace TeamProject2
                 ShowAgainToken();
                 Unpick3();
             }
+            checkBox11.Text = ckb.Text;
         }
 
         private void Pick3()
@@ -776,6 +777,7 @@ namespace TeamProject2
                 ShowAgainToken();
                 Unpick3();
             }
+            checkBox7.Text = ckb.Text;
         }
 
         private void fp3picktoken_Paint(object sender, PaintEventArgs e)
@@ -803,6 +805,7 @@ namespace TeamProject2
                 ShowAgainToken();
                 Unpick3();
             }
+            checkBox8.Text = ckb.Text;
         }
 
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
@@ -825,6 +828,7 @@ namespace TeamProject2
                 ShowAgainToken();
                 Unpick3();
             }
+            checkBox9.Text = ckb.Text;
         }
 
         private void checkBox4_CheckedChanged(object sender, EventArgs e)
@@ -847,6 +851,153 @@ namespace TeamProject2
                 ShowAgainToken();
                 Unpick3();
             }
+            checkBox10.Text = ckb.Text;
+        }
+
+        void UnableOtherAction2()
+        {
+            foreach(Button item in CardGame.Controls)
+            {
+                item.Enabled = false;
+            }
+            foreach(CheckBox item in fp3picktoken.Controls)
+            {
+                item.Enabled = false;
+            }
+
+            foreach(CheckBox item in fP2picktoken.Controls)
+            {
+                if (!item.Checked) item.Enabled = false;
+            }
+            checkBox6.Enabled = false;
+        }
+
+        private void Unchecked2()
+        {
+            foreach (Button item in CardGame.Controls)
+            {
+                item.Enabled = true;
+            }
+            foreach (CheckBox item in fp3picktoken.Controls)
+            {
+                item.Enabled = true;
+            }
+
+            foreach (CheckBox item in fP2picktoken.Controls)
+            {
+                item.Enabled = true;
+            }
+            checkBox6.Enabled = true;
+        }
+
+        private void checkBox7_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox ckb = sender as CheckBox;
+            if (ckb.Checked)
+            {
+                UnableOtherAction2();
+                TokenG[0] -= 2;
+                ckb.Text = "Black: " + TokenG[0].ToString();
+                info[currentturn].blackToken += 2;
+                ShowAgainToken();
+            }
+            else
+            {
+                TokenG[0] += 2;
+                ckb.Text = "Black: " + TokenG[0].ToString();
+                info[currentturn].blackToken -= 2;
+                Unchecked2();
+                ShowAgainToken();
+            }
+            checkBox1.Text = ckb.Text;
+        }
+
+        private void checkBox8_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox ckb = sender as CheckBox;
+            if (ckb.Checked)
+            {
+                UnableOtherAction2();
+                TokenG[1] -= 2;
+                ckb.Text = "White: " + TokenG[1].ToString();
+                info[currentturn].whiteToken += 2;
+                ShowAgainToken();
+            }
+            else
+            {
+                TokenG[1] += 2;
+                ckb.Text = "White: " + TokenG[1].ToString();
+                info[currentturn].whiteToken -= 2;
+                Unchecked2();
+                ShowAgainToken();
+            }
+            checkBox2.Text = ckb.Text;
+        }
+
+        private void checkBox9_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox ckb = sender as CheckBox;
+            if (ckb.Checked)
+            {
+                UnableOtherAction2();
+                TokenG[2] -= 2;
+                ckb.Text = "Red: " + TokenG[2].ToString();
+                info[currentturn].redToken += 2;
+                ShowAgainToken();
+            }
+            else
+            {
+                TokenG[2] += 2;
+                ckb.Text = "Red: " + TokenG[2].ToString();
+                info[currentturn].redToken -= 2;
+                Unchecked2();
+                ShowAgainToken();
+            }
+            checkBox3.Text = ckb.Text;
+        }
+
+        private void checkBox10_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox ckb = sender as CheckBox;
+            if (ckb.Checked)
+            {
+                UnableOtherAction2();
+                TokenG[3] -= 2;
+                ckb.Text = "Blue: " + TokenG[3].ToString();
+                info[currentturn].blueToken += 2;
+                ShowAgainToken();
+            }
+            else
+            {
+                TokenG[3] += 2;
+                ckb.Text = "Blue: " + TokenG[3].ToString();
+                info[currentturn].blueToken -= 2;
+                Unchecked2();
+                ShowAgainToken();
+            }
+            checkBox4.Text = ckb.Text;
+        }
+
+        private void checkBox11_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox ckb = sender as CheckBox;
+            if (ckb.Checked)
+            {
+                UnableOtherAction2();
+                TokenG[4] -= 2;
+                ckb.Text = "Green: " + TokenG[4].ToString();
+                info[currentturn].greenToken += 2;
+                ShowAgainToken();
+            }
+            else
+            {
+                TokenG[4] += 2;
+                ckb.Text = "Green: " + TokenG[4].ToString();
+                info[currentturn].greenToken -= 2;
+                Unchecked2();
+                ShowAgainToken();
+            }
+            checkBox5.Text = ckb.Text;
         }
 
         private void T3C4_Click(object sender, EventArgs e)
