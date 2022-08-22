@@ -32,7 +32,7 @@ namespace TeamProject2
         }
         Nobel[] nobles = new Nobel[10];
         static int Players, currentturn;
-        static bool firstturn;
+        static bool firstturn, changeturn = false;
         static int[] TokenG = new int[6];
         static int pick3token = 0;
 
@@ -438,9 +438,54 @@ namespace TeamProject2
         }
         #endregion
         
+        private void EnableControls()
+        {
+            fp3picktoken.Enabled = true;
+            foreach (CheckBox item in fp3picktoken.Controls)
+            {
+                item.Enabled = true;
+                if (item.Checked) item.Checked = false;
+            }
+
+            fP2picktoken.Enabled = true;
+            foreach (CheckBox item in fP2picktoken.Controls)
+            {
+                item.Enabled = true;
+                if (item.Checked) item.Checked = false;
+            }
+
+            CardGame.Enabled = true;
+            checkBox6.Enabled = true;
+        }
+
+        private void UnableControls()
+        {
+            CheckBox[] ckb = new CheckBox[5];
+            ckb[0] = checkBox7;
+            ckb[1] = checkBox8;
+            ckb[2] = checkBox9;
+            ckb[3] = checkBox10;
+            ckb[4] = checkBox11;
+
+            for (int i = 0; i < 5; i++) 
+            {
+                if (TokenG[i] < 4) 
+                {
+                    ckb[i].Enabled = false;
+                }
+            }
+
+        }
+
         private void EndTurn_Click(object sender, EventArgs e)
         {
+            changeturn = true;
+
+            EnableControls();
+            UnableControls();
+
             NextTurn();
+            changeturn = false;
         }
 
         void InitTokenStatus()
@@ -682,6 +727,9 @@ namespace TeamProject2
         private void checkBox5_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox ckb = sender as CheckBox;
+
+            if (changeturn) return;
+
             if (ckb.Checked)
             {
                 Pick3();
@@ -748,6 +796,9 @@ namespace TeamProject2
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox ckb = sender as CheckBox;
+
+            if (changeturn) return;
+
             if (ckb.Checked)
             {
                 Pick3();
@@ -771,6 +822,9 @@ namespace TeamProject2
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox ckb = sender as CheckBox;
+
+            if (changeturn) return;
+
             if (ckb.Checked)
             {
                 Pick3();
@@ -794,6 +848,9 @@ namespace TeamProject2
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox ckb = sender as CheckBox;
+
+            if (changeturn) return;
+
             if (ckb.Checked)
             {
                 Pick3();
@@ -817,6 +874,9 @@ namespace TeamProject2
         private void checkBox4_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox ckb = sender as CheckBox;
+
+            if (changeturn) return;
+
             if (ckb.Checked)
             {
                 Pick3();
@@ -840,6 +900,9 @@ namespace TeamProject2
         private void checkBox7_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox ckb = sender as CheckBox;
+
+            if (changeturn) return;
+
             if (ckb.Checked)
             {
                 TokenG[0] -= 2;
@@ -875,6 +938,9 @@ namespace TeamProject2
         private void checkBox8_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox ckb = sender as CheckBox;
+
+            if (changeturn) return;
+
             if (ckb.Checked)
             {
                 TokenG[1] -= 2;
@@ -910,6 +976,9 @@ namespace TeamProject2
         private void checkBox9_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox ckb = sender as CheckBox;
+
+            if (changeturn) return;
+
             if (ckb.Checked)
             {
                 TokenG[2] -= 2;
@@ -945,6 +1014,9 @@ namespace TeamProject2
         private void checkBox10_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox ckb = sender as CheckBox;
+
+            if (changeturn) return;
+
             if (ckb.Checked)
             {
                 TokenG[3] -= 2;
@@ -980,6 +1052,9 @@ namespace TeamProject2
         private void checkBox11_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox ckb = sender as CheckBox;
+
+            if (changeturn) return;
+
             if (ckb.Checked)
             {
                 TokenG[4] -= 2;
