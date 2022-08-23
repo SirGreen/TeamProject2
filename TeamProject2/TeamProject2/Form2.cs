@@ -602,37 +602,25 @@ namespace TeamProject2
                 else
                 if (theChoosenOne == 12)
                 {
-                    if (DL[0] > 0)
-                    {
-                        Card card = TakeCardFromDeck(D1, 0);
-                        DL[0]--;
-                        ReservedCards[currentturn, info[currentturn].NumReserving] = card;
-                        info[currentturn].NumReserving++;
-                    }
-                    else MessageBox.Show("Deck empty :<");
+                    Card card = TakeCardFromDeck(D1, 0);
+                    DL[0]--;
+                    ReservedCards[currentturn, info[currentturn].NumReserving] = card;
+                    info[currentturn].NumReserving++;
                 }
                 else
                 if (theChoosenOne == 13) 
                 {
-                    if (DL[1] > 0)
-                    {
-                        Card card = TakeCardFromDeck(D2, 1);
-                        DL[1]--;
-                        ReservedCards[currentturn, info[currentturn].NumReserving] = card;
-                        info[currentturn].NumReserving++;
-                    }
-                    else MessageBox.Show("Deck empty :<");
+                    Card card = TakeCardFromDeck(D2, 1);
+                    DL[1]--;
+                    ReservedCards[currentturn, info[currentturn].NumReserving] = card;
+                    info[currentturn].NumReserving++;
                 }
                 if (theChoosenOne == 14) 
                 {
-                    if (DL[2] > 0)
-                    {
-                        Card card = TakeCardFromDeck(D3, 2);
-                        DL[2]--;
-                        ReservedCards[currentturn, info[currentturn].NumReserving] = card;
-                        info[currentturn].NumReserving++;
-                    }
-                    else MessageBox.Show("Deck empty :<");
+                    Card card = TakeCardFromDeck(D3, 2);
+                    DL[2]--;
+                    ReservedCards[currentturn, info[currentturn].NumReserving] = card;
+                    info[currentturn].NumReserving++;
                 }
             } else
                 if (checkBox6.Checked && info[currentturn].NumReserving < 3)
@@ -655,17 +643,23 @@ namespace TeamProject2
 
             NextTurn();
             changeturn = false;
+            if (TokenG[5] == 0) checkBox6.Enabled = false;
         }
 
         //giá trị card của mấy cái này nằm trong mảng ShowingCards
         #region Cards' Button
+        private void CheckReserve(int x)
+        {
+            if (ShowingCards[x].g == 1000) return;
+            if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+            CButtonShowing[x].BackColor = Color.Yellow;
+            theChoosenOne = x;
+        }
         private void T1C1_Click(object sender, EventArgs e)
         {
             if (checkBox6.Checked)
             {
-                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
-                CButtonShowing[0].BackColor = Color.Yellow;
-                theChoosenOne = 0;
+                CheckReserve(0);
             }
         }
 
@@ -673,9 +667,7 @@ namespace TeamProject2
         {
             if (checkBox6.Checked)
             {
-                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
-                CButtonShowing[1].BackColor = Color.Yellow;
-                theChoosenOne = 1;
+                CheckReserve(1);
             }
         }
 
@@ -683,9 +675,7 @@ namespace TeamProject2
         {
             if (checkBox6.Checked)
             {
-                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
-                CButtonShowing[2].BackColor = Color.Yellow;
-                theChoosenOne = 2;
+                CheckReserve(2);
             }
         }
 
@@ -693,9 +683,7 @@ namespace TeamProject2
         {
             if (checkBox6.Checked)
             {
-                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
-                CButtonShowing[3].BackColor = Color.Yellow;
-                theChoosenOne = 3;
+                CheckReserve(3);
             }
         }
 
@@ -703,9 +691,7 @@ namespace TeamProject2
         {
             if (checkBox6.Checked)
             {
-                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
-                CButtonShowing[4].BackColor = Color.Yellow;
-                theChoosenOne = 4;
+                CheckReserve(4);
             }
         }
 
@@ -713,9 +699,7 @@ namespace TeamProject2
         {
             if (checkBox6.Checked)
             {
-                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
-                CButtonShowing[5].BackColor = Color.Yellow;
-                theChoosenOne = 5;
+                CheckReserve(5);
             }
         }
 
@@ -723,9 +707,7 @@ namespace TeamProject2
         {
             if (checkBox6.Checked)
             {
-                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
-                CButtonShowing[6].BackColor = Color.Yellow;
-                theChoosenOne = 6;
+                CheckReserve(6);
             }
         }
 
@@ -733,9 +715,7 @@ namespace TeamProject2
         {
             if (checkBox6.Checked)
             {
-                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
-                CButtonShowing[7].BackColor = Color.Yellow;
-                theChoosenOne = 7;
+                CheckReserve(7);
             }
         }
 
@@ -743,9 +723,7 @@ namespace TeamProject2
         {
             if (checkBox6.Checked)
             {
-                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
-                CButtonShowing[8].BackColor = Color.Yellow;
-                theChoosenOne = 8;
+                CheckReserve(8);
             }
         }
 
@@ -753,9 +731,7 @@ namespace TeamProject2
         {
             if (checkBox6.Checked)
             {
-                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
-                CButtonShowing[9].BackColor = Color.Yellow;
-                theChoosenOne = 9;
+                CheckReserve(9);
             }
         }
 
@@ -763,18 +739,14 @@ namespace TeamProject2
         {
             if (checkBox6.Checked)
             {
-                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
-                CButtonShowing[10].BackColor = Color.Yellow;
-                theChoosenOne = 10;
+                CheckReserve(10);
             }
         }
         private void T3C4_Click(object sender, EventArgs e)
         {
             if (checkBox6.Checked)
             {
-                if (theChoosenOne!=-1) CButtonShowing[theChoosenOne].BackColor=SystemColors.ButtonHighlight;
-                CButtonShowing[11].BackColor = Color.Yellow;
-                theChoosenOne = 11;
+                CheckReserve(11);
             }
         }
 
@@ -784,6 +756,12 @@ namespace TeamProject2
             if (checkBox6.Checked)
             {
                 if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+                if (DL[0] <= 0) 
+                {
+                    MessageBox.Show("Deck empty :<");
+                    T1D.Text = "Deck 1 empty";
+                    return;
+                }
                 CButtonShowing[12].BackColor = Color.Yellow;
                 theChoosenOne = 12;
             }
@@ -795,6 +773,12 @@ namespace TeamProject2
             if (checkBox6.Checked)
             {
                 if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+                if (DL[1] <= 0)
+                {
+                    MessageBox.Show("Deck empty :<");
+                    T2D.Text = "Deck 2 empty";
+                    return;
+                }
                 CButtonShowing[13].BackColor = Color.Yellow;
                 theChoosenOne = 13;
             }
@@ -806,6 +790,12 @@ namespace TeamProject2
             if (checkBox6.Checked)
             {
                 if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+                if (DL[2] <= 0)
+                {
+                    MessageBox.Show("Deck empty :<");
+                    T3D.Text = "Deck 3 empty";
+                    return;
+                }
                 CButtonShowing[14].BackColor = Color.Yellow;
                 theChoosenOne = 14;
             }
@@ -991,6 +981,8 @@ namespace TeamProject2
             } else
             if (!changeturn)
             {
+                CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+                theChoosenOne = -1;
                 TokenG[5]++;
                 checkBox6.Text = "Gold: " + TokenG[5];
                 fp3picktoken.Enabled = true;
