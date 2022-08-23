@@ -31,6 +31,8 @@ namespace TeamProject2
             public bool picked;
         }
         Nobel[] nobles = new Nobel[10];
+        Button[] CButtonShowing = new Button[15];
+        int theChoosenOne = -1;
         static int Players, currentturn;
         static bool firstturn, changeturn = false;
         static int[] TokenG = new int[6];
@@ -38,7 +40,7 @@ namespace TeamProject2
 
         struct PlayerInfo
         {
-            public int id = 0, point = 0;
+            public int id = 0, point = 0, NumReserving = 0;
 
             public int blackToken = 0, whiteToken = 0, redToken = 0, blueToken = 0, greenToken = 0, GoldToken = 0;
             public int blackCard = 0, whiteCard = 0, redCard = 0, blueCard = 0, greenCard = 0, GoldCard = 0;
@@ -84,6 +86,8 @@ namespace TeamProject2
 
         //chỗ chứa nobles
         Label[] NoblesShowing = new Label[5];
+
+        Card[,] ReservedCards = new Card[4, 3];
         #endregion
 
         //private
@@ -274,23 +278,26 @@ namespace TeamProject2
         }
         #endregion
 
+        #region Form2
         public Form2()
         {
             InitializeComponent();
             InitShowCards();
         }
 
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            PlayersSetting();
+            InitTokenStatus();
+            NextTurn();
+        }
+        #endregion
+
         #region NoblesInit
         //Translate nobles to text
         private string NoblesToText(Nobel n)
         {
             return $"3 points \r\n Black: {n.den}\r\n White: {n.w}\r\n Red: {n.r}\r\n Blue: {n.b}\r\n Green: {n.g}";
-        }
-
-        //Choose init Nobles
-        private void ChooseNobles()
-        {
-            //for (int i=0; i<Players)
         }
         #endregion
 
@@ -314,9 +321,22 @@ namespace TeamProject2
         }
         #endregion
 
+        #region Inits
         private void InitShowCards()
         {
             GodCard.g = 1000;
+            CButtonShowing[0] = T1C1;
+            CButtonShowing[1] = T1C2;
+            CButtonShowing[2] = T1C3;
+            CButtonShowing[3] = T1C4;
+            CButtonShowing[4] = T2C1;
+            CButtonShowing[5] = T2C2;
+            CButtonShowing[6] = T2C3;
+            CButtonShowing[7] = T2C4;
+            CButtonShowing[8] = T3C1;
+            CButtonShowing[9] = T3C2;
+            CButtonShowing[10] = T3C3;
+            CButtonShowing[11] = T3C4;
             ReadNoblesFile();
             ReadDeck(D1, "Tier1Deck.txt");
             ReadDeck(D2, "Tier2Deck.txt");
@@ -326,38 +346,73 @@ namespace TeamProject2
             ShowingCards[0]=card;
             card = TakeCardFromDeck(D1, 0);
             T1C2.Text = ButtonShowString(card);
-            ShowingCards[0] = card;
+            ShowingCards[1] = card;
             card = TakeCardFromDeck(D1, 0);
             T1C3.Text = ButtonShowString(card);
-            ShowingCards[0] = card;
+            ShowingCards[2] = card;
             card = TakeCardFromDeck(D1, 0);
             T1C4.Text = ButtonShowString(card);
-            ShowingCards[0] = card;
+            ShowingCards[3] = card;
             card = TakeCardFromDeck(D2, 1);
             T2C1.Text = ButtonShowString(card);
-            ShowingCards[0] = card;
+            ShowingCards[4] = card;
             card = TakeCardFromDeck(D2, 1);
             T2C2.Text = ButtonShowString(card);
-            ShowingCards[0] = card;
+            ShowingCards[5] = card;
             card = TakeCardFromDeck(D2, 1);
             T2C3.Text = ButtonShowString(card);
-            ShowingCards[0] = card;
+            ShowingCards[6] = card;
             card = TakeCardFromDeck(D2, 1);
             T2C4.Text = ButtonShowString(card);
-            ShowingCards[0] = card;
+            ShowingCards[7] = card;
             card = TakeCardFromDeck(D3, 2);
             T3C1.Text = ButtonShowString(card);
-            ShowingCards[0] = card;
+            ShowingCards[8] = card;
             card = TakeCardFromDeck(D3, 2);
             T3C2.Text = ButtonShowString(card);
-            ShowingCards[0] = card;
+            ShowingCards[9] = card;
             card = TakeCardFromDeck(D3, 2);
             T3C3.Text = ButtonShowString(card);
-            ShowingCards[0] = card;
+            ShowingCards[10] = card;
             card = TakeCardFromDeck(D3, 2);
             T3C4.Text = ButtonShowString(card);
-            ShowingCards[0] = card;
+            ShowingCards[11] = card;
         }
+
+        void InitTokenStatus()
+        {
+            int k = 0;
+            switch (Players)
+            {
+                case 2: k = 4; break;
+                case 3: k = 5; break;
+                case 4: k = 7; break;
+            }
+
+            checkBox1.Text = "Black: " + k.ToString();
+            checkBox7.Text = checkBox1.Text;
+            TokenG[0] = k;
+
+            checkBox2.Text = "White: " + k.ToString();
+            checkBox8.Text = checkBox2.Text;
+            TokenG[1] = k;
+
+            checkBox3.Text = "Red: " + k.ToString();
+            checkBox9.Text = checkBox3.Text;
+            TokenG[2] = k;
+
+            checkBox4.Text = "Blue: " + k.ToString();
+            checkBox10.Text = checkBox4.Text;
+            TokenG[3] = k;
+
+            checkBox5.Text = "Green: " + k.ToString();
+            checkBox11.Text = checkBox5.Text;
+            TokenG[4] = k;
+
+            checkBox6.Text = "Gold: " + 5.ToString();
+            TokenG[5] = 5;
+        }
+        #endregion
 
         #region ReadFiles
         private void ReadDeck(Card[] Deck, string fName)
@@ -437,7 +492,8 @@ namespace TeamProject2
             }
         }
         #endregion
-        
+
+        #region En/Unable || Show
         private void EnableControls()
         {
             fp3picktoken.Enabled = true;
@@ -455,6 +511,7 @@ namespace TeamProject2
             }
 
             CardGame.Enabled = true;
+            checkBox6.Checked = false;
             checkBox6.Enabled = true;
         }
 
@@ -483,10 +540,115 @@ namespace TeamProject2
 
         }
 
+        private void UnableOtherAction()
+        {
+            fP2picktoken.Enabled = false;
+            CardGame.Enabled = false;
+            checkBox6.Enabled = false;
+        }
+
+        private void ShowAgainToken()
+        {
+            int i = 0;
+            foreach (Label lb in fpOfToken[currentturn].Controls)
+            {
+                lb.Text = ShowToken(i, currentturn);
+                i++;
+            }
+        }
+        #endregion
+
+        private void UpdateNewCard(Card[] D, int DeckNum, Button b, int bNum)
+        {
+            if (DL[DeckNum]==0)
+            {
+                b.Text = "Deck out of cards :<";
+                ShowingCards[bNum] = GodCard;
+            }
+            DL[DeckNum]--;
+            Card card = TakeCardFromDeck(D, DeckNum);
+            b.Text = ButtonShowString(card);
+            ShowingCards[bNum] = card;
+        }
+
         private void EndTurn_Click(object sender, EventArgs e)
         {
-            changeturn = true;
+            #region Reserve Card Check
+            if (checkBox6.Checked && theChoosenOne != -1 && info[currentturn].NumReserving < 3)
+            {
+                //add card vô biến
+                info[currentturn].GoldToken++;
+                ShowAgainToken();
+                CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+                if (theChoosenOne < 12)
+                {
+                    ReservedCards[currentturn, info[currentturn].NumReserving] = ShowingCards[theChoosenOne];
+                    info[currentturn].NumReserving++;
+                }
+                if (theChoosenOne < 4)
+                {
+                    UpdateNewCard(D1, 0, CButtonShowing[theChoosenOne], theChoosenOne);
+                }
+                else
+                if (theChoosenOne > 7 && theChoosenOne < 12)
+                {
+                    UpdateNewCard(D3, 2, CButtonShowing[theChoosenOne], theChoosenOne);
+                }
+                else
+                if (theChoosenOne > 3 && theChoosenOne < 8)
+                {
+                    UpdateNewCard(D2, 1, CButtonShowing[theChoosenOne], theChoosenOne);
+                }
+                else
+                if (theChoosenOne == 12)
+                {
+                    if (DL[0] > 0)
+                    {
+                        Card card = TakeCardFromDeck(D1, 0);
+                        DL[0]--;
+                        ReservedCards[currentturn, info[currentturn].NumReserving] = card;
+                        info[currentturn].NumReserving++;
+                    }
+                    else MessageBox.Show("Deck empty :<");
+                }
+                else
+                if (theChoosenOne == 13) 
+                {
+                    if (DL[1] > 0)
+                    {
+                        Card card = TakeCardFromDeck(D2, 1);
+                        DL[1]--;
+                        ReservedCards[currentturn, info[currentturn].NumReserving] = card;
+                        info[currentturn].NumReserving++;
+                    }
+                    else MessageBox.Show("Deck empty :<");
+                }
+                if (theChoosenOne == 14) 
+                {
+                    if (DL[2] > 0)
+                    {
+                        Card card = TakeCardFromDeck(D3, 2);
+                        DL[2]--;
+                        ReservedCards[currentturn, info[currentturn].NumReserving] = card;
+                        info[currentturn].NumReserving++;
+                    }
+                    else MessageBox.Show("Deck empty :<");
+                }
+            } else
+                if (checkBox6.Checked && info[currentturn].NumReserving < 3)
+            {
+                MessageBox.Show("Please choose a card to reserve! >:(");
+                return;
+            } else
+                if (checkBox6.Checked)
+            {
+                MessageBox.Show("Quá 3 lá rồi :<");
+                return;
+            }
+            theChoosenOne = -1;
+            #endregion
 
+            changeturn = true;
             pick3token = 0;
             EnableControls();
             UnableControlsToken();
@@ -495,268 +657,162 @@ namespace TeamProject2
             changeturn = false;
         }
 
-        void InitTokenStatus()
-        {
-            int k = 0;
-            switch(Players)
-            {
-                case 2: k = 4; break;
-                case 3: k = 5; break;
-                case 4: k = 7; break;
-            }
-
-            checkBox1.Text = "Black: " + k.ToString();
-            checkBox7.Text = checkBox1.Text;
-            TokenG[0] = k;
-
-            checkBox2.Text = "White: " + k.ToString();
-            checkBox8.Text = checkBox2.Text;
-            TokenG[1] = k;
-
-            checkBox3.Text = "Red: " + k.ToString();
-            checkBox9.Text = checkBox3.Text;
-            TokenG[2] = k;
-
-            checkBox4.Text = "Blue: " + k.ToString();
-            checkBox10.Text = checkBox4.Text;
-            TokenG[3] = k;
-
-            checkBox5.Text = "Green: " + k.ToString();
-            checkBox11.Text = checkBox5.Text;
-            TokenG[4] = k;
-
-            checkBox6.Text = "Gold: " + 5.ToString();
-            TokenG[5] = 5;
-        }
-
-        private void Form2_Load(object sender, EventArgs e)
-        {
-            PlayersSetting();
-            InitTokenStatus();
-            NextTurn();
-        }
-
-        #region Board's Button
         //giá trị card của mấy cái này nằm trong mảng ShowingCards
+        #region Cards' Button
         private void T1C1_Click(object sender, EventArgs e)
         {
-            muadc = true;
-            if (muadc && DL[0] > 0) 
+            if (checkBox6.Checked)
             {
-                Card card = TakeCardFromDeck(D1, 0);
-                T1C1.Text = ButtonShowString(card);
-                ShowingCards[0] = card;
-            } else
-                if (muadc)
-            {
-                T1C1.Text = "Deck out of cards :<";
-                ShowingCards[0] = GodCard;
+                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+                CButtonShowing[0].BackColor = Color.Yellow;
+                theChoosenOne = 0;
             }
         }
 
         private void T1C2_Click(object sender, EventArgs e)
         {
-            Button b = sender as Button;
-            if (muadc && DL[0] > 0)
+            if (checkBox6.Checked)
             {
-                Card card = TakeCardFromDeck(D1, 0);
-                b.Text = ButtonShowString(card);
-                ShowingCards[1] = card;
-            }
-            else
-                if (muadc)
-            {
-                b.Text = "Deck out of cards :<";
-                ShowingCards[1] = GodCard;
+                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+                CButtonShowing[1].BackColor = Color.Yellow;
+                theChoosenOne = 1;
             }
         }
 
         private void T1C3_Click(object sender, EventArgs e)
         {
-            Button b = sender as Button;
-            if (muadc && DL[0] > 0)
+            if (checkBox6.Checked)
             {
-                Card card = TakeCardFromDeck(D1, 0);
-                b.Text = ButtonShowString(card);
-                ShowingCards[2] = card;
-            }
-            else
-                if (muadc)
-            {
-                b.Text = "Deck out of cards :<";
-                ShowingCards[2] = GodCard;
+                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+                CButtonShowing[2].BackColor = Color.Yellow;
+                theChoosenOne = 2;
             }
         }
 
         private void T1C4_Click(object sender, EventArgs e)
         {
-            Button b = sender as Button;
-            if (muadc && DL[0] > 0)
+            if (checkBox6.Checked)
             {
-                Card card = TakeCardFromDeck(D1, 0);
-                b.Text = ButtonShowString(card);
-                ShowingCards[3] = card;
-            }
-            else
-                if (muadc)
-            {
-                b.Text = "Deck out of cards :<";
-                ShowingCards[3] = GodCard;
+                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+                CButtonShowing[3].BackColor = Color.Yellow;
+                theChoosenOne = 3;
             }
         }
 
         private void T2C1_Click(object sender, EventArgs e)
         {
-            Button b = sender as Button;
-            if (muadc && DL[1] > 0)
+            if (checkBox6.Checked)
             {
-                Card card = TakeCardFromDeck(D2, 1);
-                b.Text = ButtonShowString(card);
-                ShowingCards[4] = card;
-            }
-            else
-                if (muadc)
-            {
-                b.Text = "Deck out of cards :<";
-                ShowingCards[4] = GodCard;
+                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+                CButtonShowing[4].BackColor = Color.Yellow;
+                theChoosenOne = 4;
             }
         }
 
         private void T2C2_Click(object sender, EventArgs e)
         {
-            Button b = sender as Button;
-            if (muadc && DL[1] > 0)
+            if (checkBox6.Checked)
             {
-                Card card = TakeCardFromDeck(D2, 1);
-                b.Text = ButtonShowString(card);
-                ShowingCards[5] = card;
-            }
-            else
-                if (muadc)
-            {
-                b.Text = "Deck out of cards :<";
-                ShowingCards[5] = GodCard;
+                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+                CButtonShowing[5].BackColor = Color.Yellow;
+                theChoosenOne = 5;
             }
         }
 
         private void T2C3_Click(object sender, EventArgs e)
         {
-            Button b = sender as Button;
-            if (muadc && DL[1] > 0)
+            if (checkBox6.Checked)
             {
-                Card card = TakeCardFromDeck(D2, 1);
-                b.Text = ButtonShowString(card);
-                ShowingCards[6] = card;
-            }
-            else
-                if (muadc)
-            {
-                b.Text = "Deck out of cards :<";
-                ShowingCards[6] = GodCard;
+                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+                CButtonShowing[6].BackColor = Color.Yellow;
+                theChoosenOne = 6;
             }
         }
 
         private void T2C4_Click(object sender, EventArgs e)
         {
-            Button b = sender as Button;
-            if (muadc && DL[1] > 0)
+            if (checkBox6.Checked)
             {
-                Card card = TakeCardFromDeck(D2, 1);
-                b.Text = ButtonShowString(card);
-                ShowingCards[7] = card;
-            }
-            else
-                if (muadc)
-            {
-                b.Text = "Deck out of cards :<";
-                ShowingCards[7] = GodCard;
+                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+                CButtonShowing[7].BackColor = Color.Yellow;
+                theChoosenOne = 7;
             }
         }
 
         private void T3C1_Click(object sender, EventArgs e)
         {
-            Button b = sender as Button;
-            if (muadc && DL[2] > 0)
+            if (checkBox6.Checked)
             {
-                Card card = TakeCardFromDeck(D3, 2);
-                b.Text = ButtonShowString(card);
-                ShowingCards[8] = card;
-            }
-            else
-                if (muadc)
-            {
-                b.Text = "Deck out of cards :<";
-                ShowingCards[8] = GodCard;
+                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+                CButtonShowing[8].BackColor = Color.Yellow;
+                theChoosenOne = 8;
             }
         }
 
         private void T3C2_Click(object sender, EventArgs e)
         {
-            Button b = sender as Button;
-            if (muadc && DL[2] > 0)
+            if (checkBox6.Checked)
             {
-                Card card = TakeCardFromDeck(D3, 2);
-                b.Text = ButtonShowString(card);
-                ShowingCards[9] = card;
-            }
-            else
-                if (muadc)
-            {
-                b.Text = "Deck out of cards :<";
-                ShowingCards[9] = GodCard;
+                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+                CButtonShowing[9].BackColor = Color.Yellow;
+                theChoosenOne = 9;
             }
         }
 
         private void T3C3_Click(object sender, EventArgs e)
         {
-            Button b = sender as Button;
-            if (muadc && DL[2] > 0)
+            if (checkBox6.Checked)
             {
-                Card card = TakeCardFromDeck(D3, 2);
-                b.Text = ButtonShowString(card);
-                ShowingCards[10] = card;
-            }
-            else
-                if (muadc)
-            {
-                b.Text = "Deck out of cards :<";
-                ShowingCards[10] = GodCard;
+                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+                CButtonShowing[10].BackColor = Color.Yellow;
+                theChoosenOne = 10;
             }
         }
-
-        private void UnableOtherAction()
+        private void T3C4_Click(object sender, EventArgs e)
         {
-            fP2picktoken.Enabled = false;
-            CardGame.Enabled = false;
-            checkBox6.Enabled = false;
+            if (checkBox6.Checked)
+            {
+                if (theChoosenOne!=-1) CButtonShowing[theChoosenOne].BackColor=SystemColors.ButtonHighlight;
+                CButtonShowing[11].BackColor = Color.Yellow;
+                theChoosenOne = 11;
+            }
         }
 
-        private void checkBox5_CheckedChanged(object sender, EventArgs e)
+        private void T1D_Click(object sender, EventArgs e)
         {
-            CheckBox ckb = sender as CheckBox;
-
-            if (changeturn) return;
-
-            if (ckb.Checked)
+            CButtonShowing[12] = sender as Button;
+            if (checkBox6.Checked)
             {
-                Pick3();
-                TokenG[4]--;
-                UnableOtherAction();
-                ckb.Text = "Green: " + TokenG[4].ToString();
-                info[currentturn].greenToken++;
-                ShowAgainToken();
+                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+                CButtonShowing[12].BackColor = Color.Yellow;
+                theChoosenOne = 12;
             }
-            else
-            {
-                TokenG[4]++;
-                ckb.Text = "Green: " + TokenG[4].ToString();
-                info[currentturn].greenToken--;
-                ShowAgainToken();
-                Unpick3();
-            }
-            checkBox11.Text = ckb.Text;
         }
 
+        private void T2D_Click(object sender, EventArgs e)
+        {
+            CButtonShowing[13] = sender as Button;
+            if (checkBox6.Checked)
+            {
+                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+                CButtonShowing[13].BackColor = Color.Yellow;
+                theChoosenOne = 13;
+            }
+        }
+
+        private void T3D_Click(object sender, EventArgs e)
+        {
+            CButtonShowing[14] = sender as Button;
+            if (checkBox6.Checked)
+            {
+                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+                CButtonShowing[14].BackColor = Color.Yellow;
+                theChoosenOne = 14;
+            }
+        }
+        #endregion
+
+        #region Pick/Unpick 3
         private void Pick3()
         {
             pick3token++;
@@ -791,17 +847,9 @@ namespace TeamProject2
             }
             UnableControlsToken();
         }
+        #endregion
 
-        private void ShowAgainToken()
-        {
-            int i = 0;
-            foreach(Label lb in fpOfToken[currentturn].Controls)
-            {
-                lb.Text = ShowToken(i,currentturn);
-                i++;
-            }
-        }
-
+        #region CheckBoxes
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox ckb = sender as CheckBox;
@@ -904,6 +952,51 @@ namespace TeamProject2
                 Unpick3();
             }
             checkBox10.Text = ckb.Text;
+        }
+
+        private void checkBox5_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox ckb = sender as CheckBox;
+
+            if (changeturn) return;
+
+            if (ckb.Checked)
+            {
+                Pick3();
+                TokenG[4]--;
+                UnableOtherAction();
+                ckb.Text = "Green: " + TokenG[4].ToString();
+                info[currentturn].greenToken++;
+                ShowAgainToken();
+            }
+            else
+            {
+                TokenG[4]++;
+                ckb.Text = "Green: " + TokenG[4].ToString();
+                info[currentturn].greenToken--;
+                ShowAgainToken();
+                Unpick3();
+            }
+            checkBox11.Text = ckb.Text;
+        }
+
+        private void checkBox6_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox6.Checked)
+            {
+                TokenG[5]--;
+                checkBox6.Text = "Gold: " + TokenG[5];
+                fp3picktoken.Enabled = false;
+                fP2picktoken.Enabled = false;
+            } else
+            if (!changeturn)
+            {
+                TokenG[5]++;
+                checkBox6.Text = "Gold: " + TokenG[5];
+                fp3picktoken.Enabled = true;
+                fP2picktoken.Enabled = true;
+                UnableControlsToken();
+            }
         }
 
         private void checkBox7_CheckedChanged(object sender, EventArgs e)
@@ -1100,23 +1193,6 @@ namespace TeamProject2
             }
             checkBox5.Text = ckb.Text;
         }
-
-        private void T3C4_Click(object sender, EventArgs e)
-        {
-            Button b = sender as Button;
-            if (muadc && DL[2] > 0)
-            {
-                Card card = TakeCardFromDeck(D3, 2);
-                b.Text = ButtonShowString(card);
-                ShowingCards[11] = card;
-            }
-            else
-                if (muadc)
-            {
-                b.Text = "Deck out of cards :<";
-                ShowingCards[11] = GodCard;
-            }
-        }
-    #endregion
+        #endregion
     }
 }
