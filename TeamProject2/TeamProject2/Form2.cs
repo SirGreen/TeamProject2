@@ -458,20 +458,26 @@ namespace TeamProject2
             checkBox6.Enabled = true;
         }
 
-        private void UnableControls()
+        private void UnableControlsToken()
         {
-            CheckBox[] ckb = new CheckBox[5];
+            CheckBox[] ckb = new CheckBox[10];
             ckb[0] = checkBox7;
             ckb[1] = checkBox8;
             ckb[2] = checkBox9;
             ckb[3] = checkBox10;
             ckb[4] = checkBox11;
+            ckb[5] = checkBox1;
+            ckb[6] = checkBox2;
+            ckb[7] = checkBox3;
+            ckb[8] = checkBox4;
+            ckb[9] = checkBox5;
 
             for (int i = 0; i < 5; i++) 
             {
                 if (TokenG[i] < 4) 
                 {
                     ckb[i].Enabled = false;
+                    if (TokenG[i] <= 0) ckb[i + 5].Enabled = false;
                 }
             }
 
@@ -481,8 +487,9 @@ namespace TeamProject2
         {
             changeturn = true;
 
+            pick3token = 0;
             EnableControls();
-            UnableControls();
+            UnableControlsToken();
 
             NextTurn();
             changeturn = false;
@@ -768,6 +775,7 @@ namespace TeamProject2
         private void Unpick3()
         {
             pick3token--;
+            int i = 0;
             foreach (CheckBox item in fp3picktoken.Controls)
             {
                 if (!item.Checked)
@@ -781,6 +789,7 @@ namespace TeamProject2
                 CardGame.Enabled = true;
                 checkBox6.Enabled = true;
             }
+            UnableControlsToken();
         }
 
         private void ShowAgainToken()
@@ -927,6 +936,7 @@ namespace TeamProject2
                 CardGame.Enabled = true;
                 foreach (CheckBox item in fP2picktoken.Controls) item.Enabled = true;
                 checkBox6.Enabled = true;
+                UnableControlsToken();
 
                 ckb.Text = "Black: " + TokenG[0].ToString();
                 info[currentturn].blackToken -= 2;
@@ -965,6 +975,7 @@ namespace TeamProject2
                 CardGame.Enabled = true;
                 foreach (CheckBox item in fP2picktoken.Controls) item.Enabled = true;
                 checkBox6.Enabled = true;
+                UnableControlsToken();
 
                 ckb.Text = "White: " + TokenG[1].ToString();
                 info[currentturn].whiteToken -= 2;
@@ -1003,6 +1014,7 @@ namespace TeamProject2
                 CardGame.Enabled = true;
                 foreach (CheckBox item in fP2picktoken.Controls) item.Enabled = true;
                 checkBox6.Enabled = true;
+                UnableControlsToken();
 
                 ckb.Text = "Red: " + TokenG[2].ToString();
                 info[currentturn].redToken -= 2;
@@ -1041,6 +1053,7 @@ namespace TeamProject2
                 CardGame.Enabled = true;
                 foreach (CheckBox item in fP2picktoken.Controls) item.Enabled = true;
                 checkBox6.Enabled = true;
+                UnableControlsToken();
 
                 ckb.Text = "Blue: " + TokenG[3].ToString();
                 info[currentturn].blueToken -= 2;
@@ -1079,6 +1092,7 @@ namespace TeamProject2
                 CardGame.Enabled = true;
                 foreach (CheckBox item in fP2picktoken.Controls) item.Enabled = true;
                 checkBox6.Enabled = true;
+                UnableControlsToken();
 
                 ckb.Text = "Green: " + TokenG[4].ToString();
                 info[currentturn].greenToken -= 2;
