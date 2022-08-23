@@ -981,7 +981,7 @@ namespace TeamProject2
             } else
             if (!changeturn)
             {
-                CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
                 theChoosenOne = -1;
                 TokenG[5]++;
                 checkBox6.Text = "Gold: " + TokenG[5];
