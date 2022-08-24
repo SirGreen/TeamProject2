@@ -33,12 +33,12 @@ namespace TeamProject2
         Nobel[] nobles = new Nobel[10];
         Button[] CButtonShowing = new Button[15];
         int theChoosenOne = -1;
-        static int Players, currentturn;
+        static int Players, currentturn, maxpick = 5;
         static bool firstturn, changeturn = false;
         static int[] TokenG = new int[6];
         static int pick3token = 0;
 
-        struct PlayerInfo
+        public struct PlayerInfo
         {
             public int id = 0, point = 0, NumReserving = 0;
 
@@ -59,7 +59,7 @@ namespace TeamProject2
             }
         }
 
-        PlayerInfo[] info = new PlayerInfo[4];
+        public PlayerInfo[] info = new PlayerInfo[4];
         
         GroupBox[] gbOfPlayer = new GroupBox[4];
         GroupBox[] gbOfToken = new GroupBox[4];
@@ -75,6 +75,82 @@ namespace TeamProject2
                 get { return Players; }
                 set { Players = value; }
             }
+
+        static int[] TokenL = new int[6];
+
+        public int blackTokenleft
+        {
+            get { return TokenL[0]; }
+            set { TokenL[0] = value; }
+        }
+
+        public int whiteTokenleft
+        {
+            get { return TokenL[1]; }
+            set { TokenL[1] = value; }
+        }
+
+        public int redTokenleft
+        {
+            get { return TokenL[2]; }
+            set { TokenL[2] = value; }
+        }
+
+        public int blueTokenleft
+        {
+            get { return TokenL[3]; }
+            set { TokenL[3] = value; }
+        }
+
+        public int greenTokenleft
+        {
+            get { return TokenL[4]; }
+            set { TokenL[4] = value; }
+        }
+
+        public int GoldTokenleft
+        {
+            get { return TokenL[5]; }
+            set { TokenL[5] = value; }
+        }
+
+        static int[] TokenB = new int[6];
+
+        public int blackTokenBonus
+        {
+            get { return TokenB[0]; }
+            set { TokenB[0] = value; }
+        }
+
+        public int whiteTokenBonus
+        {
+            get { return TokenB[1]; }
+            set { TokenB[1] = value; }
+        }
+
+        public int redTokenBonus
+        {
+            get { return TokenB[2]; }
+            set { TokenB[2] = value; }
+        }
+
+        public int blueTokenBonus
+        {
+            get { return TokenB[3]; }
+            set { TokenB[3] = value; }
+        }
+
+        public int greenTokenBonus
+        {
+            get { return TokenB[4]; }
+            set { TokenB[4] = value; }
+        }
+
+        public int GoldTokenBonus
+        {
+            get { return TokenB[5]; }
+            set { TokenB[5] = value; }
+        }
 
         Card[] ShowingCards = new Card[12];
         Random rand = new();
@@ -118,7 +194,7 @@ namespace TeamProject2
             }
         }
 
-        private string ShowToken(int x, int y)
+        public string ShowToken(int x, int y)
         {
             switch(x)
             {
@@ -141,6 +217,12 @@ namespace TeamProject2
                 };
                 fP.Controls.Add(lb);
             }
+        }
+
+        private int PlayersTokensSum(int id)
+        {
+            return info[id].blackToken + info[id].whiteToken + info[id].redToken +
+                info[id].blueToken + info[id].greenToken + info[id].GoldToken;
         }
 
         private void PlayersSetting()
@@ -289,6 +371,7 @@ namespace TeamProject2
         {
             PlayersSetting();
             InitTokenStatus();
+            InitCkb();
             NextTurn();
         }
         #endregion
@@ -515,9 +598,10 @@ namespace TeamProject2
             checkBox6.Enabled = true;
         }
 
-        private void UnableControlsToken()
+        CheckBox[] ckb = new CheckBox[10];
+
+        private void InitCkb()
         {
-            CheckBox[] ckb = new CheckBox[10];
             ckb[0] = checkBox7;
             ckb[1] = checkBox8;
             ckb[2] = checkBox9;
@@ -528,13 +612,23 @@ namespace TeamProject2
             ckb[7] = checkBox3;
             ckb[8] = checkBox4;
             ckb[9] = checkBox5;
+        }
 
+        private void UnableControlsToken()
+        {
             for (int i = 0; i < 5; i++) 
             {
                 if (TokenG[i] < 4) 
                 {
-                    ckb[i].Enabled = false;
-                    if (TokenG[i] <= 0) ckb[i + 5].Enabled = false;
+                    if (!ckb[i].Checked && !ckb[i + 5].Checked)
+                    {
+                        ckb[i].Enabled = false;
+                        if (TokenG[i] <= 0)
+                        {
+                            ckb[i + 5].Enabled = false;
+                            maxpick--;
+                        }
+                    }
                 }
             }
 
@@ -636,14 +730,76 @@ namespace TeamProject2
             theChoosenOne = -1;
             #endregion
 
+            maxpick = Math.Min(3, maxpick);
+
+            if (pick3token < maxpick && fp3picktoken.Enabled == true) 
+            {
+                MessageBox.Show("Pick thêm đi :v");
+                return;
+            }
+
             changeturn = true;
             pick3token = 0;
+            maxpick = 5;
+
+            ///check token>10
+
+            int sum = PlayersTokensSum(currentturn);
+            if (sum > 10)
+            {
+                TakeoutToken(sum);
+            }
+
             EnableControls();
             UnableControlsToken();
 
             NextTurn();
             changeturn = false;
             if (TokenG[5] == 0) checkBox6.Enabled = false;
+        }
+
+        private void TakeoutToken(int sum)
+        {
+            Form3 f3 = new Form3();
+            f3.Turn = currentturn;
+            f3.LeftOver = sum - 10;
+
+            f3.blackToken = info[currentturn].blackToken;
+            f3.whiteToken = info[currentturn].whiteToken;
+            f3.redToken = info[currentturn].redToken;
+            f3.blueToken = info[currentturn].blueToken;
+            f3.greenToken = info[currentturn].greenToken;
+            f3.GoldToken = info[currentturn].GoldToken;
+
+            f3.ShowDialog();
+
+            info[currentturn].blackToken = TokenL[0];
+            info[currentturn].whiteToken = TokenL[1];
+            info[currentturn].redToken = TokenL[2];
+            info[currentturn].blueToken = TokenL[3];
+            info[currentturn].greenToken = TokenL[4];
+            info[currentturn].GoldToken = TokenL[5];
+
+            int i = 0;
+            foreach(Label lb in fpOfToken[currentturn].Controls)
+            {
+                lb.Text = ShowToken(i, currentturn);
+                TokenG[i] += TokenB[i];
+                i++;
+            }
+
+            ckb[0].Text = "Black: " + TokenG[0];
+            ckb[5].Text = ckb[0].Text;
+            ckb[1].Text = "White: " + TokenG[1];
+            ckb[6].Text = ckb[1].Text;
+            ckb[2].Text = "Red: " + TokenG[2];
+            ckb[7].Text = ckb[2].Text;
+            ckb[3].Text = "Blue: " + TokenG[3];
+            ckb[8].Text = ckb[3].Text;
+            ckb[4].Text = "Green: " + TokenG[4];
+            ckb[9].Text = ckb[4].Text;
+
+            checkBox6.Text = "Gold: " + TokenG[5];
         }
 
         //giá trị card của mấy cái này nằm trong mảng ShowingCards
@@ -821,7 +977,6 @@ namespace TeamProject2
         private void Unpick3()
         {
             pick3token--;
-            int i = 0;
             foreach (CheckBox item in fp3picktoken.Controls)
             {
                 if (!item.Checked)
