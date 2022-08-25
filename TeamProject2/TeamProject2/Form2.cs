@@ -580,6 +580,7 @@ namespace TeamProject2
         private void EnableControls()
         {
             fp3picktoken.Enabled = true;
+            maxpick = 5;
             foreach (CheckBox item in fp3picktoken.Controls)
             {
                 item.Enabled = true;
@@ -740,7 +741,7 @@ namespace TeamProject2
 
             changeturn = true;
             pick3token = 0;
-            maxpick = 5;
+            
 
             ///check token>10
 
