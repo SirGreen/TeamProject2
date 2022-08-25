@@ -580,7 +580,6 @@ namespace TeamProject2
         private void EnableControls()
         {
             fp3picktoken.Enabled = true;
-            maxpick = 5;
             foreach (CheckBox item in fp3picktoken.Controls)
             {
                 item.Enabled = true;
@@ -627,7 +626,6 @@ namespace TeamProject2
                         if (TokenG[i] <= 0)
                         {
                             ckb[i + 5].Enabled = false;
-                            maxpick--;
                         }
                     }
                 }
@@ -730,6 +728,14 @@ namespace TeamProject2
             }
             theChoosenOne = -1;
             #endregion
+
+            maxpick = 5;
+            int i = 0;
+            foreach (CheckBox item in fp3picktoken.Controls)
+            {
+                if (TokenG[i] == 0 && !ckb[i].Checked && !ckb[i + 5].Checked) maxpick--;
+                i++;
+            }
 
             maxpick = Math.Min(3, maxpick);
 
