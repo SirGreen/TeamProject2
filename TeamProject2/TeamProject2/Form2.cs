@@ -751,6 +751,11 @@ namespace TeamProject2
                 }
                 PointOfPlayer[currentturn].Text = "Point: " + info[currentturn].point;
                 info[currentturn].GoldToken = info[currentturn].GoldTemp;
+                info[currentturn].whiteToken -= ShowingCards[theChoosenOne].w;
+                info[currentturn].blackToken -= ShowingCards[theChoosenOne].den;
+                info[currentturn].greenToken -= ShowingCards[theChoosenOne].g;
+                info[currentturn].blueToken -= ShowingCards[theChoosenOne].b;
+                info[currentturn].redToken -= ShowingCards[theChoosenOne].r;
                 ShowAgainToken();
             }
             #endregion
