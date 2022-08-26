@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace TeamProject2
 {
@@ -43,22 +44,23 @@ namespace TeamProject2
             public int id = 0, point = 0, NumReserving = 0;
 
             public int blackToken = 0, whiteToken = 0, redToken = 0, blueToken = 0, greenToken = 0, GoldToken = 0, GoldTemp = 0;
-            public int blackCard = 0, whiteCard = 0, redCard = 0, blueCard = 0, greenCard = 0, GoldCard = 0;
+            public int blackCard = 0, whiteCard = 0, redCard = 0, blueCard = 0, greenCard = 0, GoldCard = 0; 
+
             /* 
-             * 0: black
-             * 1: white
-             * 2: red
-             * 3: blue
-             * 4: green
-             * 5: Gold
-             */
+            * 0: black
+            * 1: white
+            * 2: red
+            * 3: blue
+            * 4: green
+            * 5: Gold
+            */
 
             public PlayerInfo(int id)
             {
                 this.id = id;
             }
         }
-
+        public bool[,] XaiHet = new bool[4, 5];
         public PlayerInfo[] info = new PlayerInfo[4];
         
         GroupBox[] gbOfPlayer = new GroupBox[4];
@@ -70,6 +72,8 @@ namespace TeamProject2
         FlowLayoutPanel[] fpOfCard = new FlowLayoutPanel[4];
 
         Label[] PointOfPlayer = new Label[4];
+
+        #region hmm
         public int NumOfPlayers
             {
                 get { return Players; }
@@ -151,7 +155,7 @@ namespace TeamProject2
             get { return TokenB[5]; }
             set { TokenB[5] = value; }
         }
-
+        #endregion
         Card[] ShowingCards = new Card[12];
         Random rand = new();
         //Cards left in deck
@@ -496,6 +500,26 @@ namespace TeamProject2
             checkBox6.Text = "Gold: " + 5.ToString();
             TokenG[5] = 5;
         }
+
+        void ShowGameToken()
+        {
+            checkBox1.Text = "Black: " + TokenG[0];
+            checkBox7.Text = checkBox1.Text;
+
+            checkBox2.Text = "White: " + TokenG[1];
+            checkBox8.Text = checkBox2.Text;
+
+            checkBox3.Text = "Red: " + TokenG[2];
+            checkBox9.Text = checkBox3.Text;
+
+            checkBox4.Text = "Blue: " + TokenG[3];
+            checkBox10.Text = checkBox4.Text;
+
+            checkBox5.Text = "Green: " + TokenG[4];
+            checkBox11.Text = checkBox5.Text;
+
+            checkBox6.Text = "Gold: " + TokenG[5];
+        }
         #endregion
 
         #region ReadFiles
@@ -652,13 +676,30 @@ namespace TeamProject2
         }
         #endregion
 
+        private void TraLai(ref int token, ref int pay, bool XaiHet, ref int GameToken)
+        {
+            if (XaiHet)
+            {
+                GameToken += token;
+                token = 0;
+            } else
+            {
+                GameToken += pay;
+                token -= pay;
+            }
+        }
+
         private void EndTurn_Click(object sender, EventArgs e)
         {
             #region Reserve Card Check
             if (checkBox6.Checked && theChoosenOne != -1 && info[currentturn].NumReserving < 3)
             {
                 //add card vô biến
-                info[currentturn].GoldToken++;
+                if (TokenG[5] > 0)
+                {
+                    info[currentturn].GoldToken++;
+                    TokenG[5]--;
+                }
                 ShowAgainToken();
                 if (theChoosenOne < 12)
                 {
@@ -718,6 +759,7 @@ namespace TeamProject2
             #region CheckMuaBai
             if (muadc)
             {
+                Card c = ShowingCards[theChoosenOne];
                 int x = CardGenToInt(ShowingCards[theChoosenOne]);
                 switch (x)
                 {
@@ -750,13 +792,16 @@ namespace TeamProject2
                     p++;
                 }
                 PointOfPlayer[currentturn].Text = "Point: " + info[currentturn].point;
-                info[currentturn].GoldToken = info[currentturn].GoldTemp;
-                info[currentturn].whiteToken -= ShowingCards[theChoosenOne].w;
-                info[currentturn].blackToken -= ShowingCards[theChoosenOne].den;
-                info[currentturn].greenToken -= ShowingCards[theChoosenOne].g;
-                info[currentturn].blueToken -= ShowingCards[theChoosenOne].b;
-                info[currentturn].redToken -= ShowingCards[theChoosenOne].r;
+                ref PlayerInfo pl = ref info[currentturn];
+                x = currentturn;
+                pl.GoldToken = pl.GoldTemp;
+                TraLai(ref pl.blackToken, ref c.den, XaiHet[x, 0], ref TokenG[0]);
+                TraLai(ref pl.whiteToken, ref c.w, XaiHet[x, 1], ref TokenG[1]);
+                TraLai(ref pl.redToken, ref c.r, XaiHet[x, 2], ref TokenG[2]);
+                TraLai(ref pl.blueToken, ref c.b, XaiHet[x, 3], ref TokenG[3]);
+                TraLai(ref pl.greenToken, ref c.g, XaiHet[x, 4], ref TokenG[4]);
                 ShowAgainToken();
+                ShowGameToken();
             }
             #endregion
 
@@ -799,7 +844,6 @@ namespace TeamProject2
 
             NextTurn();
             changeturn = false;
-            if (TokenG[5] == 0) checkBox6.Enabled = false;
         }
 
         private void TakeoutToken(int sum)
@@ -875,12 +919,15 @@ namespace TeamProject2
             theChoosenOne = x;
         }
 
-        private bool CheckHelper(int token, ref int vang, int canmua)
+        private bool CheckHelper(int token, ref int vang, int canmua, int x)
         {
+            int z = currentturn;
+            XaiHet[z, x] = false;
             if (token < canmua)
             {
                 if (token + vang < canmua) return true;
                 vang -= canmua - token;
+                XaiHet[z, x] = true;
             }
             return false;
         }
@@ -889,11 +936,11 @@ namespace TeamProject2
         {
             muadc = false;
             info[currentturn].GoldTemp = info[currentturn].GoldToken;
-            if (CheckHelper(info[currentturn].redToken, ref info[currentturn].GoldTemp, c.r)) return;
-            if (CheckHelper(info[currentturn].greenToken, ref info[currentturn].GoldTemp, c.g)) return;
-            if (CheckHelper(info[currentturn].whiteToken, ref info[currentturn].GoldTemp, c.w)) return;
-            if (CheckHelper(info[currentturn].blackToken, ref info[currentturn].GoldTemp, c.den)) return;
-            if (CheckHelper(info[currentturn].blackToken, ref info[currentturn].GoldTemp, c.b)) return;
+            if (CheckHelper(info[currentturn].blackToken, ref info[currentturn].GoldTemp, c.den, 0)) return;
+            if (CheckHelper(info[currentturn].whiteToken, ref info[currentturn].GoldTemp, c.w, 1)) return;
+            if (CheckHelper(info[currentturn].redToken, ref info[currentturn].GoldTemp, c.r, 2)) return;
+            if (CheckHelper(info[currentturn].blueToken, ref info[currentturn].GoldTemp, c.b, 3)) return;
+            if (CheckHelper(info[currentturn].greenToken, ref info[currentturn].GoldTemp, c.g, 4)) return;
             muadc = true;
         }
 
@@ -1301,8 +1348,8 @@ namespace TeamProject2
         {
             if (checkBox6.Checked)
             {
-                if (TokenG[5] > 0) TokenG[5]--;
-                checkBox6.Text = "Gold: " + TokenG[5];
+                if (TokenG[5] > 0) checkBox6.Text = "Gold: " + (TokenG[5] - 1);
+                else checkBox6.Text = "Gold: " + TokenG[5];
                 fp3picktoken.Enabled = false;
                 fP2picktoken.Enabled = false;
             } else
@@ -1310,11 +1357,9 @@ namespace TeamProject2
             {
                 if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
                 theChoosenOne = -1;
-                TokenG[5]++;
                 checkBox6.Text = "Gold: " + TokenG[5];
                 fp3picktoken.Enabled = true;
                 fP2picktoken.Enabled = true;
-                UnableControlsToken();
             }
         }
 
