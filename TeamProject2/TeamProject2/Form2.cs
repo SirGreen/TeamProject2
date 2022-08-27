@@ -676,7 +676,7 @@ namespace TeamProject2
         }
         #endregion
 
-        private void TraLai(ref int token, ref int pay, bool XaiHet, ref int GameToken)
+        private void TraLai(ref int token, ref int pay, bool XaiHet, ref int GameToken, int dis)
         {
             if (XaiHet)
             {
@@ -684,8 +684,10 @@ namespace TeamProject2
                 token = 0;
             } else
             {
-                GameToken += pay;
-                token -= pay;
+                int x = 0;
+                if (pay - dis > 0) x = pay - dis; 
+                GameToken += x;
+                token -= x;
             }
         }
 
@@ -795,11 +797,11 @@ namespace TeamProject2
                 ref PlayerInfo pl = ref info[currentturn];
                 x = currentturn;
                 pl.GoldToken = pl.GoldTemp;
-                TraLai(ref pl.blackToken, ref c.den, XaiHet[x, 0], ref TokenG[0]);
-                TraLai(ref pl.whiteToken, ref c.w, XaiHet[x, 1], ref TokenG[1]);
-                TraLai(ref pl.redToken, ref c.r, XaiHet[x, 2], ref TokenG[2]);
-                TraLai(ref pl.blueToken, ref c.b, XaiHet[x, 3], ref TokenG[3]);
-                TraLai(ref pl.greenToken, ref c.g, XaiHet[x, 4], ref TokenG[4]);
+                TraLai(ref pl.blackToken, ref c.den, XaiHet[x, 0], ref TokenG[0], pl.blackCard);
+                TraLai(ref pl.whiteToken, ref c.w, XaiHet[x, 1], ref TokenG[1], pl.whiteCard);
+                TraLai(ref pl.redToken, ref c.r, XaiHet[x, 2], ref TokenG[2], pl.redCard);
+                TraLai(ref pl.blueToken, ref c.b, XaiHet[x, 3], ref TokenG[3], pl.blueCard);
+                TraLai(ref pl.greenToken, ref c.g, XaiHet[x, 4], ref TokenG[4], pl.greenCard);
                 ShowAgainToken();
                 ShowGameToken();
             }
@@ -919,13 +921,13 @@ namespace TeamProject2
             theChoosenOne = x;
         }
 
-        private bool CheckHelper(int token, ref int vang, int canmua, int x)
+        private bool CheckHelper(int token, ref int vang, int canmua, int x, int dis)
         {
             int z = currentturn;
             XaiHet[z, x] = false;
-            if (token < canmua)
+            if (token < canmua - dis)
             {
-                if (token + vang < canmua) return true;
+                if (token + vang < canmua - dis) return true;
                 vang -= canmua - token;
                 XaiHet[z, x] = true;
             }
@@ -936,11 +938,12 @@ namespace TeamProject2
         {
             muadc = false;
             info[currentturn].GoldTemp = info[currentturn].GoldToken;
-            if (CheckHelper(info[currentturn].blackToken, ref info[currentturn].GoldTemp, c.den, 0)) return;
-            if (CheckHelper(info[currentturn].whiteToken, ref info[currentturn].GoldTemp, c.w, 1)) return;
-            if (CheckHelper(info[currentturn].redToken, ref info[currentturn].GoldTemp, c.r, 2)) return;
-            if (CheckHelper(info[currentturn].blueToken, ref info[currentturn].GoldTemp, c.b, 3)) return;
-            if (CheckHelper(info[currentturn].greenToken, ref info[currentturn].GoldTemp, c.g, 4)) return;
+            ref PlayerInfo pl = ref info[currentturn];
+            if (CheckHelper(pl.blackToken, ref pl.GoldTemp, c.den, 0, pl.blackCard)) return;
+            if (CheckHelper(pl.whiteToken, ref pl.GoldTemp, c.w, 1, pl.whiteCard)) return;
+            if (CheckHelper(pl.redToken, ref pl.GoldTemp, c.r, 2, pl.redCard)) return;
+            if (CheckHelper(pl.blueToken, ref pl.GoldTemp, c.b, 3, pl.blueCard)) return;
+            if (CheckHelper(pl.greenToken, ref pl.GoldTemp, c.g, 4, pl.greenCard)) return;
             muadc = true;
         }
 
