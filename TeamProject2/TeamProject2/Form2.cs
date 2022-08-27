@@ -796,6 +796,7 @@ namespace TeamProject2
                 PointOfPlayer[currentturn].Text = "Point: " + info[currentturn].point;
                 ref PlayerInfo pl = ref info[currentturn];
                 x = currentturn;
+                TokenG[5] += pl.GoldTemp - pl.GoldToken;
                 pl.GoldToken = pl.GoldTemp;
                 TraLai(ref pl.blackToken, ref c.den, XaiHet[x, 0], ref TokenG[0], pl.blackCard);
                 TraLai(ref pl.whiteToken, ref c.w, XaiHet[x, 1], ref TokenG[1], pl.whiteCard);
