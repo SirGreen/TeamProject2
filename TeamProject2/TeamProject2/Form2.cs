@@ -155,6 +155,21 @@ namespace TeamProject2
             get { return TokenB[5]; }
             set { TokenB[5] = value; }
         }
+
+        static int theReserveCard;
+        public int ReseverCardNum
+        {
+            get { return theReserveCard; }
+            set { theReserveCard = value; }
+        }
+
+        bool isBuyingReserveCard;
+        public bool ReserveCardAction
+        {
+            get { return isBuyingReserveCard; }
+            set { isBuyingReserveCard = value; }
+        }
+
         #endregion
         Card[] ShowingCards = new Card[12];
         Random rand = new();
@@ -328,7 +343,10 @@ namespace TeamProject2
 
             //////////////Turn Status/////////////
             lbTurn.Location = new Point(TokenGame.Location.X+TokenGame.Width+25, GBOPlayers.Height + 25);
-            EndTurn.Location = new Point(TokenGame.Location.X+TokenGame.Width+25, lbTurn.Location.Y + lbTurn.Height + 25);
+            EndTurn.Location = new Point(TokenGame.Location.X+TokenGame.Width+25, lbTurn.Location.Y + lbTurn.Height + 70);
+
+            ///////////////////Reserve Card//////////
+            ReserveCardbtn.Location = new Point(TokenGame.Location.X + TokenGame.Width + 25, lbTurn.Location.Y + lbTurn.Height + 25);
 
             //last noble
             x = rand.Next(10);
@@ -1443,6 +1461,32 @@ namespace TeamProject2
                 ShowAgainToken();
             }
             checkBox2.Text = ckb.Text;
+        }
+
+        private void ReserveCardbtn_Click(object sender, EventArgs e)
+        {
+            if (info[currentturn].NumReserving==0)
+            {
+                MessageBox.Show("Hông có reserve card để coi :vv");
+                return;
+            }
+
+            Form4 f4 = new Form4();
+            
+            f4.NumReCard = info[currentturn].NumReserving;
+
+            if (info[currentturn].NumReserving > 0) f4.Text1 = ButtonShowString(ReservedCards[currentturn, 0]);
+            if (info[currentturn].NumReserving > 1) f4.Text2 = ButtonShowString(ReservedCards[currentturn, 1]);
+            if (info[currentturn].NumReserving > 2) f4.Text3 = ButtonShowString(ReservedCards[currentturn, 2]);
+
+            f4.ShowDialog();
+
+            //if (isBuyingReserveCard) ///Endturn
+        }
+
+        private void EndTurn_Click1(object? sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void checkBox9_CheckedChanged(object sender, EventArgs e)
