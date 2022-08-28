@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace TeamProject2
 {
@@ -42,23 +43,24 @@ namespace TeamProject2
         {
             public int id = 0, point = 0, NumReserving = 0;
 
-            public int blackToken = 0, whiteToken = 0, redToken = 0, blueToken = 0, greenToken = 0, GoldToken = 0;
-            public int blackCard = 0, whiteCard = 0, redCard = 0, blueCard = 0, greenCard = 0, GoldCard = 0;
+            public int blackToken = 0, whiteToken = 0, redToken = 0, blueToken = 0, greenToken = 0, GoldToken = 0, GoldTemp = 0;
+            public int blackCard = 0, whiteCard = 0, redCard = 0, blueCard = 0, greenCard = 0, GoldCard = 0; 
+
             /* 
-             * 0: black
-             * 1: white
-             * 2: red
-             * 3: blue
-             * 4: green
-             * 5: Gold
-             */
+            * 0: black
+            * 1: white
+            * 2: red
+            * 3: blue
+            * 4: green
+            * 5: Gold
+            */
 
             public PlayerInfo(int id)
             {
                 this.id = id;
             }
         }
-
+        public bool[,] XaiHet = new bool[4, 5];
         public PlayerInfo[] info = new PlayerInfo[4];
         
         GroupBox[] gbOfPlayer = new GroupBox[4];
@@ -70,6 +72,8 @@ namespace TeamProject2
         FlowLayoutPanel[] fpOfCard = new FlowLayoutPanel[4];
 
         Label[] PointOfPlayer = new Label[4];
+
+        #region hmm
         public int NumOfPlayers
             {
                 get { return Players; }
@@ -151,7 +155,7 @@ namespace TeamProject2
             get { return TokenB[5]; }
             set { TokenB[5] = value; }
         }
-
+        #endregion
         Card[] ShowingCards = new Card[12];
         Random rand = new();
         //Cards left in deck
@@ -402,6 +406,31 @@ namespace TeamProject2
             return "Generate: " + c.gen + "\n Point: " + c.point + "\n Black: " + c.den + "\n White: " + c.w + "\n Red: "
                 + c.r + "\n Blue: " + c.b + "\n Green: " + c.g;
         }
+
+        private void TakeNewCard(Card[] Deck, int DeckNum, int x)
+        {
+            if (DL[DeckNum] <= 0)
+            {
+                CButtonShowing[x].Text = "Deck out of card :<";
+                ShowingCards[x] = GodCard;
+                return;
+            }
+            Card card = TakeCardFromDeck(Deck, DeckNum);
+            CButtonShowing[x].Text = ButtonShowString(card);
+            ShowingCards[x] = card;
+        }
+        private int CardGenToInt(Card c)
+        {
+            switch (c.gen)
+            {
+                case "Black": return 1;
+                case "White": return 2;
+                case "Red": return 3;
+                case "Green": return 4;
+                case "Blue": return 5;
+            }
+            return 0;
+        }
         #endregion
 
         #region Inits
@@ -424,42 +453,18 @@ namespace TeamProject2
             ReadDeck(D1, "Tier1Deck.txt");
             ReadDeck(D2, "Tier2Deck.txt");
             ReadDeck(D3, "Tier3Deck.txt");
-            Card card = TakeCardFromDeck(D1, 0); //input number of deck -1
-            T1C1.Text = ButtonShowString(card);
-            ShowingCards[0]=card;
-            card = TakeCardFromDeck(D1, 0);
-            T1C2.Text = ButtonShowString(card);
-            ShowingCards[1] = card;
-            card = TakeCardFromDeck(D1, 0);
-            T1C3.Text = ButtonShowString(card);
-            ShowingCards[2] = card;
-            card = TakeCardFromDeck(D1, 0);
-            T1C4.Text = ButtonShowString(card);
-            ShowingCards[3] = card;
-            card = TakeCardFromDeck(D2, 1);
-            T2C1.Text = ButtonShowString(card);
-            ShowingCards[4] = card;
-            card = TakeCardFromDeck(D2, 1);
-            T2C2.Text = ButtonShowString(card);
-            ShowingCards[5] = card;
-            card = TakeCardFromDeck(D2, 1);
-            T2C3.Text = ButtonShowString(card);
-            ShowingCards[6] = card;
-            card = TakeCardFromDeck(D2, 1);
-            T2C4.Text = ButtonShowString(card);
-            ShowingCards[7] = card;
-            card = TakeCardFromDeck(D3, 2);
-            T3C1.Text = ButtonShowString(card);
-            ShowingCards[8] = card;
-            card = TakeCardFromDeck(D3, 2);
-            T3C2.Text = ButtonShowString(card);
-            ShowingCards[9] = card;
-            card = TakeCardFromDeck(D3, 2);
-            T3C3.Text = ButtonShowString(card);
-            ShowingCards[10] = card;
-            card = TakeCardFromDeck(D3, 2);
-            T3C4.Text = ButtonShowString(card);
-            ShowingCards[11] = card;
+            TakeNewCard(D1, 0, 0);
+            TakeNewCard(D1, 0, 1);
+            TakeNewCard(D1, 0, 2);
+            TakeNewCard(D1, 0, 3);
+            TakeNewCard(D2, 1, 4);
+            TakeNewCard(D2, 1, 5);
+            TakeNewCard(D2, 1, 6);
+            TakeNewCard(D2, 1, 7);
+            TakeNewCard(D3, 2, 8);
+            TakeNewCard(D3, 2, 9);
+            TakeNewCard(D3, 2, 10);
+            TakeNewCard(D3, 2, 11);            
         }
 
         void InitTokenStatus()
@@ -494,6 +499,26 @@ namespace TeamProject2
 
             checkBox6.Text = "Gold: " + 5.ToString();
             TokenG[5] = 5;
+        }
+
+        void ShowGameToken()
+        {
+            checkBox1.Text = "Black: " + TokenG[0];
+            checkBox7.Text = checkBox1.Text;
+
+            checkBox2.Text = "White: " + TokenG[1];
+            checkBox8.Text = checkBox2.Text;
+
+            checkBox3.Text = "Red: " + TokenG[2];
+            checkBox9.Text = checkBox3.Text;
+
+            checkBox4.Text = "Blue: " + TokenG[3];
+            checkBox10.Text = checkBox4.Text;
+
+            checkBox5.Text = "Green: " + TokenG[4];
+            checkBox11.Text = checkBox5.Text;
+
+            checkBox6.Text = "Gold: " + TokenG[5];
         }
         #endregion
 
@@ -651,17 +676,19 @@ namespace TeamProject2
         }
         #endregion
 
-        private void UpdateNewCard(Card[] D, int DeckNum, Button b, int bNum)
+        private void TraLai(ref int token, ref int pay, bool XaiHet, ref int GameToken, int dis)
         {
-            if (DL[DeckNum]==0)
+            if (XaiHet)
             {
-                b.Text = "Deck out of cards :<";
-                ShowingCards[bNum] = GodCard;
+                GameToken += token;
+                token = 0;
+            } else
+            {
+                int x = 0;
+                if (pay - dis > 0) x = pay - dis; 
+                GameToken += x;
+                token -= x;
             }
-            DL[DeckNum]--;
-            Card card = TakeCardFromDeck(D, DeckNum);
-            b.Text = ButtonShowString(card);
-            ShowingCards[bNum] = card;
         }
 
         private void EndTurn_Click(object sender, EventArgs e)
@@ -670,9 +697,12 @@ namespace TeamProject2
             if (checkBox6.Checked && theChoosenOne != -1 && info[currentturn].NumReserving < 3)
             {
                 //add card vô biến
-                info[currentturn].GoldToken++;
+                if (TokenG[5] > 0)
+                {
+                    info[currentturn].GoldToken++;
+                    TokenG[5]--;
+                }
                 ShowAgainToken();
-                CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
                 if (theChoosenOne < 12)
                 {
                     ReservedCards[currentturn, info[currentturn].NumReserving] = ShowingCards[theChoosenOne];
@@ -726,9 +756,63 @@ namespace TeamProject2
                 MessageBox.Show("Quá 3 lá rồi :<");
                 return;
             }
-            theChoosenOne = -1;
             #endregion
 
+            #region CheckMuaBai
+            if (muadc)
+            {
+                Card c = ShowingCards[theChoosenOne];
+                int x = CardGenToInt(ShowingCards[theChoosenOne]);
+                switch (x)
+                {
+                    case 1:
+                        info[currentturn].blackCard++;
+                        break;
+                    case 2:
+                        info[currentturn].whiteCard++;
+                        break;
+                    case 3:
+                        info[currentturn].redCard++;
+                        break;
+                    case 4:
+                        info[currentturn].greenCard++;
+                        break;
+                    default:
+                        info[currentturn].blueCard++;
+                        break;
+                }
+                info[currentturn].point += ShowingCards[theChoosenOne].point;
+                if (theChoosenOne < 4) TakeNewCard(D1, 0, theChoosenOne);
+                else
+                    if (theChoosenOne > 7) TakeNewCard(D3, 2, theChoosenOne);
+                else
+                    TakeNewCard(D2, 1, theChoosenOne);
+                int p = 0;
+                foreach (Label lb in fpOfCard[currentturn].Controls)
+                {
+                    lb.Text = ShowCard(p, currentturn);
+                    p++;
+                }
+                PointOfPlayer[currentturn].Text = "Point: " + info[currentturn].point;
+                ref PlayerInfo pl = ref info[currentturn];
+                x = currentturn;
+                TokenG[5] += pl.GoldToken - pl.GoldTemp;
+                pl.GoldToken = pl.GoldTemp;
+                TraLai(ref pl.blackToken, ref c.den, XaiHet[x, 0], ref TokenG[0], pl.blackCard);
+                TraLai(ref pl.whiteToken, ref c.w, XaiHet[x, 1], ref TokenG[1], pl.whiteCard);
+                TraLai(ref pl.redToken, ref c.r, XaiHet[x, 2], ref TokenG[2], pl.redCard);
+                TraLai(ref pl.blueToken, ref c.b, XaiHet[x, 3], ref TokenG[3], pl.blueCard);
+                TraLai(ref pl.greenToken, ref c.g, XaiHet[x, 4], ref TokenG[4], pl.greenCard);
+                ShowAgainToken();
+                ShowGameToken();
+            }
+            #endregion
+
+            if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+            muadc = false;
+            theChoosenOne = -1;
+
+            #region đồ của god
             maxpick = 5;
             int i = 0;
             foreach (CheckBox item in fp3picktoken.Controls)
@@ -759,10 +843,10 @@ namespace TeamProject2
 
             EnableControls();
             UnableControlsToken();
+            #endregion
 
             NextTurn();
             changeturn = false;
-            if (TokenG[5] == 0) checkBox6.Enabled = false;
         }
 
         private void TakeoutToken(int sum)
@@ -809,8 +893,27 @@ namespace TeamProject2
             checkBox6.Text = "Gold: " + TokenG[5];
         }
 
+        private void GodBut_Click(object sender, EventArgs e)
+        {
+            info[currentturn].GoldToken = 1000;
+            ShowAgainToken();
+        }
+
         //giá trị card của mấy cái này nằm trong mảng ShowingCards
         #region Cards' Button
+        private void UpdateNewCard(Card[] D, int DeckNum, Button b, int bNum)
+        {
+            if (DL[DeckNum] == 0)
+            {
+                b.Text = "Deck out of cards :<";
+                ShowingCards[bNum] = GodCard;
+            }
+            DL[DeckNum]--;
+            Card card = TakeCardFromDeck(D, DeckNum);
+            b.Text = ButtonShowString(card);
+            ShowingCards[bNum] = card;
+        }
+
         private void CheckReserve(int x)
         {
             if (ShowingCards[x].g == 1000) return;
@@ -818,98 +921,211 @@ namespace TeamProject2
             CButtonShowing[x].BackColor = Color.Yellow;
             theChoosenOne = x;
         }
+
+        private bool CheckHelper(int token, ref int vang, int canmua, int x, int dis)
+        {
+            int z = currentturn;
+            XaiHet[z, x] = false;
+            if (token < canmua - dis)
+            {
+                if (token + vang < canmua - dis) return true;
+                vang -= canmua - token;
+                XaiHet[z, x] = true;
+            }
+            return false;
+        }
+
+        private void CheckMuaDc(Card c)
+        {
+            muadc = false;
+            info[currentturn].GoldTemp = info[currentturn].GoldToken;
+            ref PlayerInfo pl = ref info[currentturn];
+            if (CheckHelper(pl.blackToken, ref pl.GoldTemp, c.den, 0, pl.blackCard)) return;
+            if (CheckHelper(pl.whiteToken, ref pl.GoldTemp, c.w, 1, pl.whiteCard)) return;
+            if (CheckHelper(pl.redToken, ref pl.GoldTemp, c.r, 2, pl.redCard)) return;
+            if (CheckHelper(pl.blueToken, ref pl.GoldTemp, c.b, 3, pl.blueCard)) return;
+            if (CheckHelper(pl.greenToken, ref pl.GoldTemp, c.g, 4, pl.greenCard)) return;
+            muadc = true;
+        }
+
+        private void XuLiMuaDc(int x)
+        {
+            if (muadc && theChoosenOne == x)
+            {
+                muadc = false;
+                CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+                fp3picktoken.Enabled = true;
+                fP2picktoken.Enabled = true;
+                theChoosenOne = -1;
+                return;
+            }
+            CheckMuaDc(ShowingCards[x]);
+            if (muadc)
+            {
+                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+                theChoosenOne = x;
+                CButtonShowing[x].BackColor = Color.LightSeaGreen;
+                fp3picktoken.Enabled = false;
+                fP2picktoken.Enabled = false;
+            }
+            else
+            {
+                checkBox6.CheckState = CheckState.Checked;
+                CheckReserve(x);
+            }
+        }
+
         private void T1C1_Click(object sender, EventArgs e)
         {
+            int code = 0;
             if (checkBox6.Checked)
             {
-                CheckReserve(0);
+                CheckReserve(code);
+            } else
+            {
+                XuLiMuaDc(code);
             }
         }
 
         private void T1C2_Click(object sender, EventArgs e)
         {
+            int code = 1;
             if (checkBox6.Checked)
             {
-                CheckReserve(1);
+                CheckReserve(code);
+            }
+            else
+            {
+                XuLiMuaDc(code);
             }
         }
 
         private void T1C3_Click(object sender, EventArgs e)
         {
+            int code = 2;
             if (checkBox6.Checked)
             {
-                CheckReserve(2);
+                CheckReserve(code);
+            }
+            else
+            {
+                XuLiMuaDc(code);
             }
         }
 
         private void T1C4_Click(object sender, EventArgs e)
         {
+            int code = 3;
             if (checkBox6.Checked)
             {
-                CheckReserve(3);
+                CheckReserve(code);
+            }
+            else
+            {
+                XuLiMuaDc(code);
             }
         }
 
         private void T2C1_Click(object sender, EventArgs e)
         {
+            int code = 4;
             if (checkBox6.Checked)
             {
-                CheckReserve(4);
+                CheckReserve(code);
+            }
+            else
+            {
+                XuLiMuaDc(code);
             }
         }
 
         private void T2C2_Click(object sender, EventArgs e)
         {
+            int code = 5;
             if (checkBox6.Checked)
             {
-                CheckReserve(5);
+                CheckReserve(code);
+            }
+            else
+            {
+                XuLiMuaDc(code);
             }
         }
 
         private void T2C3_Click(object sender, EventArgs e)
         {
+            int code = 6;
             if (checkBox6.Checked)
             {
-                CheckReserve(6);
+                CheckReserve(code);
+            }
+            else
+            {
+                XuLiMuaDc(code);
             }
         }
 
         private void T2C4_Click(object sender, EventArgs e)
         {
+            int code = 7;
             if (checkBox6.Checked)
             {
-                CheckReserve(7);
+                CheckReserve(code);
+            }
+            else
+            {
+                XuLiMuaDc(code);
             }
         }
 
         private void T3C1_Click(object sender, EventArgs e)
         {
+            int code = 8;
             if (checkBox6.Checked)
             {
-                CheckReserve(8);
+                CheckReserve(code);
+            }
+            else
+            {
+                XuLiMuaDc(code);
             }
         }
 
         private void T3C2_Click(object sender, EventArgs e)
         {
+            int code = 9;
             if (checkBox6.Checked)
             {
-                CheckReserve(9);
+                CheckReserve(code);
+            }
+            else
+            {
+                XuLiMuaDc(code);
             }
         }
 
         private void T3C3_Click(object sender, EventArgs e)
         {
+            int code = 10;
             if (checkBox6.Checked)
             {
-                CheckReserve(10);
+                CheckReserve(code);
+            }
+            else
+            {
+                XuLiMuaDc(code);
             }
         }
         private void T3C4_Click(object sender, EventArgs e)
         {
+            int code = 11;
             if (checkBox6.Checked)
             {
-                CheckReserve(11);
+                CheckReserve(code);
+            }
+            else
+            {
+                XuLiMuaDc(code);
             }
         }
 
@@ -1136,8 +1352,8 @@ namespace TeamProject2
         {
             if (checkBox6.Checked)
             {
-                TokenG[5]--;
-                checkBox6.Text = "Gold: " + TokenG[5];
+                if (TokenG[5] > 0) checkBox6.Text = "Gold: " + (TokenG[5] - 1);
+                else checkBox6.Text = "Gold: " + TokenG[5];
                 fp3picktoken.Enabled = false;
                 fP2picktoken.Enabled = false;
             } else
@@ -1145,11 +1361,9 @@ namespace TeamProject2
             {
                 if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
                 theChoosenOne = -1;
-                TokenG[5]++;
                 checkBox6.Text = "Gold: " + TokenG[5];
                 fp3picktoken.Enabled = true;
                 fP2picktoken.Enabled = true;
-                UnableControlsToken();
             }
         }
 
