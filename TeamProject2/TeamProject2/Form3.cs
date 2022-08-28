@@ -191,6 +191,12 @@ namespace TeamProject2
         {
             Form2 f2 = new Form2();
 
+            if (l > 0)
+            {
+                MessageBox.Show(label7.Text);
+                return;
+            }
+
             f2.blackTokenBonus = Convert.ToInt32(nm[0].Value);
             f2.whiteTokenBonus = Convert.ToInt32(nm[1].Value);
             f2.redTokenBonus = Convert.ToInt32(nm[2].Value);
