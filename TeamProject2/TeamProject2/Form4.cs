@@ -70,8 +70,8 @@ namespace TeamProject2
         private void Btn_Click(object? sender, EventArgs e)
         {
             Button btnn = sender as Button;
-            btnn.BackColor = Color.LightSeaGreen;
             if (Chose != -1) btn[Chose].BackColor = Color.White;
+            btnn.BackColor = Color.LightSeaGreen;
             Chose = Convert.ToInt32(btnn.Name);
             f2.ReseverCardNum = Convert.ToInt32(btnn.Name);
         }
