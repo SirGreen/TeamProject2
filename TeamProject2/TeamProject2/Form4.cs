@@ -17,16 +17,8 @@ namespace TeamProject2
             InitializeComponent();
         }
 
-        private struct Card
-        {
-            public string gen;
-            public int point, den, w, r, g, b;
-            public bool picked;
-        }
-
         static int numCard;
         static string[] s = new string[3];
-
         public int NumReCard
         {
             get { return numCard; }
@@ -53,7 +45,6 @@ namespace TeamProject2
 
         Form2 f2 = new Form2();
 
-
         private void Form4_Load(object sender, EventArgs e)
         {
             for(int i=0;i<numCard;i++)
@@ -65,7 +56,7 @@ namespace TeamProject2
                     Text = s[i]
                 };
                 btn.Click += Btn_Click;
-
+                btn.BackColor = Color.White;
                 flowLayoutPanel1.Controls.Add(btn);
             }
             flowLayoutPanel2.Location = new Point(flowLayoutPanel1.Location.X,
@@ -75,6 +66,7 @@ namespace TeamProject2
         private void Btn_Click(object? sender, EventArgs e)
         {
             Button btn = sender as Button;
+            btn.BackColor = Color.LightSeaGreen;
             f2.ReseverCardNum = Convert.ToInt32(btn.Name);
         }
 
