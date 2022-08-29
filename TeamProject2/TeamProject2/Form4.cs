@@ -45,29 +45,35 @@ namespace TeamProject2
 
         Form2 f2 = new Form2();
 
+        Button[] btn = new Button[3];
+
         private void Form4_Load(object sender, EventArgs e)
         {
             for(int i=0;i<numCard;i++)
             {
-                Button btn = new Button()
+                btn[i] = new Button()
                 {
                     Name = i.ToString(),
                     Size = new Size(141, 250),
                     Text = s[i]
                 };
-                btn.Click += Btn_Click;
-                btn.BackColor = Color.White;
-                flowLayoutPanel1.Controls.Add(btn);
+                btn[i].Click += Btn_Click;
+                btn[i].BackColor = Color.White;
+                flowLayoutPanel1.Controls.Add(btn[i]);
             }
             flowLayoutPanel2.Location = new Point(flowLayoutPanel1.Location.X,
                 flowLayoutPanel1.Location.Y + flowLayoutPanel1.Height + 25);
         }
 
+        int Chose = -1;
+
         private void Btn_Click(object? sender, EventArgs e)
         {
-            Button btn = sender as Button;
-            btn.BackColor = Color.LightSeaGreen;
-            f2.ReseverCardNum = Convert.ToInt32(btn.Name);
+            Button btnn = sender as Button;
+            btnn.BackColor = Color.LightSeaGreen;
+            if (Chose != -1) btn[Chose].BackColor = Color.White;
+            Chose = Convert.ToInt32(btnn.Name);
+            f2.ReseverCardNum = Convert.ToInt32(btnn.Name);
         }
 
         private void button1_Click(object sender, EventArgs e)

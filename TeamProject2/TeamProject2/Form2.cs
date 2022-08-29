@@ -940,12 +940,25 @@ namespace TeamProject2
             f4.ShowDialog();
             if (isBuyingReserveCard)
             {
-                MessageBox.Show("checking");
                 CheckMuaDc(ReservedCards[currentturn, ReseverCardNum]);
                 if (muadc)
                 {
                     Card c = ReservedCards[currentturn, ReseverCardNum];
-
+                    HandleMuaBai(c);
+                    Card[] card = new Card[3];
+                    int x = 0;
+                    for (int i = 0; i < info[currentturn].NumReserving; i++)
+                        if (i != ReseverCardNum)
+                        {
+                            card[x] = ReservedCards[currentturn,i];
+                            x++;
+                        }
+                    for (int i = 0; i < x; i++)
+                        ReservedCards[currentturn, i] = card[i];
+                    info[currentturn].NumReserving--;
+                    muadc = false;
+                    fp3picktoken.Enabled = false;
+                    EndTurn_Click(sender, e);
                     MessageBox.Show("Reserved card purchased successfully");
                 } else
                 {
