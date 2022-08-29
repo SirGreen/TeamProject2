@@ -163,7 +163,7 @@ namespace TeamProject2
             set { theReserveCard = value; }
         }
 
-        pu bool isBuyingReserveCard;
+        static bool isBuyingReserveCard;
         public bool ReserveCardAction
         {
             get { return isBuyingReserveCard; }
