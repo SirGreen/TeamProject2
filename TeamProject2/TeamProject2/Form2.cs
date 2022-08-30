@@ -17,7 +17,7 @@ namespace TeamProject2
         // Variable Declaration
 
         #region var
-        private struct Card
+        public struct Card
         {
             public string gen;
             public int point, den, w, r, g, b;
@@ -34,7 +34,7 @@ namespace TeamProject2
         Nobel[] nobles = new Nobel[10];
         Button[] CButtonShowing = new Button[15];
         int theChoosenOne = -1;
-        static int Players, currentturn, maxpick = 5;
+        public static int Players, currentturn, maxpick = 5;
         static bool firstturn, changeturn = false;
         static int[] TokenG = new int[6];
         static int pick3token = 0;
@@ -155,12 +155,26 @@ namespace TeamProject2
             get { return TokenB[5]; }
             set { TokenB[5] = value; }
         }
+
+        static int theReserveCard;
+        public int ReseverCardNum
+        {
+            get { return theReserveCard; }
+            set { theReserveCard = value; }
+        }
+
+        static bool isBuyingReserveCard;
+        public bool ReserveCardAction
+        {
+            get { return isBuyingReserveCard; }
+            set { isBuyingReserveCard = value; }
+        }
+
         #endregion
         Card[] ShowingCards = new Card[12];
         Random rand = new();
         //Cards left in deck
         int[] DL = { 40, 30, 20 };
-        //biến tạm
         bool muadc;
         Card GodCard;//ko mua đc :>
 
@@ -328,7 +342,10 @@ namespace TeamProject2
 
             //////////////Turn Status/////////////
             lbTurn.Location = new Point(TokenGame.Location.X+TokenGame.Width+25, GBOPlayers.Height + 25);
-            EndTurn.Location = new Point(TokenGame.Location.X+TokenGame.Width+25, lbTurn.Location.Y + lbTurn.Height + 25);
+            EndTurn.Location = new Point(TokenGame.Location.X+TokenGame.Width+25, lbTurn.Location.Y + lbTurn.Height + 70);
+
+            ///////////////////Reserve Card//////////
+            ReserveCardbtn.Location = new Point(TokenGame.Location.X + TokenGame.Width + 25, lbTurn.Location.Y + lbTurn.Height + 25);
 
             //last noble
             x = rand.Next(10);
@@ -368,11 +385,11 @@ namespace TeamProject2
         public Form2()
         {
             InitializeComponent();
-            InitShowCards();
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
+            InitShowCards();
             PlayersSetting();
             InitTokenStatus();
             InitCkb();
@@ -691,6 +708,48 @@ namespace TeamProject2
             }
         }
 
+        private void HandleMuaBai(Card c)
+        {
+            int x = CardGenToInt(c);
+            switch (x)
+            {
+                case 1:
+                    info[currentturn].blackCard++;
+                    break;
+                case 2:
+                    info[currentturn].whiteCard++;
+                    break;
+                case 3:
+                    info[currentturn].redCard++;
+                    break;
+                case 4:
+                    info[currentturn].greenCard++;
+                    break;
+                default:
+                    info[currentturn].blueCard++;
+                    break;
+            }
+            info[currentturn].point += c.point;
+            int p = 0;
+            foreach (Label lb in fpOfCard[currentturn].Controls)
+            {
+                lb.Text = ShowCard(p, currentturn);
+                p++;
+            }
+            PointOfPlayer[currentturn].Text = "Point: " + info[currentturn].point;
+            ref PlayerInfo pl = ref info[currentturn];
+            x = currentturn;
+            TokenG[5] += pl.GoldToken - pl.GoldTemp;
+            pl.GoldToken = pl.GoldTemp;
+            TraLai(ref pl.blackToken, ref c.den, XaiHet[x, 0], ref TokenG[0], pl.blackCard);
+            TraLai(ref pl.whiteToken, ref c.w, XaiHet[x, 1], ref TokenG[1], pl.whiteCard);
+            TraLai(ref pl.redToken, ref c.r, XaiHet[x, 2], ref TokenG[2], pl.redCard);
+            TraLai(ref pl.blueToken, ref c.b, XaiHet[x, 3], ref TokenG[3], pl.blueCard);
+            TraLai(ref pl.greenToken, ref c.g, XaiHet[x, 4], ref TokenG[4], pl.greenCard);
+            ShowAgainToken();
+            ShowGameToken();
+        }
+
         private void EndTurn_Click(object sender, EventArgs e)
         {
             #region Reserve Card Check
@@ -762,49 +821,12 @@ namespace TeamProject2
             if (muadc)
             {
                 Card c = ShowingCards[theChoosenOne];
-                int x = CardGenToInt(ShowingCards[theChoosenOne]);
-                switch (x)
-                {
-                    case 1:
-                        info[currentturn].blackCard++;
-                        break;
-                    case 2:
-                        info[currentturn].whiteCard++;
-                        break;
-                    case 3:
-                        info[currentturn].redCard++;
-                        break;
-                    case 4:
-                        info[currentturn].greenCard++;
-                        break;
-                    default:
-                        info[currentturn].blueCard++;
-                        break;
-                }
-                info[currentturn].point += ShowingCards[theChoosenOne].point;
+                HandleMuaBai(c);
                 if (theChoosenOne < 4) TakeNewCard(D1, 0, theChoosenOne);
                 else
                     if (theChoosenOne > 7) TakeNewCard(D3, 2, theChoosenOne);
                 else
                     TakeNewCard(D2, 1, theChoosenOne);
-                int p = 0;
-                foreach (Label lb in fpOfCard[currentturn].Controls)
-                {
-                    lb.Text = ShowCard(p, currentturn);
-                    p++;
-                }
-                PointOfPlayer[currentturn].Text = "Point: " + info[currentturn].point;
-                ref PlayerInfo pl = ref info[currentturn];
-                x = currentturn;
-                TokenG[5] += pl.GoldToken - pl.GoldTemp;
-                pl.GoldToken = pl.GoldTemp;
-                TraLai(ref pl.blackToken, ref c.den, XaiHet[x, 0], ref TokenG[0], pl.blackCard);
-                TraLai(ref pl.whiteToken, ref c.w, XaiHet[x, 1], ref TokenG[1], pl.whiteCard);
-                TraLai(ref pl.redToken, ref c.r, XaiHet[x, 2], ref TokenG[2], pl.redCard);
-                TraLai(ref pl.blueToken, ref c.b, XaiHet[x, 3], ref TokenG[3], pl.blueCard);
-                TraLai(ref pl.greenToken, ref c.g, XaiHet[x, 4], ref TokenG[4], pl.greenCard);
-                ShowAgainToken();
-                ShowGameToken();
             }
             #endregion
 
@@ -899,6 +921,52 @@ namespace TeamProject2
             ShowAgainToken();
         }
 
+        private void ReserveCardbtn_Click(object sender, EventArgs e)
+        {
+            if (info[currentturn].NumReserving == 0)
+            {
+                MessageBox.Show("Không có reserve card để coi :vv");
+                return;
+            }
+
+            Form4 f4 = new Form4();
+
+            f4.NumReCard = info[currentturn].NumReserving;
+
+            if (info[currentturn].NumReserving > 0) f4.Text1 = ButtonShowString(ReservedCards[currentturn, 0]);
+            if (info[currentturn].NumReserving > 1) f4.Text2 = ButtonShowString(ReservedCards[currentturn, 1]);
+            if (info[currentturn].NumReserving > 2) f4.Text3 = ButtonShowString(ReservedCards[currentturn, 2]);
+
+            f4.ShowDialog();
+            if (isBuyingReserveCard)
+            {
+                CheckMuaDc(ReservedCards[currentturn, ReseverCardNum]);
+                if (muadc)
+                {
+                    Card c = ReservedCards[currentturn, ReseverCardNum];
+                    HandleMuaBai(c);
+                    Card[] card = new Card[3];
+                    int x = 0;
+                    for (int i = 0; i < info[currentturn].NumReserving; i++)
+                        if (i != ReseverCardNum)
+                        {
+                            card[x] = ReservedCards[currentturn,i];
+                            x++;
+                        }
+                    for (int i = 0; i < x; i++)
+                        ReservedCards[currentturn, i] = card[i];
+                    info[currentturn].NumReserving--;
+                    muadc = false;
+                    fp3picktoken.Enabled = false;
+                    EndTurn_Click(sender, e);
+                    MessageBox.Show("Reserved card purchased successfully");
+                } else
+                {
+                    MessageBox.Show("Can't buy card");
+                }
+            }
+        }
+
         //giá trị card của mấy cái này nằm trong mảng ShowingCards
         #region Cards' Button
         private void UpdateNewCard(Card[] D, int DeckNum, Button b, int bNum)
@@ -935,7 +1003,7 @@ namespace TeamProject2
             return false;
         }
 
-        private void CheckMuaDc(Card c)
+        public void CheckMuaDc(Card c)
         {
             muadc = false;
             info[currentturn].GoldTemp = info[currentturn].GoldToken;
@@ -1443,6 +1511,11 @@ namespace TeamProject2
                 ShowAgainToken();
             }
             checkBox2.Text = ckb.Text;
+        }
+
+        private void EndTurn_Click1(object? sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void checkBox9_CheckedChanged(object sender, EventArgs e)
