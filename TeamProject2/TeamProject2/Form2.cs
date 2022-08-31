@@ -34,8 +34,8 @@ namespace TeamProject2
         Nobel[] nobles = new Nobel[10];
         Button[] CButtonShowing = new Button[15];
         int theChoosenOne = -1;
-        public static int Players, currentturn, maxpick = 5;
-        static bool firstturn, changeturn = false;
+        public static int Players, currentturn, maxpick = 5, firstplayer;
+        static bool firstturn, changeturn = false, isWin = false;
         static int[] TokenG = new int[6];
         static int pick3token = 0;
 
@@ -44,7 +44,7 @@ namespace TeamProject2
             public int id = 0, point = 0, NumReserving = 0;
 
             public int blackToken = 0, whiteToken = 0, redToken = 0, blueToken = 0, greenToken = 0, GoldToken = 0, GoldTemp = 0;
-            public int blackCard = 0, whiteCard = 0, redCard = 0, blueCard = 0, greenCard = 0, GoldCard = 0; 
+            public int blackCard = 0, whiteCard = 0, redCard = 0, blueCard = 0, greenCard = 0, GoldCard = 0;
 
             /* 
             * 0: black
@@ -62,7 +62,7 @@ namespace TeamProject2
         }
         public bool[,] XaiHet = new bool[4, 5];
         public PlayerInfo[] info = new PlayerInfo[4];
-        
+
         GroupBox[] gbOfPlayer = new GroupBox[4];
         GroupBox[] gbOfToken = new GroupBox[4];
         GroupBox[] gbOfCard = new GroupBox[4];
@@ -75,10 +75,10 @@ namespace TeamProject2
 
         #region hmm
         public int NumOfPlayers
-            {
-                get { return Players; }
-                set { Players = value; }
-            }
+        {
+            get { return Players; }
+            set { Players = value; }
+        }
 
         static int[] TokenL = new int[6];
 
@@ -214,7 +214,7 @@ namespace TeamProject2
 
         public string ShowToken(int x, int y)
         {
-            switch(x)
+            switch (x)
             {
                 case 0: return "Black: " + info[y].blackToken.ToString();
                 case 1: return "White: " + info[y].whiteToken.ToString();
@@ -225,13 +225,13 @@ namespace TeamProject2
             }
         }
 
-        private void AddToken(FlowLayoutPanel fP,int x)
+        private void AddToken(FlowLayoutPanel fP, int x)
         {
             for (int i = 0; i < 6; i++)
             {
                 Label lb = new Label()
                 {
-                    Text = ShowToken(i,x)
+                    Text = ShowToken(i, x)
                 };
                 fP.Controls.Add(lb);
             }
@@ -248,7 +248,7 @@ namespace TeamProject2
             firstturn = true;
             int x = rand.Next(10);
 
-            for (int i = 0; i < Players; i++) 
+            for (int i = 0; i < Players; i++)
             {
                 NoblesShowing[i] = new();
                 NoblesShowing[i].AutoSize = true;
@@ -258,18 +258,18 @@ namespace TeamProject2
                 NoblesfP.Controls.Add(NoblesShowing[i]);
 
                 ////Players////////////////////////////////////////
-                
+
                 info[i].id = i + 1;
 
                 gbOfPlayer[i] = new GroupBox()
                 {
                     AutoSize = true,
-                    Text = "Player " + info[i].id.ToString() 
+                    Text = "Player " + info[i].id.ToString()
                 };
 
                 fpOfPlayer[i] = new FlowLayoutPanel()
                 {
-                    Location = new Point(gbOfPlayer[i].Location.X+10, gbOfPlayer[i].Location.Y + 50),
+                    Location = new Point(gbOfPlayer[i].Location.X + 10, gbOfPlayer[i].Location.Y + 50),
                     AutoSize = true
                 };
                 gbOfPlayer[i].Controls.Add(fpOfPlayer[i]);
@@ -307,7 +307,7 @@ namespace TeamProject2
                     Location = new Point(gbOfCard[i].Location.X + 10, gbOfCard[i].Location.Y + 25),
                     Width = 120,
                     Height = 150,
-                    AutoScroll =true
+                    AutoScroll = true
                 };
 
                 AddCard(fpOfCard[i], i);
@@ -326,7 +326,7 @@ namespace TeamProject2
                 fpOfPlayer[i].Controls.Add(gbOfToken[i]);
 
                 ////////Add to form/////
-                FPOP.Controls.Add(gbOfPlayer[i]);   
+                FPOP.Controls.Add(gbOfPlayer[i]);
             }
 
             GBOPlayers.Location = new Point(10, 0);
@@ -335,14 +335,14 @@ namespace TeamProject2
             CardGame.Location = new Point(10, GBOPlayers.Height + 25);
 
             //////////TokenGame///////////////
-            TokenGame.Location = new Point(CardGame.Width+25,GBOPlayers.Height + 25);
+            TokenGame.Location = new Point(CardGame.Width + 25, GBOPlayers.Height + 25);
 
             //Nobles' panel
             NoblesBox.Location = new Point(CardGame.Width + 25, GBOPlayers.Height + TokenGame.Height + 30);
 
             //////////////Turn Status/////////////
-            lbTurn.Location = new Point(TokenGame.Location.X+TokenGame.Width+25, GBOPlayers.Height + 25);
-            EndTurn.Location = new Point(TokenGame.Location.X+TokenGame.Width+25, lbTurn.Location.Y + lbTurn.Height + 70);
+            lbTurn.Location = new Point(TokenGame.Location.X + TokenGame.Width + 25, GBOPlayers.Height + 25);
+            EndTurn.Location = new Point(TokenGame.Location.X + TokenGame.Width + 25, lbTurn.Location.Y + lbTurn.Height + 70);
 
             ///////////////////Reserve Card//////////
             ReserveCardbtn.Location = new Point(TokenGame.Location.X + TokenGame.Width + 25, lbTurn.Location.Y + lbTurn.Height + 25);
@@ -354,6 +354,8 @@ namespace TeamProject2
             while (nobles[x].picked) x = rand.Next(10);
             NoblesShowing[Players].Text = NoblesToText(nobles[x]);
             NoblesfP.Controls.Add(NoblesShowing[Players]);
+
+            isWin = false;
         }
 
         private void ShowTurnStatus(int k)
@@ -363,10 +365,12 @@ namespace TeamProject2
 
         private void NextTurn()
         {
-            if(firstturn)
+            if (firstturn)
             {
                 Random rand = new Random();
                 currentturn = rand.Next(0, Players);
+                firstplayer = currentturn;
+
                 ShowTurnStatus(currentturn);
 
                 firstturn = false;
@@ -408,12 +412,12 @@ namespace TeamProject2
         #region Showing Card on Button
         //Use decknumber -1 for DeckNum
         private Card TakeCardFromDeck(Card[] Deck, int DeckNum)
-        {          
-            DL[DeckNum]--; 
+        {
+            DL[DeckNum]--;
             int i = rand.Next(Deck.Length);
             while (i < Deck.Length && Deck[i].picked) i++;
             if (i == Deck.Length) i = 0;
-            while(Deck[i].picked) i++;
+            while (Deck[i].picked) i++;
             Deck[i].picked = true;
             return Deck[i];
         }
@@ -481,7 +485,7 @@ namespace TeamProject2
             TakeNewCard(D3, 2, 8);
             TakeNewCard(D3, 2, 9);
             TakeNewCard(D3, 2, 10);
-            TakeNewCard(D3, 2, 11);            
+            TakeNewCard(D3, 2, 11);
         }
 
         void InitTokenStatus()
@@ -586,10 +590,10 @@ namespace TeamProject2
         private void ReadNoblesFile()
         {
             string[] s2 = File.ReadAllLines("Nobles.txt");
-            int i = 0,l=0;
+            int i = 0, l = 0;
             foreach (string s in s2)
                 if (s != "")
-            {
+                {
                     switch (l)
                     {
                         case 0:
@@ -614,7 +618,7 @@ namespace TeamProject2
                             break;
                     }
                     if (l == 5) { nobles[i].picked = false; i++; l = 0; };
-            }
+                }
         }
         #endregion
 
@@ -658,9 +662,9 @@ namespace TeamProject2
 
         private void UnableControlsToken()
         {
-            for (int i = 0; i < 5; i++) 
+            for (int i = 0; i < 5; i++)
             {
-                if (TokenG[i] < 4) 
+                if (TokenG[i] < 4)
                 {
                     if (!ckb[i].Checked && !ckb[i + 5].Checked)
                     {
@@ -699,10 +703,11 @@ namespace TeamProject2
             {
                 GameToken += token;
                 token = 0;
-            } else
+            }
+            else
             {
                 int x = 0;
-                if (pay - dis > 0) x = pay - dis; 
+                if (pay - dis > 0) x = pay - dis;
                 GameToken += x;
                 token -= x;
             }
@@ -790,26 +795,28 @@ namespace TeamProject2
                     info[currentturn].NumReserving++;
                 }
                 else
-                if (theChoosenOne == 13) 
+                if (theChoosenOne == 13)
                 {
                     Card card = TakeCardFromDeck(D2, 1);
                     DL[1]--;
                     ReservedCards[currentturn, info[currentturn].NumReserving] = card;
                     info[currentturn].NumReserving++;
                 }
-                if (theChoosenOne == 14) 
+                if (theChoosenOne == 14)
                 {
                     Card card = TakeCardFromDeck(D3, 2);
                     DL[2]--;
                     ReservedCards[currentturn, info[currentturn].NumReserving] = card;
                     info[currentturn].NumReserving++;
                 }
-            } else
+            }
+            else
                 if (checkBox6.Checked && info[currentturn].NumReserving < 3)
             {
                 MessageBox.Show("Please choose a card to reserve! >:(");
                 return;
-            } else
+            }
+            else
                 if (checkBox6.Checked)
             {
                 MessageBox.Show("Quá 3 lá rồi :<");
@@ -834,7 +841,7 @@ namespace TeamProject2
             muadc = false;
             theChoosenOne = -1;
 
-            #region đồ của god
+            #region Check Token
             maxpick = 5;
             int i = 0;
             foreach (CheckBox item in fp3picktoken.Controls)
@@ -845,7 +852,7 @@ namespace TeamProject2
 
             maxpick = Math.Min(3, maxpick);
 
-            if (pick3token < maxpick && fp3picktoken.Enabled == true) 
+            if (pick3token < maxpick && fp3picktoken.Enabled == true)
             {
                 MessageBox.Show("Pick thêm đi :v");
                 return;
@@ -853,7 +860,7 @@ namespace TeamProject2
 
             changeturn = true;
             pick3token = 0;
-            
+
 
             ///check token>10
 
@@ -867,6 +874,33 @@ namespace TeamProject2
             UnableControlsToken();
             #endregion
 
+            #region Check Win
+
+            if (isWin && currentturn == firstplayer)
+            {
+                DialogResult result = MessageBox.Show("Game End!", "Notification", MessageBoxButtons.OK);
+                if (result == DialogResult.OK) this.Close();
+            }
+
+            if (info[currentturn].point >= 16)
+            {
+                MessageBox.Show("Player " + info[currentturn].id + " win!!! Please finish remaining turns!");
+                Label lb = new Label()
+                {
+                    AutoSize = true,
+                    Text = "Please finish remaining turns!",
+                    Location = new Point(EndTurn.Location.X, EndTurn.Location.Y + EndTurn.Height + 25),
+                };
+                this.Controls.Add(lb);
+                isWin = true;
+
+                firstplayer--;
+                if (firstplayer < 0) firstplayer = Players - 1;
+            }
+
+
+
+            #endregion
             NextTurn();
             changeturn = false;
         }
@@ -894,7 +928,7 @@ namespace TeamProject2
             info[currentturn].GoldToken = TokenL[5];
 
             int i = 0;
-            foreach(Label lb in fpOfToken[currentturn].Controls)
+            foreach (Label lb in fpOfToken[currentturn].Controls)
             {
                 lb.Text = ShowToken(i, currentturn);
                 TokenG[i] += TokenB[i];
@@ -950,7 +984,7 @@ namespace TeamProject2
                     for (int i = 0; i < info[currentturn].NumReserving; i++)
                         if (i != ReseverCardNum)
                         {
-                            card[x] = ReservedCards[currentturn,i];
+                            card[x] = ReservedCards[currentturn, i];
                             x++;
                         }
                     for (int i = 0; i < x; i++)
@@ -960,7 +994,8 @@ namespace TeamProject2
                     fp3picktoken.Enabled = false;
                     EndTurn_Click(sender, e);
                     MessageBox.Show("Reserved card purchased successfully");
-                } else
+                }
+                else
                 {
                     MessageBox.Show("Can't buy card");
                 }
@@ -1049,7 +1084,8 @@ namespace TeamProject2
             if (checkBox6.Checked)
             {
                 CheckReserve(code);
-            } else
+            }
+            else
             {
                 XuLiMuaDc(code);
             }
@@ -1203,7 +1239,7 @@ namespace TeamProject2
             if (checkBox6.Checked)
             {
                 if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
-                if (DL[0] <= 0) 
+                if (DL[0] <= 0)
                 {
                     MessageBox.Show("Deck empty :<");
                     T1D.Text = "Deck 1 empty";
@@ -1253,11 +1289,11 @@ namespace TeamProject2
         private void Pick3()
         {
             pick3token++;
-            if(pick3token==3)
+            if (pick3token == 3)
             {
-                foreach(CheckBox item in fp3picktoken.Controls)
+                foreach (CheckBox item in fp3picktoken.Controls)
                 {
-                    if(!item.Checked)
+                    if (!item.Checked)
                     {
                         item.Enabled = false;
                     }
@@ -1275,7 +1311,7 @@ namespace TeamProject2
                     item.Enabled = true;
                 }
             }
-            if(pick3token==0)
+            if (pick3token == 0)
             {
                 fP2picktoken.Enabled = true;
                 CardGame.Enabled = true;
@@ -1424,7 +1460,8 @@ namespace TeamProject2
                 else checkBox6.Text = "Gold: " + TokenG[5];
                 fp3picktoken.Enabled = false;
                 fP2picktoken.Enabled = false;
-            } else
+            }
+            else
             if (!changeturn)
             {
                 if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
@@ -1448,7 +1485,7 @@ namespace TeamProject2
                 ///Unable 
                 fp3picktoken.Enabled = false;
                 CardGame.Enabled = false;
-                foreach (CheckBox item in fP2picktoken.Controls) 
+                foreach (CheckBox item in fP2picktoken.Controls)
                     if (!item.Checked) item.Enabled = false;
                 checkBox6.Enabled = false;
 
@@ -1513,10 +1550,6 @@ namespace TeamProject2
             checkBox2.Text = ckb.Text;
         }
 
-        private void EndTurn_Click1(object? sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
 
         private void checkBox9_CheckedChanged(object sender, EventArgs e)
         {
