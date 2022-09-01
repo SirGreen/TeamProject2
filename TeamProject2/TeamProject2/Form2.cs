@@ -975,7 +975,7 @@ namespace TeamProject2
             if (isBuyingReserveCard)
             {
                 CheckMuaDc(ReservedCards[currentturn, ReseverCardNum]);
-                if (muadc)
+                if (muadc && !fp3picktoken.Enabled && !CardGame.Enabled)
                 {
                     Card c = ReservedCards[currentturn, ReseverCardNum];
                     HandleMuaBai(c);
@@ -1032,7 +1032,7 @@ namespace TeamProject2
             if (token < canmua - dis)
             {
                 if (token + vang < canmua - dis) return true;
-                vang -= canmua - token;
+                vang -= (canmua - dis) - token ;
                 XaiHet[z, x] = true;
             }
             return false;
