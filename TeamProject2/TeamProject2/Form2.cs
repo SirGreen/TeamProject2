@@ -899,6 +899,7 @@ namespace TeamProject2
                         p.point += 3;
                         PointOfPlayer[currentturn].Text = "Point: " + p.point;
                         MessageBox.Show("You've just earned a noble's trust :O");
+                        break;
                     }
             }
             #endregion
@@ -1005,7 +1006,7 @@ namespace TeamProject2
             if (isBuyingReserveCard)
             {
                 CheckMuaDc(ReservedCards[currentturn, ReseverCardNum]);
-                if (muadc && !fp3picktoken.Enabled && !CardGame.Enabled)
+                if (muadc && fp3picktoken.Enabled && CardGame.Enabled)
                 {
                     Card c = ReservedCards[currentturn, ReseverCardNum];
                     HandleMuaBai(c);
