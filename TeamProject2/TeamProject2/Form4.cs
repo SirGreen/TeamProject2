@@ -49,7 +49,7 @@ namespace TeamProject2
 
         private void Form4_Load(object sender, EventArgs e)
         {
-            for(int i=0;i<numCard;i++)
+            for (int i = 0; i < numCard; i++) 
             {
                 btn[i] = new Button()
                 {

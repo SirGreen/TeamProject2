@@ -17,6 +17,7 @@ namespace TeamProject2
         // Variable Declaration
 
         #region var
+        int NobleNum = Players + 1;
         public struct Card
         {
             public string gen;
@@ -26,12 +27,13 @@ namespace TeamProject2
         Card[] D1 = new Card[40];
         Card[] D2 = new Card[30];
         Card[] D3 = new Card[20];
-        public struct Nobel
+        public struct Noble
         {
             public int den, w, r, g, b;
             public bool picked;
         }
-        Nobel[] nobles = new Nobel[10];
+        Noble[] nobles = new Noble[10];
+        Noble[] nb = new Noble[5];
         Button[] CButtonShowing = new Button[15];
         int theChoosenOne = -1;
         public static int Players, currentturn, maxpick = 5, firstplayer;
@@ -247,13 +249,16 @@ namespace TeamProject2
         {
             firstturn = true;
             int x = rand.Next(10);
-
+            int br = 0;
             for (int i = 0; i < Players; i++)
             {
                 NoblesShowing[i] = new();
                 NoblesShowing[i].AutoSize = true;
                 while (nobles[x].picked) x = rand.Next(10);
                 nobles[x].picked = true;
+                nb[br] = nobles[x];
+                nb[br].picked = false;
+                br++;
                 NoblesShowing[i].Text = NoblesToText(nobles[x]);
                 NoblesfP.Controls.Add(NoblesShowing[i]);
 
@@ -354,7 +359,9 @@ namespace TeamProject2
             while (nobles[x].picked) x = rand.Next(10);
             NoblesShowing[Players].Text = NoblesToText(nobles[x]);
             NoblesfP.Controls.Add(NoblesShowing[Players]);
-
+            nb[br] = nobles[x];
+            nb[br].picked = false;
+            br++;
             isWin = false;
         }
 
@@ -403,7 +410,7 @@ namespace TeamProject2
 
         #region NoblesInit
         //Translate nobles to text
-        private string NoblesToText(Nobel n)
+        private string NoblesToText(Noble n)
         {
             return $"3 points \r\n Black: {n.den}\r\n White: {n.w}\r\n Red: {n.r}\r\n Blue: {n.b}\r\n Green: {n.g}";
         }
@@ -874,6 +881,29 @@ namespace TeamProject2
             UnableControlsToken();
             #endregion
 
+            #region CheckNoble
+            for (int q = 0; q <=Players; q++)
+                if (!nb[q].picked)
+            {
+                    int c = 0;
+                    ref PlayerInfo p = ref info[currentturn];
+                    if (p.whiteCard >= nb[q].w) c++;
+                    if (p.blackCard >= nb[q].den) c++;
+                    if (p.redCard >= nb[q].r) c++;
+                    if (p.greenCard >= nb[q].g) c++;
+                    if (p.blueCard >= nb[q].b) c++;
+                    if (c==5)
+                    {
+                        nb[q].picked = true;
+                        NoblesfP.Controls.Remove(NoblesShowing[q]);
+                        p.point += 3;
+                        PointOfPlayer[currentturn].Text = "Point: " + p.point;
+                        MessageBox.Show("You've just earned a noble's trust :O");
+                        break;
+                    }
+            }
+            #endregion
+
             #region Check Win
 
             if (isWin && currentturn == firstplayer)
@@ -901,6 +931,7 @@ namespace TeamProject2
 
 
             #endregion
+
             NextTurn();
             changeturn = false;
         }
@@ -975,7 +1006,7 @@ namespace TeamProject2
             if (isBuyingReserveCard)
             {
                 CheckMuaDc(ReservedCards[currentturn, ReseverCardNum]);
-                if (muadc)
+                if (muadc && fp3picktoken.Enabled && CardGame.Enabled)
                 {
                     Card c = ReservedCards[currentturn, ReseverCardNum];
                     HandleMuaBai(c);
@@ -1032,7 +1063,7 @@ namespace TeamProject2
             if (token < canmua - dis)
             {
                 if (token + vang < canmua - dis) return true;
-                vang -= canmua - token;
+                vang -= (canmua - dis) - token ;
                 XaiHet[z, x] = true;
             }
             return false;
@@ -1235,53 +1266,56 @@ namespace TeamProject2
 
         private void T1D_Click(object sender, EventArgs e)
         {
-            CButtonShowing[12] = sender as Button;
-            if (checkBox6.Checked)
+            int code = 12, dn = 0 ;
+            CButtonShowing[code] = sender as Button;
+            checkBox6.Checked = true;
+            if (TokenG[5] > 0) checkBox6.Text = "Gold: " + (TokenG[5] - 1);
+            else checkBox6.Text = "Gold: 0";
+            if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+            if (DL[dn] <= 0)
             {
-                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
-                if (DL[0] <= 0)
-                {
-                    MessageBox.Show("Deck empty :<");
-                    T1D.Text = "Deck 1 empty";
-                    return;
-                }
-                CButtonShowing[12].BackColor = Color.Yellow;
-                theChoosenOne = 12;
+                MessageBox.Show("Deck empty :<");
+                T1D.Text = "Deck 1 empty";
+                return;
             }
+            CButtonShowing[code].BackColor = Color.Yellow;
+            theChoosenOne = code;
         }
 
         private void T2D_Click(object sender, EventArgs e)
         {
-            CButtonShowing[13] = sender as Button;
-            if (checkBox6.Checked)
+            int code = 13, dn = 1;
+            CButtonShowing[code] = sender as Button;
+            checkBox6.Checked = true;
+            if (TokenG[5] > 0) checkBox6.Text = "Gold: " + (TokenG[5] - 1);
+            else checkBox6.Text = "Gold: 0";
+            if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+            if (DL[dn] <= 0)
             {
-                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
-                if (DL[1] <= 0)
-                {
-                    MessageBox.Show("Deck empty :<");
-                    T2D.Text = "Deck 2 empty";
-                    return;
-                }
-                CButtonShowing[13].BackColor = Color.Yellow;
-                theChoosenOne = 13;
+                MessageBox.Show("Deck empty :<");
+                T1D.Text = "Deck 2 empty";
+                return;
             }
+            CButtonShowing[code].BackColor = Color.Yellow;
+            theChoosenOne = code;
         }
 
         private void T3D_Click(object sender, EventArgs e)
         {
-            CButtonShowing[14] = sender as Button;
-            if (checkBox6.Checked)
+            int code = 14, dn = 2;
+            CButtonShowing[code] = sender as Button;
+            checkBox6.Checked = true;
+            if (TokenG[5] > 0) checkBox6.Text = "Gold: " + (TokenG[5] - 1);
+            else checkBox6.Text = "Gold: 0";
+            if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+            if (DL[dn] <= 0)
             {
-                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
-                if (DL[2] <= 0)
-                {
-                    MessageBox.Show("Deck empty :<");
-                    T3D.Text = "Deck 3 empty";
-                    return;
-                }
-                CButtonShowing[14].BackColor = Color.Yellow;
-                theChoosenOne = 14;
+                MessageBox.Show("Deck empty :<");
+                T1D.Text = "Deck 3 empty";
+                return;
             }
+            CButtonShowing[code].BackColor = Color.Yellow;
+            theChoosenOne = code;
         }
         #endregion
 
