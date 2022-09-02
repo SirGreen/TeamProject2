@@ -912,7 +912,7 @@ namespace TeamProject2
                 if (result == DialogResult.OK) this.Close();
             }
 
-            if (info[currentturn].point >= 16)
+            if (info[currentturn].point >= 15 && !isWin)
             {
                 MessageBox.Show("Player " + info[currentturn].id + " win!!! Please finish remaining turns!");
                 Label lb = new Label()
