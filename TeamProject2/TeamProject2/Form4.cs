@@ -47,6 +47,8 @@ namespace TeamProject2
 
         Button[] btn = new Button[3];
 
+        int crntt = Form2.currentturn;
+
         private void Form4_Load(object sender, EventArgs e)
         {
             for (int i = 0; i < numCard; i++) 
@@ -54,15 +56,19 @@ namespace TeamProject2
                 btn[i] = new Button()
                 {
                     Name = i.ToString(),
-                    Size = new Size(141, 250),
+                    Size = new Size(110, 190),
                     Text = s[i]
                 };
                 btn[i].Click += Btn_Click;
-                btn[i].BackColor = Color.White;
+
+                Form2.Card card = Form2.ReservedCards[crntt, i];
+                Form2.BtnCardColor(btn[i], card);
+
                 flowLayoutPanel1.Controls.Add(btn[i]);
             }
-            flowLayoutPanel2.Location = new Point(flowLayoutPanel1.Location.X,
-                flowLayoutPanel1.Location.Y + flowLayoutPanel1.Height + 25);
+            int x = flowLayoutPanel1.Location.X + (flowLayoutPanel1.Size.Width / 2) - 120;
+            if (x < flowLayoutPanel1.Location.X + 15) x = flowLayoutPanel1.Location.X;
+            flowLayoutPanel2.Location = new Point(x, flowLayoutPanel1.Location.Y + flowLayoutPanel1.Height + 25);
         }
 
         int Chose = -1;
@@ -70,7 +76,7 @@ namespace TeamProject2
         private void Btn_Click(object? sender, EventArgs e)
         {
             Button btnn = sender as Button;
-            if (Chose != -1) btn[Chose].BackColor = Color.White;
+            if (Chose != -1) Form2.BtnCardColor(btn[Chose], Form2.ReservedCards[crntt,Chose]); 
             btnn.BackColor = Color.LightSeaGreen;
             Chose = Convert.ToInt32(btnn.Name);
             f2.ReseverCardNum = Convert.ToInt32(btnn.Name);

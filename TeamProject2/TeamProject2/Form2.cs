@@ -183,7 +183,7 @@ namespace TeamProject2
         //chỗ chứa nobles
         Label[] NoblesShowing = new Label[5];
 
-        Card[,] ReservedCards = new Card[4, 3];
+        public static Card[,] ReservedCards = new Card[4, 3];
         #endregion
 
         //private
@@ -412,7 +412,7 @@ namespace TeamProject2
         //Translate nobles to text
         private string NoblesToText(Noble n)
         {
-            return $"3 points \r\n Black: {n.den}\r\n White: {n.w}\r\n Red: {n.r}\r\n Blue: {n.b}\r\n Green: {n.g}";
+            return $"3 points \r\nBlack: {n.den}\r\nWhite: {n.w}\r\nRed: {n.r}\r\nBlue: {n.b}\r\nGreen: {n.g}";
         }
         #endregion
 
@@ -440,14 +440,17 @@ namespace TeamProject2
             if (DL[DeckNum] <= 0)
             {
                 CButtonShowing[x].Text = "Deck out of card :<";
+                CButtonShowing[x].BackColor = SystemColors.ButtonHighlight;
                 ShowingCards[x] = GodCard;
                 return;
             }
             Card card = TakeCardFromDeck(Deck, DeckNum);
             CButtonShowing[x].Text = ButtonShowString(card);
             ShowingCards[x] = card;
+
+            BtnCardColor(CButtonShowing[x], card);
         }
-        private int CardGenToInt(Card c)
+        private static int CardGenToInt(Card c)
         {
             switch (c.gen)
             {
@@ -458,6 +461,30 @@ namespace TeamProject2
                 case "Blue": return 5;
             }
             return 0;
+        }
+
+        
+        public static void BtnCardColor(Button btn, Card c)
+        {
+            int i = CardGenToInt(c);
+            switch (i)
+            {
+                case 1:
+                    btn.BackColor = Color.LightGray;
+                    break;
+                case 2:
+                    btn.BackColor = Color.White;
+                    break;
+                case 3:
+                    btn.BackColor = Color.FromArgb(255, 192, 192);      //Red
+                    break;
+                case 4:
+                    btn.BackColor = Color.FromArgb(192, 255, 192);      //Green
+                    break;
+                case 5:
+                    btn.BackColor = Color.FromArgb(190, 231, 254);      //Blue
+                    break;
+            }
         }
         #endregion
 
@@ -844,7 +871,7 @@ namespace TeamProject2
             }
             #endregion
 
-            if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+            if (theChoosenOne != -1) BtnCardColor(CButtonShowing[theChoosenOne], ShowingCards[theChoosenOne]); 
             muadc = false;
             theChoosenOne = -1;
 
@@ -919,6 +946,7 @@ namespace TeamProject2
                 {
                     AutoSize = true,
                     Text = "Please finish remaining turns!",
+                    Font = new Font("Consolas", 10F, FontStyle.Bold, GraphicsUnit.Point),
                     Location = new Point(EndTurn.Location.X, EndTurn.Location.Y + EndTurn.Height + 25),
                 };
                 this.Controls.Add(lb);
@@ -1040,18 +1068,22 @@ namespace TeamProject2
             if (DL[DeckNum] == 0)
             {
                 b.Text = "Deck out of cards :<";
+                b.BackColor = SystemColors.ButtonHighlight;
                 ShowingCards[bNum] = GodCard;
+                return;
             }
             DL[DeckNum]--;
             Card card = TakeCardFromDeck(D, DeckNum);
             b.Text = ButtonShowString(card);
             ShowingCards[bNum] = card;
+
         }
 
         private void CheckReserve(int x)
         {
             if (ShowingCards[x].g == 1000) return;
-            if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+            if (theChoosenOne != -1 && theChoosenOne < 12) BtnCardColor(CButtonShowing[theChoosenOne], ShowingCards[theChoosenOne]);
+            else if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = Color.GhostWhite;
             CButtonShowing[x].BackColor = Color.Yellow;
             theChoosenOne = x;
         }
@@ -1087,7 +1119,8 @@ namespace TeamProject2
             if (muadc && theChoosenOne == x)
             {
                 muadc = false;
-                CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+                if (theChoosenOne != -1 && theChoosenOne < 12) BtnCardColor(CButtonShowing[theChoosenOne], ShowingCards[theChoosenOne]);
+                else if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = Color.GhostWhite;
                 fp3picktoken.Enabled = true;
                 fP2picktoken.Enabled = true;
                 theChoosenOne = -1;
@@ -1096,7 +1129,8 @@ namespace TeamProject2
             CheckMuaDc(ShowingCards[x]);
             if (muadc)
             {
-                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+                if (theChoosenOne != -1 && theChoosenOne < 12) BtnCardColor(CButtonShowing[theChoosenOne], ShowingCards[theChoosenOne]);
+                else if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = Color.GhostWhite;
                 theChoosenOne = x;
                 CButtonShowing[x].BackColor = Color.LightSeaGreen;
                 fp3picktoken.Enabled = false;
@@ -1271,7 +1305,8 @@ namespace TeamProject2
             checkBox6.Checked = true;
             if (TokenG[5] > 0) checkBox6.Text = "Gold: " + (TokenG[5] - 1);
             else checkBox6.Text = "Gold: 0";
-            if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+            if (theChoosenOne != -1 && theChoosenOne < 12) BtnCardColor(CButtonShowing[theChoosenOne], ShowingCards[theChoosenOne]);
+            else if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = Color.GhostWhite;
             if (DL[dn] <= 0)
             {
                 MessageBox.Show("Deck empty :<");
@@ -1289,7 +1324,8 @@ namespace TeamProject2
             checkBox6.Checked = true;
             if (TokenG[5] > 0) checkBox6.Text = "Gold: " + (TokenG[5] - 1);
             else checkBox6.Text = "Gold: 0";
-            if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+            if (theChoosenOne != -1 && theChoosenOne < 12) BtnCardColor(CButtonShowing[theChoosenOne], ShowingCards[theChoosenOne]);
+            else if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = Color.GhostWhite;
             if (DL[dn] <= 0)
             {
                 MessageBox.Show("Deck empty :<");
@@ -1307,7 +1343,8 @@ namespace TeamProject2
             checkBox6.Checked = true;
             if (TokenG[5] > 0) checkBox6.Text = "Gold: " + (TokenG[5] - 1);
             else checkBox6.Text = "Gold: 0";
-            if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+            if (theChoosenOne != -1 && theChoosenOne < 12) BtnCardColor(CButtonShowing[theChoosenOne], ShowingCards[theChoosenOne]);
+            else if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = Color.GhostWhite;
             if (DL[dn] <= 0)
             {
                 MessageBox.Show("Deck empty :<");
@@ -1498,7 +1535,8 @@ namespace TeamProject2
             else
             if (!changeturn)
             {
-                if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = SystemColors.ButtonHighlight;
+                if (theChoosenOne != -1 && theChoosenOne < 12) BtnCardColor(CButtonShowing[theChoosenOne], ShowingCards[theChoosenOne]);
+                else if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = Color.GhostWhite;
                 theChoosenOne = -1;
                 checkBox6.Text = "Gold: " + TokenG[5];
                 fp3picktoken.Enabled = true;
