@@ -68,7 +68,6 @@
             this.EndTurn = new System.Windows.Forms.Button();
             this.NoblesBox = new System.Windows.Forms.GroupBox();
             this.NoblesfP = new System.Windows.Forms.FlowLayoutPanel();
-            this.GodBut = new System.Windows.Forms.Button();
             this.ReserveCardbtn = new System.Windows.Forms.Button();
             this.GBOPlayers.SuspendLayout();
             this.TokenGame.SuspendLayout();
@@ -145,6 +144,7 @@
             this.gb3pick.AutoSize = true;
             this.gb3pick.Controls.Add(this.fp3picktoken);
             this.gb3pick.Font = new System.Drawing.Font("Consolas", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.gb3pick.ForeColor = System.Drawing.Color.MediumVioletRed;
             this.gb3pick.Location = new System.Drawing.Point(6, 2);
             this.gb3pick.Margin = new System.Windows.Forms.Padding(2);
             this.gb3pick.Name = "gb3pick";
@@ -161,6 +161,7 @@
             this.fp3picktoken.Controls.Add(this.checkBox3);
             this.fp3picktoken.Controls.Add(this.checkBox4);
             this.fp3picktoken.Controls.Add(this.checkBox5);
+            this.fp3picktoken.ForeColor = System.Drawing.SystemColors.ControlText;
             this.fp3picktoken.Location = new System.Drawing.Point(5, 24);
             this.fp3picktoken.Margin = new System.Windows.Forms.Padding(2);
             this.fp3picktoken.Name = "fp3picktoken";
@@ -170,13 +171,15 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
+            this.checkBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.checkBox1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.checkBox1.Location = new System.Drawing.Point(3, 4);
             this.checkBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(112, 24);
             this.checkBox1.TabIndex = 0;
             this.checkBox1.Text = "checkBox1";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.UseVisualStyleBackColor = false;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // checkBox2
@@ -232,6 +235,7 @@
             this.gb2pick.AutoSize = true;
             this.gb2pick.Controls.Add(this.fP2picktoken);
             this.gb2pick.Font = new System.Drawing.Font("Consolas", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.gb2pick.ForeColor = System.Drawing.Color.Chocolate;
             this.gb2pick.Location = new System.Drawing.Point(125, 2);
             this.gb2pick.Margin = new System.Windows.Forms.Padding(2);
             this.gb2pick.Name = "gb2pick";
@@ -248,6 +252,7 @@
             this.fP2picktoken.Controls.Add(this.checkBox9);
             this.fP2picktoken.Controls.Add(this.checkBox10);
             this.fP2picktoken.Controls.Add(this.checkBox11);
+            this.fP2picktoken.ForeColor = System.Drawing.SystemColors.ControlText;
             this.fP2picktoken.Location = new System.Drawing.Point(5, 24);
             this.fP2picktoken.Margin = new System.Windows.Forms.Padding(2);
             this.fP2picktoken.Name = "fP2picktoken";
@@ -317,6 +322,7 @@
             // checkBox6
             // 
             this.checkBox6.AutoSize = true;
+            this.checkBox6.BackColor = System.Drawing.SystemColors.Control;
             this.checkBox6.Font = new System.Drawing.Font("Consolas", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.checkBox6.Location = new System.Drawing.Point(3, 246);
             this.checkBox6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -324,7 +330,7 @@
             this.checkBox6.Size = new System.Drawing.Size(112, 24);
             this.checkBox6.TabIndex = 5;
             this.checkBox6.Text = "checkBox6";
-            this.checkBox6.UseVisualStyleBackColor = true;
+            this.checkBox6.UseVisualStyleBackColor = false;
             this.checkBox6.CheckedChanged += new System.EventHandler(this.checkBox6_CheckedChanged);
             // 
             // CardGame
@@ -410,7 +416,8 @@
             // T3D
             // 
             this.T3D.BackColor = System.Drawing.Color.GhostWhite;
-            this.T3D.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.T3D.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.T3D.ForeColor = System.Drawing.SystemColors.ControlText;
             this.T3D.Location = new System.Drawing.Point(8, 424);
             this.T3D.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.T3D.Name = "T3D";
@@ -475,7 +482,8 @@
             // T2D
             // 
             this.T2D.BackColor = System.Drawing.Color.GhostWhite;
-            this.T2D.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.T2D.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.T2D.ForeColor = System.Drawing.SystemColors.ControlText;
             this.T2D.Location = new System.Drawing.Point(8, 226);
             this.T2D.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.T2D.Name = "T2D";
@@ -540,7 +548,8 @@
             // T1D
             // 
             this.T1D.BackColor = System.Drawing.Color.GhostWhite;
-            this.T1D.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.T1D.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.T1D.ForeColor = System.Drawing.SystemColors.ControlText;
             this.T1D.Location = new System.Drawing.Point(8, 28);
             this.T1D.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.T1D.Name = "T1D";
@@ -598,17 +607,6 @@
             this.NoblesfP.Size = new System.Drawing.Size(299, 134);
             this.NoblesfP.TabIndex = 0;
             // 
-            // GodBut
-            // 
-            this.GodBut.Location = new System.Drawing.Point(352, 662);
-            this.GodBut.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.GodBut.Name = "GodBut";
-            this.GodBut.Size = new System.Drawing.Size(86, 30);
-            this.GodBut.TabIndex = 6;
-            this.GodBut.Text = "God Mode";
-            this.GodBut.UseVisualStyleBackColor = true;
-            this.GodBut.Click += new System.EventHandler(this.GodBut_Click);
-            // 
             // ReserveCardbtn
             // 
             this.ReserveCardbtn.BackColor = System.Drawing.Color.Gold;
@@ -626,11 +624,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1243, 724);
             this.Controls.Add(this.ReserveCardbtn);
-            this.Controls.Add(this.GodBut);
             this.Controls.Add(this.NoblesBox);
             this.Controls.Add(this.EndTurn);
             this.Controls.Add(this.TokenGame);
@@ -639,6 +637,7 @@
             this.Controls.Add(this.GBOPlayers);
             this.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.Name = "Form2";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Splendor";
             this.Load += new System.EventHandler(this.Form2_Load);
             this.GBOPlayers.ResumeLayout(false);
@@ -701,7 +700,6 @@
         public CheckBox checkBox3;
         public CheckBox checkBox2;
         public CheckBox checkBox1;
-        private Button GodBut;
         private Button ReserveCardbtn;
     }
 }

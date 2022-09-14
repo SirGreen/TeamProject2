@@ -208,7 +208,8 @@ namespace TeamProject2
             {
                 Label lb = new Label()
                 {
-                    Text = ShowCard(i, x)
+                    Text = ShowCard(i, x),
+                    ForeColor = SystemColors.ControlText,
                 };
                 fP.Controls.Add(lb);
             }
@@ -233,7 +234,8 @@ namespace TeamProject2
             {
                 Label lb = new Label()
                 {
-                    Text = ShowToken(i, x)
+                    Text = ShowToken(i, x),
+                    ForeColor = SystemColors.ControlText,
                 };
                 fP.Controls.Add(lb);
             }
@@ -269,7 +271,8 @@ namespace TeamProject2
                 gbOfPlayer[i] = new GroupBox()
                 {
                     AutoSize = true,
-                    Text = "Player " + info[i].id.ToString()
+                    Text = "Player " + info[i].id.ToString(),
+                    ForeColor = Color.MidnightBlue,
                 };
 
                 fpOfPlayer[i] = new FlowLayoutPanel()
@@ -285,9 +288,11 @@ namespace TeamProject2
                 gbOfToken[i] = new GroupBox()
                 {
                     Text = "Token",
+                    ForeColor = Color.Indigo,
                     Width = 150,
                     Height = 200
                 };
+
                 fpOfToken[i] = new FlowLayoutPanel()
                 {
                     Location = new Point(gbOfToken[i].Location.X + 10, gbOfToken[i].Location.Y + 25),
@@ -304,6 +309,7 @@ namespace TeamProject2
                 gbOfCard[i] = new GroupBox()
                 {
                     Text = "Card",
+                    ForeColor = Color.DarkGreen,
                     Width = 150,
                     Height = 200
                 };
@@ -322,6 +328,7 @@ namespace TeamProject2
                 PointOfPlayer[i] = new Label
                 {
                     Text = "Point: " + info[i].point,
+                    ForeColor = Color.Firebrick,
                     Location = new Point(gbOfPlayer[i].Location.X + 10, gbOfPlayer[i].Location.Y + 25)
                 };
                 gbOfPlayer[i].Controls.Add(PointOfPlayer[i]);
@@ -871,7 +878,8 @@ namespace TeamProject2
             }
             #endregion
 
-            if (theChoosenOne != -1) BtnCardColor(CButtonShowing[theChoosenOne], ShowingCards[theChoosenOne]); 
+            if (theChoosenOne != -1 && theChoosenOne < 12) BtnCardColor(CButtonShowing[theChoosenOne], ShowingCards[theChoosenOne]); 
+            else if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = Color.GhostWhite;
             muadc = false;
             theChoosenOne = -1;
 
@@ -1008,11 +1016,11 @@ namespace TeamProject2
             checkBox6.Text = "Gold: " + TokenG[5];
         }
 
-        private void GodBut_Click(object sender, EventArgs e)
+        /*private void GodBut_Click(object sender, EventArgs e)
         {
             info[currentturn].GoldToken = 1000;
             ShowAgainToken();
-        }
+        }*/
 
         private void ReserveCardbtn_Click(object sender, EventArgs e)
         {
@@ -1123,6 +1131,7 @@ namespace TeamProject2
                 else if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = Color.GhostWhite;
                 fp3picktoken.Enabled = true;
                 fP2picktoken.Enabled = true;
+                checkBox6.Enabled = true;
                 theChoosenOne = -1;
                 return;
             }
@@ -1135,6 +1144,7 @@ namespace TeamProject2
                 CButtonShowing[x].BackColor = Color.LightSeaGreen;
                 fp3picktoken.Enabled = false;
                 fP2picktoken.Enabled = false;
+                checkBox6.Enabled = false;
             }
             else
             {
