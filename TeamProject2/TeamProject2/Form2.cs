@@ -1093,6 +1093,7 @@ namespace TeamProject2
             if (theChoosenOne != -1 && theChoosenOne < 12) BtnCardColor(CButtonShowing[theChoosenOne], ShowingCards[theChoosenOne]);
             else if (theChoosenOne != -1) CButtonShowing[theChoosenOne].BackColor = Color.GhostWhite;
             CButtonShowing[x].BackColor = Color.Yellow;
+            checkBox6.Enabled = true;
             theChoosenOne = x;
         }
 
@@ -1324,6 +1325,7 @@ namespace TeamProject2
                 return;
             }
             CButtonShowing[code].BackColor = Color.Yellow;
+            checkBox6.Enabled = true;
             theChoosenOne = code;
         }
 
@@ -1343,6 +1345,7 @@ namespace TeamProject2
                 return;
             }
             CButtonShowing[code].BackColor = Color.Yellow;
+            checkBox6.Enabled = true;
             theChoosenOne = code;
         }
 
@@ -1362,6 +1365,7 @@ namespace TeamProject2
                 return;
             }
             CButtonShowing[code].BackColor = Color.Yellow;
+            checkBox6.Enabled = true;
             theChoosenOne = code;
         }
         #endregion
