@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
@@ -74,16 +74,6 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(125, 180);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
-            // label5
-            // 
-            this.label5.Font = new System.Drawing.Font("Consolas", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(2, 120);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(121, 30);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Green";
-            // 
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Consolas", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -123,6 +113,16 @@
             this.label4.Size = new System.Drawing.Size(121, 30);
             this.label4.TabIndex = 3;
             this.label4.Text = "Blue";
+            // 
+            // label5
+            // 
+            this.label5.Font = new System.Drawing.Font("Consolas", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label5.Location = new System.Drawing.Point(2, 120);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(121, 30);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "Green";
             // 
             // label6
             // 
@@ -266,6 +266,7 @@
             this.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form3";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Hold on!";
             this.Load += new System.EventHandler(this.Form3_Load);
             this.flowLayoutPanel1.ResumeLayout(false);
