@@ -85,11 +85,11 @@
             this.GBOPlayers.AutoSize = true;
             this.GBOPlayers.Controls.Add(this.FPOP);
             this.GBOPlayers.Font = new System.Drawing.Font("Comic Sans MS", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.GBOPlayers.Location = new System.Drawing.Point(53, 42);
+            this.GBOPlayers.Location = new System.Drawing.Point(66, 52);
             this.GBOPlayers.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.GBOPlayers.Name = "GBOPlayers";
             this.GBOPlayers.Padding = new System.Windows.Forms.Padding(1, 2, 1, 2);
-            this.GBOPlayers.Size = new System.Drawing.Size(175, 178);
+            this.GBOPlayers.Size = new System.Drawing.Size(219, 222);
             this.GBOPlayers.TabIndex = 0;
             this.GBOPlayers.TabStop = false;
             this.GBOPlayers.Text = "Players";
@@ -98,21 +98,21 @@
             // 
             this.FPOP.AutoSize = true;
             this.FPOP.Font = new System.Drawing.Font("Consolas", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.FPOP.Location = new System.Drawing.Point(9, 26);
+            this.FPOP.Location = new System.Drawing.Point(11, 32);
             this.FPOP.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.FPOP.Name = "FPOP";
-            this.FPOP.Size = new System.Drawing.Size(160, 114);
+            this.FPOP.Size = new System.Drawing.Size(200, 142);
             this.FPOP.TabIndex = 0;
             // 
             // TokenGame
             // 
             this.TokenGame.Controls.Add(this.fPTokenGame);
             this.TokenGame.Font = new System.Drawing.Font("Comic Sans MS", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.TokenGame.Location = new System.Drawing.Point(241, 42);
+            this.TokenGame.Location = new System.Drawing.Point(301, 52);
             this.TokenGame.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.TokenGame.Name = "TokenGame";
             this.TokenGame.Padding = new System.Windows.Forms.Padding(1, 2, 1, 2);
-            this.TokenGame.Size = new System.Drawing.Size(272, 318);
+            this.TokenGame.Size = new System.Drawing.Size(340, 398);
             this.TokenGame.TabIndex = 2;
             this.TokenGame.TabStop = false;
             this.TokenGame.Text = "Token";
@@ -124,10 +124,10 @@
             this.fPTokenGame.Controls.Add(this.gb3pick);
             this.fPTokenGame.Controls.Add(this.gb2pick);
             this.fPTokenGame.Controls.Add(this.checkBox6);
-            this.fPTokenGame.Location = new System.Drawing.Point(5, 26);
+            this.fPTokenGame.Location = new System.Drawing.Point(6, 32);
             this.fPTokenGame.Margin = new System.Windows.Forms.Padding(2);
             this.fPTokenGame.Name = "fPTokenGame";
-            this.fPTokenGame.Size = new System.Drawing.Size(258, 282);
+            this.fPTokenGame.Size = new System.Drawing.Size(322, 352);
             this.fPTokenGame.TabIndex = 5;
             // 
             // fPTokenStatus
@@ -149,7 +149,7 @@
             this.gb3pick.Margin = new System.Windows.Forms.Padding(2);
             this.gb3pick.Name = "gb3pick";
             this.gb3pick.Padding = new System.Windows.Forms.Padding(2);
-            this.gb3pick.Size = new System.Drawing.Size(115, 234);
+            this.gb3pick.Size = new System.Drawing.Size(142, 290);
             this.gb3pick.TabIndex = 1;
             this.gb3pick.TabStop = false;
             this.gb3pick.Text = "Pick 3 tokens";
@@ -162,10 +162,10 @@
             this.fp3picktoken.Controls.Add(this.checkBox4);
             this.fp3picktoken.Controls.Add(this.checkBox5);
             this.fp3picktoken.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.fp3picktoken.Location = new System.Drawing.Point(5, 24);
+            this.fp3picktoken.Location = new System.Drawing.Point(6, 30);
             this.fp3picktoken.Margin = new System.Windows.Forms.Padding(2);
             this.fp3picktoken.Name = "fp3picktoken";
-            this.fp3picktoken.Size = new System.Drawing.Size(106, 186);
+            this.fp3picktoken.Size = new System.Drawing.Size(132, 232);
             this.fp3picktoken.TabIndex = 5;
             // 
             // checkBox1
@@ -173,10 +173,10 @@
             this.checkBox1.AutoSize = true;
             this.checkBox1.BackColor = System.Drawing.SystemColors.Control;
             this.checkBox1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.checkBox1.Location = new System.Drawing.Point(3, 4);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.checkBox1.Location = new System.Drawing.Point(4, 5);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(112, 24);
+            this.checkBox1.Size = new System.Drawing.Size(144, 28);
             this.checkBox1.TabIndex = 0;
             this.checkBox1.Text = "checkBox1";
             this.checkBox1.UseVisualStyleBackColor = false;
@@ -185,10 +185,10 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(3, 36);
-            this.checkBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.checkBox2.Location = new System.Drawing.Point(4, 43);
+            this.checkBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(112, 24);
+            this.checkBox2.Size = new System.Drawing.Size(144, 28);
             this.checkBox2.TabIndex = 1;
             this.checkBox2.Text = "checkBox2";
             this.checkBox2.UseVisualStyleBackColor = true;
@@ -197,10 +197,10 @@
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(3, 68);
-            this.checkBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.checkBox3.Location = new System.Drawing.Point(4, 81);
+            this.checkBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(112, 24);
+            this.checkBox3.Size = new System.Drawing.Size(144, 28);
             this.checkBox3.TabIndex = 2;
             this.checkBox3.Text = "checkBox3";
             this.checkBox3.UseVisualStyleBackColor = true;
@@ -209,10 +209,10 @@
             // checkBox4
             // 
             this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(3, 100);
-            this.checkBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.checkBox4.Location = new System.Drawing.Point(4, 119);
+            this.checkBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(112, 24);
+            this.checkBox4.Size = new System.Drawing.Size(144, 28);
             this.checkBox4.TabIndex = 3;
             this.checkBox4.Text = "checkBox4";
             this.checkBox4.UseVisualStyleBackColor = true;
@@ -221,10 +221,10 @@
             // checkBox5
             // 
             this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(3, 132);
-            this.checkBox5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.checkBox5.Location = new System.Drawing.Point(4, 157);
+            this.checkBox5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(112, 24);
+            this.checkBox5.Size = new System.Drawing.Size(144, 28);
             this.checkBox5.TabIndex = 4;
             this.checkBox5.Text = "checkBox5";
             this.checkBox5.UseVisualStyleBackColor = true;
@@ -236,11 +236,11 @@
             this.gb2pick.Controls.Add(this.fP2picktoken);
             this.gb2pick.Font = new System.Drawing.Font("Consolas", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.gb2pick.ForeColor = System.Drawing.Color.Chocolate;
-            this.gb2pick.Location = new System.Drawing.Point(125, 2);
+            this.gb2pick.Location = new System.Drawing.Point(152, 2);
             this.gb2pick.Margin = new System.Windows.Forms.Padding(2);
             this.gb2pick.Name = "gb2pick";
             this.gb2pick.Padding = new System.Windows.Forms.Padding(2);
-            this.gb2pick.Size = new System.Drawing.Size(126, 238);
+            this.gb2pick.Size = new System.Drawing.Size(156, 296);
             this.gb2pick.TabIndex = 2;
             this.gb2pick.TabStop = false;
             this.gb2pick.Text = "Pick 2 tokens";
@@ -253,19 +253,19 @@
             this.fP2picktoken.Controls.Add(this.checkBox10);
             this.fP2picktoken.Controls.Add(this.checkBox11);
             this.fP2picktoken.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.fP2picktoken.Location = new System.Drawing.Point(5, 24);
+            this.fP2picktoken.Location = new System.Drawing.Point(6, 30);
             this.fP2picktoken.Margin = new System.Windows.Forms.Padding(2);
             this.fP2picktoken.Name = "fP2picktoken";
-            this.fP2picktoken.Size = new System.Drawing.Size(117, 190);
+            this.fP2picktoken.Size = new System.Drawing.Size(146, 238);
             this.fP2picktoken.TabIndex = 6;
             // 
             // checkBox7
             // 
             this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(3, 4);
-            this.checkBox7.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.checkBox7.Location = new System.Drawing.Point(4, 5);
+            this.checkBox7.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(112, 24);
+            this.checkBox7.Size = new System.Drawing.Size(144, 28);
             this.checkBox7.TabIndex = 0;
             this.checkBox7.Text = "checkBox7";
             this.checkBox7.UseVisualStyleBackColor = true;
@@ -274,10 +274,10 @@
             // checkBox8
             // 
             this.checkBox8.AutoSize = true;
-            this.checkBox8.Location = new System.Drawing.Point(3, 36);
-            this.checkBox8.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.checkBox8.Location = new System.Drawing.Point(4, 43);
+            this.checkBox8.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(112, 24);
+            this.checkBox8.Size = new System.Drawing.Size(144, 28);
             this.checkBox8.TabIndex = 1;
             this.checkBox8.Text = "checkBox8";
             this.checkBox8.UseVisualStyleBackColor = true;
@@ -286,10 +286,10 @@
             // checkBox9
             // 
             this.checkBox9.AutoSize = true;
-            this.checkBox9.Location = new System.Drawing.Point(3, 68);
-            this.checkBox9.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.checkBox9.Location = new System.Drawing.Point(4, 81);
+            this.checkBox9.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkBox9.Name = "checkBox9";
-            this.checkBox9.Size = new System.Drawing.Size(112, 24);
+            this.checkBox9.Size = new System.Drawing.Size(144, 28);
             this.checkBox9.TabIndex = 2;
             this.checkBox9.Text = "checkBox9";
             this.checkBox9.UseVisualStyleBackColor = true;
@@ -298,10 +298,10 @@
             // checkBox10
             // 
             this.checkBox10.AutoSize = true;
-            this.checkBox10.Location = new System.Drawing.Point(3, 100);
-            this.checkBox10.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.checkBox10.Location = new System.Drawing.Point(4, 119);
+            this.checkBox10.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkBox10.Name = "checkBox10";
-            this.checkBox10.Size = new System.Drawing.Size(121, 24);
+            this.checkBox10.Size = new System.Drawing.Size(156, 28);
             this.checkBox10.TabIndex = 3;
             this.checkBox10.Text = "checkBox10";
             this.checkBox10.UseVisualStyleBackColor = true;
@@ -310,10 +310,10 @@
             // checkBox11
             // 
             this.checkBox11.AutoSize = true;
-            this.checkBox11.Location = new System.Drawing.Point(3, 132);
-            this.checkBox11.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.checkBox11.Location = new System.Drawing.Point(4, 157);
+            this.checkBox11.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkBox11.Name = "checkBox11";
-            this.checkBox11.Size = new System.Drawing.Size(121, 24);
+            this.checkBox11.Size = new System.Drawing.Size(156, 28);
             this.checkBox11.TabIndex = 4;
             this.checkBox11.Text = "checkBox11";
             this.checkBox11.UseVisualStyleBackColor = true;
@@ -324,10 +324,10 @@
             this.checkBox6.AutoSize = true;
             this.checkBox6.BackColor = System.Drawing.SystemColors.Control;
             this.checkBox6.Font = new System.Drawing.Font("Consolas", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.checkBox6.Location = new System.Drawing.Point(3, 246);
-            this.checkBox6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.checkBox6.Location = new System.Drawing.Point(4, 305);
+            this.checkBox6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(112, 24);
+            this.checkBox6.Size = new System.Drawing.Size(144, 28);
             this.checkBox6.TabIndex = 5;
             this.checkBox6.Text = "checkBox6";
             this.checkBox6.UseVisualStyleBackColor = false;
@@ -352,11 +352,11 @@
             this.CardGame.Controls.Add(this.T1C1);
             this.CardGame.Controls.Add(this.T1D);
             this.CardGame.Font = new System.Drawing.Font("Comic Sans MS", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.CardGame.Location = new System.Drawing.Point(667, 54);
+            this.CardGame.Location = new System.Drawing.Point(834, 68);
             this.CardGame.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.CardGame.Name = "CardGame";
             this.CardGame.Padding = new System.Windows.Forms.Padding(1, 2, 1, 2);
-            this.CardGame.Size = new System.Drawing.Size(597, 651);
+            this.CardGame.Size = new System.Drawing.Size(746, 814);
             this.CardGame.TabIndex = 1;
             this.CardGame.TabStop = false;
             this.CardGame.Text = "Card";
@@ -365,10 +365,10 @@
             // 
             this.T3C4.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.T3C4.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.T3C4.Location = new System.Drawing.Point(472, 424);
-            this.T3C4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.T3C4.Location = new System.Drawing.Point(590, 530);
+            this.T3C4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.T3C4.Name = "T3C4";
-            this.T3C4.Size = new System.Drawing.Size(110, 190);
+            this.T3C4.Size = new System.Drawing.Size(138, 238);
             this.T3C4.TabIndex = 14;
             this.T3C4.Text = "button11";
             this.T3C4.UseVisualStyleBackColor = false;
@@ -378,10 +378,10 @@
             // 
             this.T3C3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.T3C3.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.T3C3.Location = new System.Drawing.Point(356, 424);
-            this.T3C3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.T3C3.Location = new System.Drawing.Point(445, 530);
+            this.T3C3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.T3C3.Name = "T3C3";
-            this.T3C3.Size = new System.Drawing.Size(110, 190);
+            this.T3C3.Size = new System.Drawing.Size(138, 238);
             this.T3C3.TabIndex = 13;
             this.T3C3.Text = "button12";
             this.T3C3.UseVisualStyleBackColor = false;
@@ -391,10 +391,10 @@
             // 
             this.T3C2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.T3C2.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.T3C2.Location = new System.Drawing.Point(240, 424);
-            this.T3C2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.T3C2.Location = new System.Drawing.Point(300, 530);
+            this.T3C2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.T3C2.Name = "T3C2";
-            this.T3C2.Size = new System.Drawing.Size(110, 190);
+            this.T3C2.Size = new System.Drawing.Size(138, 238);
             this.T3C2.TabIndex = 12;
             this.T3C2.Text = "button13";
             this.T3C2.UseVisualStyleBackColor = false;
@@ -404,10 +404,10 @@
             // 
             this.T3C1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.T3C1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.T3C1.Location = new System.Drawing.Point(124, 424);
-            this.T3C1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.T3C1.Location = new System.Drawing.Point(155, 530);
+            this.T3C1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.T3C1.Name = "T3C1";
-            this.T3C1.Size = new System.Drawing.Size(110, 190);
+            this.T3C1.Size = new System.Drawing.Size(138, 238);
             this.T3C1.TabIndex = 11;
             this.T3C1.Text = "button14";
             this.T3C1.UseVisualStyleBackColor = false;
@@ -418,10 +418,10 @@
             this.T3D.BackColor = System.Drawing.Color.GhostWhite;
             this.T3D.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.T3D.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.T3D.Location = new System.Drawing.Point(8, 424);
-            this.T3D.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.T3D.Location = new System.Drawing.Point(10, 530);
+            this.T3D.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.T3D.Name = "T3D";
-            this.T3D.Size = new System.Drawing.Size(110, 190);
+            this.T3D.Size = new System.Drawing.Size(138, 238);
             this.T3D.TabIndex = 10;
             this.T3D.Text = "Tier 3 Deck";
             this.T3D.UseVisualStyleBackColor = false;
@@ -431,10 +431,10 @@
             // 
             this.T2C4.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.T2C4.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.T2C4.Location = new System.Drawing.Point(472, 226);
-            this.T2C4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.T2C4.Location = new System.Drawing.Point(590, 282);
+            this.T2C4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.T2C4.Name = "T2C4";
-            this.T2C4.Size = new System.Drawing.Size(110, 190);
+            this.T2C4.Size = new System.Drawing.Size(138, 238);
             this.T2C4.TabIndex = 9;
             this.T2C4.Text = "button6";
             this.T2C4.UseVisualStyleBackColor = false;
@@ -444,10 +444,10 @@
             // 
             this.T2C3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.T2C3.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.T2C3.Location = new System.Drawing.Point(356, 226);
-            this.T2C3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.T2C3.Location = new System.Drawing.Point(445, 282);
+            this.T2C3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.T2C3.Name = "T2C3";
-            this.T2C3.Size = new System.Drawing.Size(110, 190);
+            this.T2C3.Size = new System.Drawing.Size(138, 238);
             this.T2C3.TabIndex = 8;
             this.T2C3.Text = "button7";
             this.T2C3.UseVisualStyleBackColor = false;
@@ -457,10 +457,10 @@
             // 
             this.T2C2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.T2C2.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.T2C2.Location = new System.Drawing.Point(240, 226);
-            this.T2C2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.T2C2.Location = new System.Drawing.Point(300, 282);
+            this.T2C2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.T2C2.Name = "T2C2";
-            this.T2C2.Size = new System.Drawing.Size(110, 190);
+            this.T2C2.Size = new System.Drawing.Size(138, 238);
             this.T2C2.TabIndex = 7;
             this.T2C2.Text = "button8";
             this.T2C2.UseVisualStyleBackColor = false;
@@ -470,10 +470,10 @@
             // 
             this.T2C1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.T2C1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.T2C1.Location = new System.Drawing.Point(124, 226);
-            this.T2C1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.T2C1.Location = new System.Drawing.Point(155, 282);
+            this.T2C1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.T2C1.Name = "T2C1";
-            this.T2C1.Size = new System.Drawing.Size(110, 190);
+            this.T2C1.Size = new System.Drawing.Size(138, 238);
             this.T2C1.TabIndex = 6;
             this.T2C1.Text = "button9";
             this.T2C1.UseVisualStyleBackColor = false;
@@ -484,10 +484,10 @@
             this.T2D.BackColor = System.Drawing.Color.GhostWhite;
             this.T2D.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.T2D.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.T2D.Location = new System.Drawing.Point(8, 226);
-            this.T2D.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.T2D.Location = new System.Drawing.Point(10, 282);
+            this.T2D.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.T2D.Name = "T2D";
-            this.T2D.Size = new System.Drawing.Size(110, 190);
+            this.T2D.Size = new System.Drawing.Size(138, 238);
             this.T2D.TabIndex = 5;
             this.T2D.Text = "Tier 2 Deck";
             this.T2D.UseVisualStyleBackColor = false;
@@ -497,10 +497,10 @@
             // 
             this.T1C4.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.T1C4.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.T1C4.Location = new System.Drawing.Point(472, 28);
-            this.T1C4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.T1C4.Location = new System.Drawing.Point(590, 35);
+            this.T1C4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.T1C4.Name = "T1C4";
-            this.T1C4.Size = new System.Drawing.Size(110, 190);
+            this.T1C4.Size = new System.Drawing.Size(138, 238);
             this.T1C4.TabIndex = 4;
             this.T1C4.Text = "button5";
             this.T1C4.UseVisualStyleBackColor = false;
@@ -510,10 +510,10 @@
             // 
             this.T1C3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.T1C3.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.T1C3.Location = new System.Drawing.Point(356, 28);
-            this.T1C3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.T1C3.Location = new System.Drawing.Point(445, 35);
+            this.T1C3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.T1C3.Name = "T1C3";
-            this.T1C3.Size = new System.Drawing.Size(110, 190);
+            this.T1C3.Size = new System.Drawing.Size(138, 238);
             this.T1C3.TabIndex = 3;
             this.T1C3.Text = "button4";
             this.T1C3.UseVisualStyleBackColor = false;
@@ -523,10 +523,10 @@
             // 
             this.T1C2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.T1C2.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.T1C2.Location = new System.Drawing.Point(240, 28);
-            this.T1C2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.T1C2.Location = new System.Drawing.Point(300, 35);
+            this.T1C2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.T1C2.Name = "T1C2";
-            this.T1C2.Size = new System.Drawing.Size(110, 190);
+            this.T1C2.Size = new System.Drawing.Size(138, 238);
             this.T1C2.TabIndex = 2;
             this.T1C2.Text = "button3";
             this.T1C2.UseVisualStyleBackColor = false;
@@ -536,10 +536,10 @@
             // 
             this.T1C1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.T1C1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.T1C1.Location = new System.Drawing.Point(124, 28);
-            this.T1C1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.T1C1.Location = new System.Drawing.Point(155, 35);
+            this.T1C1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.T1C1.Name = "T1C1";
-            this.T1C1.Size = new System.Drawing.Size(110, 190);
+            this.T1C1.Size = new System.Drawing.Size(138, 238);
             this.T1C1.TabIndex = 1;
             this.T1C1.Text = "button2";
             this.T1C1.UseVisualStyleBackColor = false;
@@ -550,10 +550,10 @@
             this.T1D.BackColor = System.Drawing.Color.GhostWhite;
             this.T1D.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.T1D.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.T1D.Location = new System.Drawing.Point(8, 28);
-            this.T1D.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.T1D.Location = new System.Drawing.Point(10, 35);
+            this.T1D.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.T1D.Name = "T1D";
-            this.T1D.Size = new System.Drawing.Size(110, 190);
+            this.T1D.Size = new System.Drawing.Size(138, 238);
             this.T1D.TabIndex = 0;
             this.T1D.Text = "Tier 1 Deck";
             this.T1D.UseVisualStyleBackColor = false;
@@ -564,20 +564,21 @@
             this.lbTurn.AutoSize = true;
             this.lbTurn.Font = new System.Drawing.Font("Comic Sans MS", 10.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.lbTurn.ForeColor = System.Drawing.Color.OrangeRed;
-            this.lbTurn.Location = new System.Drawing.Point(603, 26);
+            this.lbTurn.Location = new System.Drawing.Point(754, 32);
+            this.lbTurn.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbTurn.Name = "lbTurn";
-            this.lbTurn.Size = new System.Drawing.Size(64, 26);
+            this.lbTurn.Size = new System.Drawing.Size(76, 32);
             this.lbTurn.TabIndex = 3;
             this.lbTurn.Text = "label1";
             // 
             // EndTurn
             // 
             this.EndTurn.BackColor = System.Drawing.Color.Turquoise;
-            this.EndTurn.Font = new System.Drawing.Font("Britannic Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.EndTurn.Location = new System.Drawing.Point(695, 2);
-            this.EndTurn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.EndTurn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.EndTurn.Location = new System.Drawing.Point(869, 2);
+            this.EndTurn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.EndTurn.Name = "EndTurn";
-            this.EndTurn.Size = new System.Drawing.Size(120, 45);
+            this.EndTurn.Size = new System.Drawing.Size(150, 56);
             this.EndTurn.TabIndex = 4;
             this.EndTurn.Text = "End Turn";
             this.EndTurn.UseVisualStyleBackColor = false;
@@ -588,11 +589,11 @@
             this.NoblesBox.AutoSize = true;
             this.NoblesBox.Controls.Add(this.NoblesfP);
             this.NoblesBox.Font = new System.Drawing.Font("Comic Sans MS", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.NoblesBox.Location = new System.Drawing.Point(173, 452);
-            this.NoblesBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.NoblesBox.Location = new System.Drawing.Point(216, 565);
+            this.NoblesBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.NoblesBox.Name = "NoblesBox";
-            this.NoblesBox.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.NoblesBox.Size = new System.Drawing.Size(315, 196);
+            this.NoblesBox.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.NoblesBox.Size = new System.Drawing.Size(394, 245);
             this.NoblesBox.TabIndex = 5;
             this.NoblesBox.TabStop = false;
             this.NoblesBox.Text = "Nobles";
@@ -601,20 +602,20 @@
             // 
             this.NoblesfP.AutoSize = true;
             this.NoblesfP.Font = new System.Drawing.Font("Consolas", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.NoblesfP.Location = new System.Drawing.Point(7, 30);
-            this.NoblesfP.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.NoblesfP.Location = new System.Drawing.Point(9, 38);
+            this.NoblesfP.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.NoblesfP.Name = "NoblesfP";
-            this.NoblesfP.Size = new System.Drawing.Size(299, 134);
+            this.NoblesfP.Size = new System.Drawing.Size(374, 168);
             this.NoblesfP.TabIndex = 0;
             // 
             // ReserveCardbtn
             // 
             this.ReserveCardbtn.BackColor = System.Drawing.Color.Gold;
-            this.ReserveCardbtn.Font = new System.Drawing.Font("Britannic Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ReserveCardbtn.Location = new System.Drawing.Point(570, 122);
+            this.ReserveCardbtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ReserveCardbtn.Location = new System.Drawing.Point(712, 152);
             this.ReserveCardbtn.Margin = new System.Windows.Forms.Padding(2);
             this.ReserveCardbtn.Name = "ReserveCardbtn";
-            this.ReserveCardbtn.Size = new System.Drawing.Size(120, 45);
+            this.ReserveCardbtn.Size = new System.Drawing.Size(150, 56);
             this.ReserveCardbtn.TabIndex = 7;
             this.ReserveCardbtn.Text = "Reserve Card";
             this.ReserveCardbtn.UseVisualStyleBackColor = false;
@@ -622,12 +623,12 @@
             // 
             // Form2
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1243, 724);
+            this.ClientSize = new System.Drawing.Size(1554, 905);
             this.Controls.Add(this.ReserveCardbtn);
             this.Controls.Add(this.NoblesBox);
             this.Controls.Add(this.EndTurn);
@@ -701,5 +702,6 @@
         public CheckBox checkBox2;
         public CheckBox checkBox1;
         private Button ReserveCardbtn;
+        private Button GodBut;
     }
 }

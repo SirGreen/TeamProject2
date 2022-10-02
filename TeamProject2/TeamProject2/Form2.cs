@@ -210,6 +210,7 @@ namespace TeamProject2
                 {
                     Text = ShowCard(i, x),
                     ForeColor = SystemColors.ControlText,
+                    AutoSize= true,
                 };
                 fP.Controls.Add(lb);
             }
@@ -236,6 +237,7 @@ namespace TeamProject2
                 {
                     Text = ShowToken(i, x),
                     ForeColor = SystemColors.ControlText,
+                    AutoSize = true
                 };
                 fP.Controls.Add(lb);
             }
@@ -329,7 +331,8 @@ namespace TeamProject2
                 {
                     Text = "Point: " + info[i].point,
                     ForeColor = Color.Firebrick,
-                    Location = new Point(gbOfPlayer[i].Location.X + 10, gbOfPlayer[i].Location.Y + 25)
+                    Location = new Point(gbOfPlayer[i].Location.X + 10, gbOfPlayer[i].Location.Y + 25),
+                    AutoSize = true
                 };
                 gbOfPlayer[i].Controls.Add(PointOfPlayer[i]);
 
@@ -383,7 +386,8 @@ namespace TeamProject2
             {
                 Random rand = new Random();
                 currentturn = rand.Next(0, Players);
-                firstplayer = currentturn;
+                firstplayer = currentturn-1;
+                if (firstplayer < 0) firstplayer = Players - 1;
 
                 ShowTurnStatus(currentturn);
 
@@ -941,30 +945,30 @@ namespace TeamProject2
 
             #region Check Win
 
+            if (info[currentturn].point >= 15 && !isWin)
+            {
+                MessageBox.Show("Player " + info[currentturn].id + " win!!!");
+
+                if(currentturn!=firstplayer)
+                {
+                    MessageBox.Show("Please finish remaining turn!");
+                    Label lb = new Label()
+                    {
+                        AutoSize = true,
+                        Text = "Please finish remaining turns!",
+                        Font = new Font("Consolas", 10F, FontStyle.Bold, GraphicsUnit.Point),
+                        Location = new Point(EndTurn.Location.X, EndTurn.Location.Y + EndTurn.Height + 25),
+                    };
+                    this.Controls.Add(lb);
+                }
+                isWin = true;
+            }
+
             if (isWin && currentturn == firstplayer)
             {
                 DialogResult result = MessageBox.Show("Game End!", "Notification", MessageBoxButtons.OK);
                 if (result == DialogResult.OK) this.Close();
             }
-
-            if (info[currentturn].point >= 15 && !isWin)
-            {
-                MessageBox.Show("Player " + info[currentturn].id + " win!!! Please finish remaining turns!");
-                Label lb = new Label()
-                {
-                    AutoSize = true,
-                    Text = "Please finish remaining turns!",
-                    Font = new Font("Consolas", 10F, FontStyle.Bold, GraphicsUnit.Point),
-                    Location = new Point(EndTurn.Location.X, EndTurn.Location.Y + EndTurn.Height + 25),
-                };
-                this.Controls.Add(lb);
-                isWin = true;
-
-                firstplayer--;
-                if (firstplayer < 0) firstplayer = Players - 1;
-            }
-
-
 
             #endregion
 
